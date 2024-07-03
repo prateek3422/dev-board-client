@@ -1,16 +1,13 @@
 "use client";
-import { ThemeProvider as NextTheme } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <NextTheme attribute="data-theme" defaultTheme="system" enableSystem>
-      {children}
-    </NextTheme>
-  );
+import * as React from "react"
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { type ThemeProviderProps } from "next-themes/dist/types"
+ 
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
-
 export function ReactQueryProvider({
   children,
 }: {

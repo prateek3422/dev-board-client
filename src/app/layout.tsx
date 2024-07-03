@@ -14,7 +14,12 @@ export default function RootLayout({
         <link rel="icon" href="favicon.ico" sizes="any" />
       </head>
       <body className="bg-gray-950 min-h-screen inter">
-        <ThemeProvider>
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
 
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </ThemeProvider>

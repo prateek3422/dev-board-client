@@ -8,6 +8,7 @@ import { SiNamecheap } from "react-icons/si";
 import { FaUserTie } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { SignUpComp } from "@/components";
 
 function Page() {
   const [isPassword, setIsPassword] = useState(true);
@@ -17,7 +18,7 @@ function Page() {
   };
   return (
     <>
-      <section className="flex justify-center items-center h-screen mx-2">
+      {/* <section className="flex justify-center items-center h-screen mx-2">
         <form className="flex gap-8 flex-col bg-gray-800 rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1">
           <h1 className="text-center font-semibold text-xl">Sign Up</h1>
 
@@ -98,7 +99,8 @@ function Page() {
             </p>
           </div>
         </form>
-      </section>
+      </section> */}
+      <SignUpComp/>
     </>
   );
 }

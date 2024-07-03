@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
+import { Button } from "./ui/button";
+import { THemeSwitch } from "./THemeSwitch";
 
 function NavUtils() {
   const [mounted, setMounted] = useState(false);
@@ -53,6 +55,8 @@ function NavUtils() {
             tabIndex={0}
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
+        
+            
             <li>
               <Link href="/dashboard" className="justify-between">
                 Dashboard
@@ -64,11 +68,10 @@ function NavUtils() {
           </ul>
         </div>
       ) : (
-        <Link
-          href="/auth/signin"
-          className="btn  btn-primary btn-sm rounded-full text-white px-5"
-        >
-          Sign In
+        <Link href="/auth/signin">
+          <Button className=" bg-[#3B82F6] hover:bg-blue-700 text-white">
+            Sign In
+          </Button>
         </Link>
       )}
     </>

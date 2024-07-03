@@ -7,8 +7,7 @@ export * from "./main/Footer";
 //auth
 export * from "./auth/signIn";
 
-//Button
-export * from "./Button/button";
+export * from "./auth/signup";
 
 
 // tranding post

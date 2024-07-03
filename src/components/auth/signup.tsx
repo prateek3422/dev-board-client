@@ -23,21 +23,24 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { TbPasswordFingerprint } from "react-icons/tb";
+import { SiNamecheap } from "react-icons/si";
 
 const formSchema = z.object({
+  name: z.string().min(3, { message: "name must be at least 3 characters" }),
   email: z.string().email({ message: "Invalid email" }),
   password: z
     .string({ required_error: "password required" })
     .min(8, { message: "password most be 8 characters" }),
 });
 
-export function SignInComp() {
+export const SignUpComp = () => {
   const [isPassword, setIsPassword] = useState(true);
   const storeSignIn = useAuthStore((state) => state.signIn);
 
   const passwordToggle = () => {
     setIsPassword(!isPassword);
   };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,7 +69,7 @@ export function SignInComp() {
 
   return (
     <>
-      <section className="flex justify-center items-center h-screen">
+      <section className="flex justify-center items-center h-screen mx-2">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -76,17 +79,39 @@ export function SignInComp() {
 
             <FormField
               control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="flex items-center justify-center gap-2 px-4">
+                  <FormLabel>
+                    {" "}
+                    <SiNamecheap size={20} />
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enatr your name"
+                      className=" grow border-2 border-gray-600 mr-8 h-[2.5rem]"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-center gap-2 px-4">
-                  <FormLabel className="text-white ">
+                  <FormLabel>
                     {" "}
                     <MdEmail size={20} />
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter your email"
-                      className=" grow border-2 border-gray-600 mr-8 h-[2.5rem]"
+                      type="email"
+                      placeholder="Enter your Email"
+                      className=" grow border-2 border-gray-600 h-[2.5rem] mr-8"
                       {...field}
                     />
                   </FormControl>
@@ -122,27 +147,48 @@ export function SignInComp() {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              disabled={isPending}
-            >
+
+            {/* <FormField
+              control={form.control}
+              name="password"
+              render={({}) => (
+                <FormItem className="flex items-center justify-center gap-2 px-4">
+                  <FormLabel>
+                    {" "}
+                    <TbPasswordFingerprint size={20} />
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter your confirm password"
+                      className=" grow border-2 border-gray-600 h-[2.5rem]"
+                      autoComplete="false"
+                      type={isPassword ? "password" : "text"}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                  {isPassword ? (
+                    <FaEye size={22} onClick={passwordToggle} />
+                  ) : (
+                    <FaEyeSlash size={22} onClick={passwordToggle} />
+                  )}
+                </FormItem>
+              )}
+            /> */}
+
+            <Button type="submit" className="mx-8" disabled={isPending}>
               Submit
             </Button>
             <div className="font-medium">
-            <Link href="/auth/password/forget" className="text-blue-600">
-              Forgot Password
-            </Link>
-            <br />
-            <p>
-              Don t have an account?{" "}
-              <Link href="/auth/signup" className="text-blue-600">
-                Sign Up
-              </Link>
-            </p>
-          </div>
+              <p>
+                You have an account?
+                <Link href="/auth/signin" className="text-blue-600">
+                  Sign In
+                </Link>
+              </p>
+            </div>
           </form>
         </Form>
       </section>
     </>
   );
-}
+};

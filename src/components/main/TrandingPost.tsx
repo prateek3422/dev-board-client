@@ -61,11 +61,11 @@ const card = [
 
 export function TrandingPost() {
   return (
-    <div className="container mx-auto  px-4 sm:px-6 lg:px-8 ">
+    <div className="container mx-auto  bg-cover bg-center bg-no-repeat  px-4 sm:px-6 lg:px-8 ">
       <div
-        className={`bg-grey-200  flex flex-col justify-center items-center text-4xl font-sans  my-6 w-full h-full ${itim.className}`}
+        className={`bg-grey-200  flex flex-col justify-center items-center text-4xl font-sans text-white  my-6 w-full h-full ${itim.className}`}
       >
-        <h1>Tending Post</h1>
+        <h1 className="font-bold">Trending Post</h1>
 
         <div className="w-full h-full  rounded-lg p-4 mt-4">
             <div className="flex flex-row flex-wrap  justify-center items-center">
