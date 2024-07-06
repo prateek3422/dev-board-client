@@ -1,21 +1,33 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useAuthStore } from "@/store";
-import Image from "next/image";
 import Link from "next/link";
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "./ui/button";
-import { THemeSwitch } from "./THemeSwitch";
+
+import Avatar from "react-avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function NavUtils() {
   const [mounted, setMounted] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const auth = useAuthStore((state) => state.auth);
   const storeSignOut = useAuthStore((state) => state.signOut);
 
+  console.log(auth.user.avatar.url);
   const { mutate } = useMutation({
-    mutationFn: () => Api.post("/users/signout").then((res) => res.data),
+    mutationFn: () => Api.post("/auth/signout").then((res) => res.data),
     onSuccess: (data: any) => {
       storeSignOut();
       toast.success(data.message);
@@ -24,49 +36,63 @@ function NavUtils() {
       toast.error("error to sign out");
     },
   });
+  const handleSignOut = () => {
+    console.log("sign out");
+    mutate();
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === `q`) {
+        handleSignOut();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   useEffect(() => setMounted(true), []);
 
-  const handleSignOut = () => {
-    mutate();
-  };
+
 
   if (!mounted) return false;
 
   return (
     <>
       {auth.isAuth ? (
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <Image
-                alt="Tailwind CSS Navbar component"
-                src={auth.user.avatar.url}
-                width={24}
-                height={24}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="bg-transparent hover:bg-transparent">
+              <Avatar
+                name={auth?.user?.name}
+                src={auth?.user?.avatar?.url}
+                size="40"
+                round
               />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-          >
-        
-            
-            <li>
-              <Link href="/dashboard" className="justify-between">
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <button onClick={handleSignOut}>Logout</button>
-            </li>
-          </ul>
-        </div>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56 pr-4">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <Link href="/dashboard" className="justify-between">
+                  Dashboard
+                </Link>
+                <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>
+              <button onClick={handleSignOut}>Log out</button>
+
+              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       ) : (
         <Link href="/auth/signin">
           <Button className=" bg-[#3B82F6] hover:bg-blue-700 text-white">

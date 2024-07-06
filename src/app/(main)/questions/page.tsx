@@ -1,4 +1,6 @@
-import { Button } from "@/components";
+
+import { SearchBar } from "@/components";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { title } from "process";
@@ -142,23 +144,7 @@ export default function Questions() {
 
       <main>
         <div className="search  rounded-lg shadow-lg px-8 py-4 flex flex-row items-center justify-center">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full  border-2 bg-white  rounded-xl px-4 py-2 text-black"
-          />
-          <Button className="ml-4 rounded-xl">Search</Button>
-        </div>
-
-        <div className="text-sm breadcrumbs px-6  text-gray-500 dark:text-gray-400 sm:px-8">
-          <ul>
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/blogs">Questions</Link>
-            </li>
-          </ul>
+          <SearchBar />
         </div>
 
         <div className="px-4 py-2 flex flex-row gap-4 mt-4 ">
@@ -201,9 +187,9 @@ export default function Questions() {
             ))}
           </div>
 
-          <div className="border-2 border-[red] w-[20vw] ">
+          {/* <div className="border-2 border-[red] w-[20vw] ">
             <button>Add Question</button>
-          </div>
+          </div> */}
         </div>
       </main>
     </section>

@@ -73,7 +73,7 @@ export const SignUpComp = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex gap-8 flex-col bg-gray-800 rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1"
+            className="flex gap-8 flex-col bg-gray-800  rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1"
           >
             <h1 className="text-center font-semibold text-xl">Sign In</h1>
 
@@ -81,20 +81,24 @@ export const SignUpComp = () => {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-2 px-4">
-                  <FormLabel>
-                    {" "}
-                    <SiNamecheap size={20} />
-                  </FormLabel>
-                  <FormControl>
+                <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
+                <FormLabel className="text-white "> </FormLabel>
+                <FormControl>
+                  <div className="relative">
                     <Input
-                      placeholder="Enatr your name"
-                      className=" grow border-2 border-gray-600 mr-8 h-[2.5rem]"
+                    type="email"
+                      placeholder="Enter your email"
+                      className=" grow border-2 border-gray-600 h-[2.5rem] w-96 py-2 pl-8 pr-4 "
                       {...field}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                    <SiNamecheap
+                      size={20}
+                      className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
               )}
             />
 
@@ -102,21 +106,24 @@ export const SignUpComp = () => {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-2 px-4">
-                  <FormLabel>
-                    {" "}
-                    <MdEmail size={20} />
-                  </FormLabel>
-                  <FormControl>
+                <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
+                <FormLabel className="text-white "> </FormLabel>
+                <FormControl>
+                  <div className="relative">
                     <Input
-                      type="email"
-                      placeholder="Enter your Email"
-                      className=" grow border-2 border-gray-600 h-[2.5rem] mr-8"
+                    type="email"
+                      placeholder="Enter your email"
+                      className=" grow border-2 border-gray-600 h-[2.5rem] w-96 py-2 pl-8 pr-4 "
                       {...field}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                    <MdEmail
+                      size={20}
+                      className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
               )}
             />
 
@@ -124,26 +131,39 @@ export const SignUpComp = () => {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-2 px-4">
-                  <FormLabel>
-                    {" "}
-                    <TbPasswordFingerprint size={20} />
-                  </FormLabel>
+                <FormItem className="flex flex-col items-center justify-center ">
+                  <FormLabel> </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your password"
-                      className=" grow border-2 border-gray-600 h-[2.5rem]"
-                      autoComplete="false"
-                      type={isPassword ? "password" : "text"}
-                      {...field}
-                    />
+                    <div className="relative">
+                      <Input
+                        placeholder="Enter your password"
+                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-96 py-2 pl-8 pr-4 "
+                        autoComplete="false"
+                        type={isPassword ? "password" : "text"}
+                        {...field}
+                      />
+                      <TbPasswordFingerprint
+                        size={20}
+                        className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
+                      />
+
+                      {isPassword ? (
+                        <FaEye
+                          size={22}
+                          onClick={passwordToggle}
+                          className="absolute end-2 top-0 bottom-0 m-auto w-5 h-5"
+                        />
+                      ) : (
+                        <FaEyeSlash
+                          size={22}
+                          onClick={passwordToggle}
+                          className="absolute end-2 top-0 bottom-0 m-auto w-5 h-5"
+                        />
+                      )}
+                    </div>
                   </FormControl>
+
                   <FormMessage />
-                  {isPassword ? (
-                    <FaEye size={22} onClick={passwordToggle} />
-                  ) : (
-                    <FaEyeSlash size={22} onClick={passwordToggle} />
-                  )}
                 </FormItem>
               )}
             />
@@ -175,7 +195,7 @@ export const SignUpComp = () => {
               )}
             /> */}
 
-            <Button type="submit" className="mx-8" disabled={isPending}>
+            <Button type="submit" className="mx-12" disabled={isPending}>
               Submit
             </Button>
             <div className="font-medium">

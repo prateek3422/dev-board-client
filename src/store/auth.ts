@@ -2,17 +2,14 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 interface User {
-  fullname: string;
-  LoginType: string;
-  username: string;
+  name: string;
+
   avatar: {
     url: string;
-    public_id: string;
   };
   role: string;
   email: string;
-  isEmailVerified: boolean;
-  refreshToken: string;
+
 }
 interface AuthState {
   auth: {
@@ -26,17 +23,12 @@ interface AuthState {
 let initialState = {
   isAuth: false,
   user: {
-    fullname: "",
-    username: "",
+    name: "",
     avatar: {
       url: "",
-      public_id: "",
     },
     role: "",
     email: "",
-    isEmailVerified: false,
-    refreshToken: "",
-    LoginType: "",
   },
 };
 

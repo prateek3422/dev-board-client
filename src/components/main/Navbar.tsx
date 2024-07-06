@@ -27,16 +27,16 @@ export function Navbar() {
       </div>
       <nav className="hidden md:flex md:space-x-5 font-roboto font-medium">
         <Link href="/" className="hover-animate-wiggle ">
-        <Button variant="ghost" >Home</Button>
+        <Button variant="ghost" className="hover:bg-white hover:text-black" >Home</Button>
         </Link>
         <Link className="hover-animate-wiggle" href="/blogs">
-        <Button variant="ghost" >Blog</Button>
+        <Button variant="ghost" className="hover:bg-white hover:text-black" >Blog</Button>
         </Link>
         <Link className="hover-animate-wiggle" href="/questions">
-        <Button variant="ghost" >Questions</Button>
+        <Button variant="ghost" className="hover:bg-white hover:text-black" >Questions</Button>
         </Link>
         <Link className="hover-animate-wiggle" href="/services">
-        <Button variant="ghost" >Leaderbord</Button>
+        <Button variant="ghost" className="hover:bg-white hover:text-black">Leaderbord</Button>
         </Link>
       </nav>
 
@@ -56,7 +56,7 @@ export function Navbar() {
       </nav>
 
       <div className="flex items-center animate-bounce_two gap-2">
-        <THemeSwitch />
+        {/* <THemeSwitch /> */}
         <NavUtils />
       </div>
     </header>

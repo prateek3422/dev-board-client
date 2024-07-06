@@ -52,7 +52,7 @@ export function SignInComp() {
       Api.post("/auth/signin", data).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
-      storeSignIn(data.data);
+      storeSignIn(data.data?.user);
       window.location.replace("/dashboard");
     },
     onError: (error: any) => {
@@ -70,25 +70,29 @@ export function SignInComp() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex gap-8 flex-col bg-gray-800 rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1"
+            className="flex gap-4 flex-col bg-gray-800 rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1"
           >
-            <h1 className="text-center font-semibold text-xl">Sign In</h1>
+            <h1 className="text-center font-semibold text-xl mt-4">Sign In</h1>
 
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-2 px-4">
-                  <FormLabel className="text-white ">
-                    {" "}
-                    <MdEmail size={20} />
-                  </FormLabel>
+                <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
+                  <FormLabel className="text-white "> </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your email"
-                      className=" grow border-2 border-gray-600 mr-8 h-[2.5rem]"
-                      {...field}
-                    />
+                    <div className="relative">
+                      <Input
+                      type="email"
+                        placeholder="Enter your email"
+                        className=" grow border-2 border-gray-600 h-[2.5rem] w-96 py-2 pl-8 pr-4 "
+                        {...field}
+                      />
+                      <MdEmail
+                        size={20}
+                        className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -99,47 +103,57 @@ export function SignInComp() {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-2 px-4">
-                  <FormLabel>
-                    {" "}
-                    <TbPasswordFingerprint size={20} />
-                  </FormLabel>
+                <FormItem className="flex flex-col items-center justify-center ">
+                  <FormLabel> </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your password"
-                      className=" grow border-2 border-gray-600 h-[2.5rem]"
-                      autoComplete="false"
-                      type={isPassword ? "password" : "text"}
-                      {...field}
-                    />
+                    <div className="relative">
+                      <Input
+                        placeholder="Enter your password"
+                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-96 py-2 pl-8 pr-4 "
+                        autoComplete="false"
+                        type={isPassword ? "password" : "text"}
+                        {...field}
+                      />
+                      <TbPasswordFingerprint
+                        size={20}
+                        className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
+                      />
+
+                      {isPassword ? (
+                        <FaEye
+                          size={22}
+                          onClick={passwordToggle}
+                          className="absolute end-2 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
+                        />
+                      ) : (
+                        <FaEyeSlash
+                          size={22}
+                          onClick={passwordToggle}
+                          className="absolute end-2 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
+                        />
+                      )}
+                    </div>
                   </FormControl>
+
                   <FormMessage />
-                  {isPassword ? (
-                    <FaEye size={22} onClick={passwordToggle} />
-                  ) : (
-                    <FaEyeSlash size={22} onClick={passwordToggle} />
-                  )}
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              disabled={isPending}
-            >
+            <Button type="submit" className="mx-auto" disabled={isPending}>
               Submit
             </Button>
-            <div className="font-medium">
-            <Link href="/auth/password/forget" className="text-blue-600">
-              Forgot Password
-            </Link>
-            <br />
-            <p>
-              Don t have an account?{" "}
-              <Link href="/auth/signup" className="text-blue-600">
-                Sign Up
+            <div className="font-medium ">
+              <Link href="/auth/password/forget" className="text-blue-600">
+                Forgot Password
               </Link>
-            </p>
-          </div>
+              <br />
+              <p>
+                Don't have an account?{" "}
+                <Link href="/auth/signup" className="text-blue-600">
+                  Sign Up
+                </Link>
+              </p>
+            </div>
           </form>
         </Form>
       </section>
