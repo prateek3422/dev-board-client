@@ -1,15 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import hljs from "highlight.js";
+import "highlight.js/styles/github.css";
 
-export function Editor({ value, onChange }: any) {
+
+export function Editor({ value, onChange, className }: any) {
+
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
     ["blockquote", "code-block"],
     ["link", "image", "formula"],
-
+    
     [{ header: 1 }, { header: 2 }], // custom button values
     [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
     [{ script: "sub" }, { script: "super" }], // superscript/subscript
@@ -24,13 +28,19 @@ export function Editor({ value, onChange }: any) {
     [{ align: [] }],
 
     ["clean"], // remove formatting button
+
+    
   ];
 
+  
+
   const modules = {
+  
     toolbar: {
       container: toolbarOptions,
     },
   };
+  
 
   return (
     <ReactQuill
@@ -38,7 +48,10 @@ export function Editor({ value, onChange }: any) {
       modules={modules}
       value={value}
       onChange={onChange}
+      className={`w-full ${className}`}
+      style={{ height: "40vh" }}
     />
+    
   );
 }
 

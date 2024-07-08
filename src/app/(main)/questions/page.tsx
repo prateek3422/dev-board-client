@@ -128,7 +128,7 @@ export default function Questions() {
       <header className="h-[calc(60vh-4vh)] bg-[#030712]  bg-cover bg-center bg-no-repeat rounded-lg shadow-lg px-4 py-2">
         <div className="bg-[url('/alex-perez-pEgsWN0kwbQ-unsplash.jpg')] h-full bg-cover bg-center bg-no-repeat w-full  flex flex-col items-center justify-center">
           <h1 className="text-3xl  font-bold  text-white w-50vw ">
-            Share & grow the world's knowledge!
+            Share & grow the world knowledge!
           </h1>
 
           <p className="text-center text-white max-w-3xl mt-4 font-bold ">
@@ -177,7 +177,8 @@ export default function Questions() {
 
                   <div className="flex flex-row items-center  px-[2rem]  py-2 gap-3">
                     {data.tags?.map((tag) => (
-                      <span className="text-sm border-1 px-4 py-1 bg-[#0f0724] bg-opacity-25 text-white rounded-full font-bold">
+
+                      <span key={tag} className="text-sm border-1 px-4 py-1 bg-[#0f0724] bg-opacity-25 text-white rounded-full font-bold">
                         {tag}
                       </span>
                     ))}

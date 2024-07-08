@@ -118,6 +118,7 @@ const questions = [
 
 const data = [
   {
+    id: 1,
     img: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg",
     date: "Aug 5, 2023",
     title: "mi tempor lorem, eget mollis lectus pede et risus. Quisque",
@@ -125,6 +126,7 @@ const data = [
       "molestie dapibus ligula. Aliquam erat volutpat. Nulla dignissim. Maecenas ornare egestas ligula. Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque. Nullam nisl. Maecenas malesuada fringilla est. Mauris eu",
   },
   {
+    id: 2,
     img: "https://images.unsplash.com/photo-1718824477100-8d253c125065?q=80&w=2002&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     date: "Nov 20, 2023",
     title:
@@ -133,6 +135,7 @@ const data = [
       "tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies adipiscing, enim mi tempor lorem, eget mollis lectus pede et risus. Quisque libero lacus, varius et,",
   },
   {
+    id: 3,
     img: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg",
     date: "Jan 21, 2025",
     title:
@@ -141,6 +144,7 @@ const data = [
       "aliquet. Phasellus fermentum convallis ligula. Donec luctus aliquet odio. Etiam ligula tortor, dictum eu, placerat eget, venenatis a, magna. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam laoreet, libero et tristique pellentesque, tellus sem mollis dui, in sodales elit erat vitae risus. Duis a mi fringilla",
   },
   {
+    id: 4,
     img: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg",
     date: "Jan 3, 2025",
     title:
@@ -149,6 +153,7 @@ const data = [
       "porttitor scelerisque neque. Nullam nisl. Maecenas malesuada fringilla est. Mauris eu turpis. Nulla aliquet. Proin velit. Sed malesuada augue ut lacus. Nulla tincidunt, neque",
   },
   {
+    id: 5,
     img: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg",
     date: "May 30, 2025",
     title: "risus. Duis a mi fringilla mi lacinia mattis. Integer eu",
@@ -156,6 +161,7 @@ const data = [
       "aliquet, metus urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus elit pede, malesuada vel, venenatis vel, faucibus id, libero. Donec consectetuer mauris id sapien. Cras dolor dolor, tempus non, lacinia at,",
   },
   {
+    id: 6,
     img: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg",
     date: "Aug 5, 2023",
     title: "mi tempor lorem, eget mollis lectus pede et risus. Quisque",
@@ -202,7 +208,7 @@ export const TopContents = () => {
         {data.length > 0 ? (
           <section className="flex flex-row flex-wrap w-full items-center justify-center bg-[#030712] rounded-lg shadow-lg p-4">
             {data.map((item) => (
-              <Link href={"#"} className="w-[33%]  p-4 relative">
+              <Link href={"#"} className="w-[33%]  p-4 relative" key={item.id}>
                 <Image
                   src={item.img}
                   alt="Logo"
@@ -247,7 +253,7 @@ export const TopContents = () => {
 
                   <div className="flex flex-row items-center  px-[2rem]  py-2 gap-3">
                     {data.tags?.map((tag) => (
-                      <span className="text-sm border-1 px-4 py-1 bg-[#0f0724] bg-opacity-25 text-white rounded-full font-bold">
+                      <span key={tag} className="text-sm border-1 px-4 py-1 bg-[#0f0724] bg-opacity-25 text-white rounded-full font-bold">
                         {tag}
                       </span>
                     ))}

@@ -1,36 +1,28 @@
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// components/QuillEditor.js
+import React, { useEffect } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css'; // import bubble theme styles
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css'; // import a highlight.js style
 
-export function Quill() {
-  const [value, setValue] = useState("");
-
-  const toolbarOptions = [
-    ["bold", "italic", "underline", "strike"],
-    ["blockquote", "code-block"],
-    ["link", "image", "video", "formula"],
-
-    [{ header: 1 }, { header: 2 }],
-    [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-    [{ script: "sub" }, { script: "super" }],
-    [{ indent: "-1" }, { indent: "+1" }],
-    [{ direction: "rtl" }],
-
-    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ color: [] }, { background: [] }],
-    [{ font: ["Poppins"] }],
-    [{ align: [] }],
-
-    ["clean"],
-  ];
-
-  const m = {
-    toolbar: toolbarOptions,
-  };
+const QuillEditor = ({ value }: { value: string }) => {
+  useEffect(() => {
+    document.querySelectorAll('pre code').forEach((block: any) => {
+      hljs.highlightBlock(block);
+    });
+  }, [value]);
 
   return (
-    <ReactQuill modules={m} theme="snow" value={value} onChange={setValue} />
+    <ReactQuill
+      value={value}
+      readOnly={true}
+      theme="bubble"
+      modules={{
+        syntax: true, // Enable syntax module
+        toolbar: false, // Disable toolbar for readOnly editor
+      }}
+    />
   );
-}
+};
+
+export default QuillEditor;

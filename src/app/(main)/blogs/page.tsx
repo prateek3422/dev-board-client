@@ -1,5 +1,6 @@
 import { SearchBar } from "@/components";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
@@ -18,16 +19,18 @@ export default async function Blogs() {
     <>
       <header className="flex flex-row justify-center items-center">
         <SearchBar />
+
       </header>
 
       <section className="flex flex-row flex-wrap w-full items-center justify-center bg-[#030712] rounded-lg shadow-lg p-4">
         {data.blogs.map((item: any) => (
           <Link
+            key={item._id}
             href={`/blogs/${item.slug}`}
             className="w-[33%]  p-4 relative transform hover:-translate-y-2 hover:scale-105 duration-500 ease-in-out"
           >
             <Image
-              src={item.image?.url}
+              src={item?.image?.url}
               alt="Logo"
               width={1920}
               height={1080}

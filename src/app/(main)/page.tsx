@@ -4,6 +4,7 @@ import { Itim, Poppins } from "next/font/google";
 import { RxDoubleArrowDown } from "react-icons/rx";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { RiSingleQuotesR } from "react-icons/ri";
 
 const itim = Itim({
   subsets: ["latin"],
@@ -27,12 +28,12 @@ export default function Home() {
          
 
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white mt-16 text-center">
-              We’re WordsFlow. See our <br /> thoughts, stories & ideas.
+              We<RiSingleQuotesR/>re WordsFlow. See our <br /> thoughts, stories & ideas.
             </h1>
 
             <p className="leading-7 [&:not(:first-child)]:mt-6 text-white w-[60vw] text-center">
               Browse our HTML5 responsive Blog templates below. You can easily
-              customize any of our Blog website templates with Webflow's
+              customize any of our Blog website templates with Webflow&apos;s
               code-free design tools, then connect your new Blog website to our
               powerful CMS, and launch it today new Blog website to our powerful
               CMS, and launch it today new Blog website to

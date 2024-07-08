@@ -5,8 +5,8 @@ export * from "./main/Navbar";
 export * from "./main/Footer";
 
 //auth
-export * from "./auth/signIn";
-export * from "./auth/signup";
+export * from "./auths/signIn";
+export * from "./auths/signup";
 
 
 // tranding post
@@ -17,7 +17,7 @@ export * from "./main/TopQuestions";
 
 // search bar
 export * from "./main/SearchBar";
-
+export * from "./main/CommentssModal"
 
 // dashboard
 export * from "./dashboard/Sidebar";
