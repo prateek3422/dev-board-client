@@ -39,37 +39,38 @@ const itim = Itim({
 });
 export function TopQuestions() {
   return (
-    <div className="container mx-auto  px-4 sm:px-6 lg:px-8 ">
-      <div className="flex flex-col justify-center items-center text-4xl  my-6 w-full h-full ">
-        <h3 className=" text-white text-3xl font-bold">Top Questions</h3>
+    <div>
+      <div className="flex flex-col gap-4 p-4">
+        <h3 className=" text-white text-3xl text-center font-bold">
+          Top Questions
+        </h3>
 
-        <div className="flex  flex-row justify-center gap-4 flex-wrap  items-center mt-16  ">
+        <div className=" grid sm:grid-cols-2 md:grid-cols-3  mx-auto gap-4 max-w-screen-2xl md:p-4 lg:p-8 ">
           {Questions.map((item) => {
             return (
               <div
                 key={item.id}
-                className=" p-2 bg-blue-500 rounded-lg shadow-md px-4 w-[24rem]"
+                className="flex flex-col  gap-2 bg-[#3B82F6] rounded-xl p-2 md:p-4"
               >
-                <div className="flex items-center flex-wrap  gap-4">
-                  <Image
-                    src={item.img}
-                    alt="avatar"
-                    width={100}
-                    height={100}
-                    className="rounded-full w-16 h-16"
-                  />
-                  <div className="flex flex-col">
-                    <h2 className="text-white text-3xl font-bold">
-                      {item.userName}
-                    </h2>
-                    <p className="text-white text-sm mt-1">
-                      {item.ask} Asks
-                    </p>
+                <div className=" flex  items-center justify-between ">
+                  <div className=" flex items-center justify-center gap-2">
+                    <Image
+                      src={item.img}
+                      alt="avatar"
+                      width={100}
+                      height={100}
+                      className="rounded-full w-16 h-16"
+                    />
+                    <div className="flex flex-col">
+                      <h2>{item.userName}</h2>
+                      <p>{item.ask} Asks</p>
+                    </div>
                   </div>
+                  <div>{/* //display time */}</div>
                 </div>
-                <p className="text-white w-96 text-xs  px-16 mt-4">
-                  {item.question}
-                </p>
+                <div>
+                  <p>{item.question}</p>
+                </div>
               </div>
             );
           })}

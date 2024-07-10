@@ -85,7 +85,7 @@ export function SignInComp() {
                       <Input
                       type="email"
                         placeholder="Enter your email"
-                        className=" grow border-2 border-gray-600 h-[2.5rem] w-96 py-2 pl-8 pr-4 "
+                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
                         {...field}
                       />
                       <MdEmail
@@ -109,7 +109,7 @@ export function SignInComp() {
                     <div className="relative">
                       <Input
                         placeholder="Enter your password"
-                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-96 py-2 pl-8 pr-4 "
+                        className=" grow border-2 border-gray-600 h-[2.5rem]   w-full md:w-72 xl:w-96 m-1 py-2 pl-8 pr-4 "
                         autoComplete="false"
                         type={isPassword ? "password" : "text"}
                         {...field}
@@ -140,16 +140,16 @@ export function SignInComp() {
               )}
             />
             <Button type="submit" className="mx-auto" disabled={isPending}>
-              Submit
+              Sign In
             </Button>
             <div className="font-medium ">
               <Link href="/auth/password/forget" className="text-blue-600">
                 Forgot Password
               </Link>
               <br />
-              <p>
-                Don&apos;t have an account?
-                <Link href="/auth/signup" className="text-blue-600">
+              <p >
+                Don&apos;t have an account ?
+                <Link href="/auth/signup" className="text-blue-600 ml-2">
                   Sign Up
                 </Link>
               </p>

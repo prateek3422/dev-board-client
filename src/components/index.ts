@@ -18,6 +18,8 @@ export * from "./main/TopQuestions";
 // search bar
 export * from "./main/SearchBar";
 export * from "./main/CommentssModal"
+export * from "./main/GetComments";
+export * from "./main/createQuestions";
 
 // dashboard
 export * from "./dashboard/Sidebar";

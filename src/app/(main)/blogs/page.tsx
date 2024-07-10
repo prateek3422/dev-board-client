@@ -16,35 +16,36 @@ async function getBlogs() {
 export default async function Blogs() {
   const { data } = await getBlogs();
   return (
-    <>
-      <header className="flex flex-row justify-center items-center">
+    <div className="mt-[88px] ">
+      <header className="flex justify-center items-center ">
         <SearchBar />
-
       </header>
 
-      <section className="flex flex-row flex-wrap w-full items-center justify-center bg-[#030712] rounded-lg shadow-lg p-4">
+      <section className=" grid sm:grid-cols-2 md:grid-cols-3 mt-16 max-w-screen-4xl mx-auto gap-4 px-4">
         {data.blogs.map((item: any) => (
           <Link
             key={item._id}
             href={`/blogs/${item.slug}`}
-            className="w-[33%]  p-4 relative transform hover:-translate-y-2 hover:scale-105 duration-500 ease-in-out"
+            className=" relative transform hover:-translate-y-2 hover:scale-105 duration-500 ease-in-out w-full  "
           >
+            <div>
             <Image
               src={item?.image?.url}
               alt="Logo"
               width={1920}
               height={1080}
-              className="rounded-lg opacity-80 object-cover h-[40vh] w-[60vw] bg-gradient-to-b from-[#000000] to-[#1a1a1a]"
-            />
-            <div className="absolute bottom-10 left-5 p-4 text-white text-sm ">
+              className="rounded-lg opacity-80 object-cover w-full bg-gradient-to-b from-[#000000] to-[#1a1a1a]"
+              />
+              </div>
+            <div className="absolute left-0 right-0 bottom-0  bg-black/55 backdrop-blur-sm p-2" >
               <p>{item.createdAt?.slice(0, 10)}</p>
-              <h1 className="text-lg  font-bold text-wrap mx-2 ">
+              <h1 className="text-lg  font-bold text-wrap  ">
                 {item.title}
               </h1>
             </div>
           </Link>
         ))}
       </section>
-    </>
+    </div>
   );
 }

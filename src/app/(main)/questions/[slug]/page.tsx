@@ -1,24 +1,28 @@
-
+'use client';
+import { Api } from "@/lib";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import React from "react";
 
-function page() {
+function page({params}: {params: {slug: any}}) {
+  const { slug } = params;
+
+  const { data: BlogData, isLoading } = useQuery({
+    queryKey: ["question", slug],
+    queryFn: () => Api.get(`/blogs/${slug}`).then((res) => res?.data?.data),
+    enabled: !!slug,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
 
 
+  if (isLoading) return <div>Loading...</div>;
   return (
     <>
-      {/* <div className="text-sm breadcrumbs px-6  text-gray-500 dark:text-gray-400 sm:px-8">
-        <ul>
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/Questions">Questions</Link>
-          </li>
-        </ul>
-      </div> */}
+
       <section>
-        <div className="px-10 py-2 flex  flex-col  gap-2 mt-4 ">
+        <div className="px-10 py-2 flex  flex-col mt-20 gap-2 ">
           <h1 className="text-3xl font-bold">
             react native stuck after bundle: Done copying assets{" "}
           </h1>

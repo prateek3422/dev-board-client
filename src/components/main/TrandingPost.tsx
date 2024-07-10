@@ -81,11 +81,11 @@ export function TrandingPost() {
                       height={item.height}
                       className={item.className}
                      />
-                    <div className="absolute inset-0 rounded-2xl bg-black/65 w-1/2"></div>
-                    <div className="z-10">
+                    <div className="absolute inset-0 rounded-2xl bg-black/65 w-2/3 md:w-1/2  "></div>
+                    <div className="z-10 pr-6">
 
                         <h3 className="  text-xs font-bold text-white">january 18, 2024</h3>
-                        <p className="w-1/2 text-2xl my-4">What’s next for the drones in film making</p>
+                        <p className="w-1/2 text-sm md:text-2xl  my-4">What’s next for the drones in film making</p>
                     {/* <div className="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">City of love</div> */}
                     </div>
                 </div>

@@ -88,7 +88,7 @@ export const SignUpComp = () => {
                     <Input
                     type="email"
                       placeholder="Enter your email"
-                      className=" grow border-2 border-gray-600 h-[2.5rem] w-96 py-2 pl-8 pr-4 "
+                      className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
                       {...field}
                     />
                     <SiNamecheap
@@ -113,7 +113,7 @@ export const SignUpComp = () => {
                     <Input
                     type="email"
                       placeholder="Enter your email"
-                      className=" grow border-2 border-gray-600 h-[2.5rem] w-96 py-2 pl-8 pr-4 "
+                      className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
                       {...field}
                     />
                     <MdEmail
@@ -137,7 +137,7 @@ export const SignUpComp = () => {
                     <div className="relative">
                       <Input
                         placeholder="Enter your password"
-                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-96 py-2 pl-8 pr-4 "
+                        className=" grow border-2 border-gray-600 h-[2.5rem]   w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
                         autoComplete="false"
                         type={isPassword ? "password" : "text"}
                         {...field}
@@ -195,13 +195,13 @@ export const SignUpComp = () => {
               )}
             /> */}
 
-            <Button type="submit" className="mx-12" disabled={isPending}>
-              Submit
+            <Button type="submit" className=" w-60 md:w-72 xl:w-96 mx-auto" disabled={isPending}>
+              Sign Up
             </Button>
             <div className="font-medium">
-              <p>
-                You have an account?
-                <Link href="/auth/signin" className="text-blue-600">
+              <p >
+                You have an account ?
+                <Link href="/auth/signin" className="text-blue-600 ml-2"  >
                   Sign In
                 </Link>
               </p>

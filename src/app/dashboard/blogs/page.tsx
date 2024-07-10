@@ -1,5 +1,4 @@
 
-
 import { blog, columns } from "./columns";
 import { DataTable } from "@/components/dashboard/dataTables/data-table";
 
@@ -19,7 +18,7 @@ export default async function Page() {
     <>
       <div className={`p-4 sm:ml-64`}>
         <div className="container mx-auto py-10">
-          <DataTable columns={columns} data={data} />
+          <DataTable columns={columns}  data={data} />
         </div>
       </div>
     </>

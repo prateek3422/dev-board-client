@@ -90,10 +90,6 @@ export default function Dashboard() {
           </h1>
           <Badges />
 
-          <h1 className="text-2xl font-bold  mt-16 text-gray-900 dark:text-white px-4">
-            Top Posts
-          </h1>
-         {/* <TopContents /> */}
         </div>
       </div>
     </section>

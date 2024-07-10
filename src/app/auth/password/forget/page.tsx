@@ -37,7 +37,7 @@ function Page() {
       Api.post("/auth/forget-password", data).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
-      window.location.replace("/auth/email/verify");
+      window.location.replace("/auth/password/reset");
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);

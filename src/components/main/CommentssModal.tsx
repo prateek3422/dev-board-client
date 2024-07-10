@@ -13,28 +13,52 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { title } from "process";
+import { useMutation } from "@tanstack/react-query";
+import { Api } from "@/lib";
+import toast from "react-hot-toast";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export function CommentsModal({
   name,
   title,
   lable,
+  id
 }: {
   name: string;
   title: string;
   lable: string;
+  id:string
 }) {
   const [comment, setComment] = useState("");
 
+  const { mutate: addComment } = useMutation({
+    mutationFn: () => Api.post(`/blogs/${id}/comments`, { comment }),
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Comment Added Successfully");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("Error Adding Comment");
+    },
+  });
 
+
+  
 
   const handleComment = (e: any) => {
-        setComment(e.target.value);
-  }
+    setComment(e.target.value);
+  };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="bg-[#3B82F6] hover:bg-blue-700 text-white">{name}</Button>
+        <Button
+          variant="outline"
+          className="bg-[#3B82F6] hover:bg-blue-700 text-white"
+        >
+          {name}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] ">
         <DialogHeader>
@@ -58,7 +82,11 @@ export function CommentsModal({
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">comment</Button>
+        <DialogClose asChild>
+          <Button type="submit" onClick={() => addComment()}>
+            comment
+          </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
