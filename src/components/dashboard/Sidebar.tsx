@@ -65,53 +65,53 @@ export default function Sidebar() {
             </li>
 
             <li>
-              <a
+              <Link 
                 href="/dashboard/blogs"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <LiaBlogSolid />
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Blogs</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/dashboard/questions"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <FaRegQuestionCircle />
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Questions</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/dashboard/answers"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <SiAnswer />
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Anawers</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <TbActivityHeartbeat />
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Activity</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/dashboard/settings"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <IoSettings />
                 <span className="flex-1 ms-3 whitespace-nowrap">Setting</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

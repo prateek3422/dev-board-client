@@ -16,6 +16,8 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { BlogModal } from "@/components/dashboard/modal/BlogModal";
 import { DataTable } from "@/components/dashboard/dataTables/data-table";
+import { Api } from "@/lib";
+
 
 
 export type blog = {
@@ -27,30 +29,28 @@ export type blog = {
   createdAt: Date;
 };
 
-const handleToggle = async(isPublic: string) => {
-  const res = fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${isPublic}/publish`, {
-    cache: "no-store",
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
- 
-  });
-  const data = await res;
-  return data
+
+
+
+const handleToggle = (isPublic: string) => {
+   const res = Api.post(`/blogs/${isPublic}/publish`);
+   return res;
 };
 
 export const columns: ColumnDef<blog>[] = [
+  
+
+  
   {
     accessorKey: "isPublic",
     header: () => <div className="text-center">Public</div>,
     cell: ({ row }) => {
       const publicStatus = row.getValue("isPublic")
       const blog = row.original;
-      return (
-        
+  
+      return ( 
         <div className=" text-center">
-          {/*@ts-ignore */}
+          {/* @ts-ignore */}
           <Switch checked={publicStatus} onCheckedChange={() => handleToggle(blog._id)}>
             <Label>Public</Label>
           </Switch>
