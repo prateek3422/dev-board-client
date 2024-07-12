@@ -64,7 +64,7 @@ function NavUtils() {
       {auth.isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="bg-transparent hover:bg-transparent">
+            <button className="bg-transparent hover:bg-transparent ">
               <Avatar
                 name={auth?.user?.name}
                 src={auth?.user?.avatar?.url}
@@ -73,7 +73,7 @@ function NavUtils() {
               />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 pr-4">
+          <DropdownMenuContent className="w-56 pr-8">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>

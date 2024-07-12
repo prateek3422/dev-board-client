@@ -16,10 +16,10 @@ export * from "./main/TrandingPost";
 export * from "./main/TopQuestions";
 
 // search bar
-export * from "./main/SearchBar";
+// export * from "./main/SearchBar";
 export * from "./main/CommentssModal"
 export * from "./main/GetComments";
-export * from "./main/createQuestions";
+
 export * from "./Loader";
 
 // dashboard

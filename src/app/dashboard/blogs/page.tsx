@@ -1,9 +1,12 @@
-'use client';
+"use client";
 import { useMutation, useQuery } from "@tanstack/react-query";
-// import {columns } from "./columns";
-import { DataTable } from "@/components/dashboard/dataTables/data-table";
+// import {columns } from "./Colounm";
+import {DataTable} from "@/components/dashboard/dataTables/Datatable";
 import { Api, queryClient } from "@/lib";
-import { Loader } from "@/components";
+import { Loader } from "@/components/Loader";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +21,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { BlogModal } from "@/components/dashboard/modal/BlogModal";
-import toast from "react-hot-toast";
+
 
 
 export type blog = {
@@ -31,7 +34,14 @@ export type blog = {
 };
 
 
-export default  function Page() {
+export default function Page() {
+  const [Render, setRender] = useState(false);
+
+  useEffect(() => {
+    setRender(true);
+  }, []);
+  
+ 
   const { data, isLoading } = useQuery({
     queryKey: ["Auth"],
     queryFn: () =>
@@ -47,14 +57,13 @@ export default  function Page() {
       Api.post(`/blogs/${blogId}/publish`, data).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
-      
-      queryClient.invalidateQueries({queryKey: ["Auth"]});
+
+      queryClient.invalidateQueries({ queryKey: ["Auth"] });
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
     },
-  },
-);
+  });
   const { mutate: deleteBlog, isPending: isDeletePending } = useMutation({
     mutationKey: ["delete_blog"],
     mutationFn: (blogId: any) =>
@@ -65,16 +74,15 @@ export default  function Page() {
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
     },
-  }
-);
+  });
 
-  
-  const handleToggle =  (blogId: string) => {
-    mutate(blogId);   
+  const handleToggle = (blogId: string) => {
+    mutate(blogId);
   };
+  if (!Render) return;
 
 
-const columns: ColumnDef<blog>[] = [
+  const columns: ColumnDef<blog>[] = [
     {
       accessorKey: "isPublic",
       header: () => <div className="text-center">Public</div>,
@@ -85,8 +93,8 @@ const columns: ColumnDef<blog>[] = [
         return (
           <div className=" text-center">
             <Switch
-            //  @ts-ignore 
-            
+              //  @ts-ignore
+
               checked={publicStatus}
               onCheckedChange={() => handleToggle(blog._id)}
             >
@@ -166,9 +174,9 @@ const columns: ColumnDef<blog>[] = [
         );
       },
       cell: ({ row }) => {
-        const likes = row.getValue("likes");
-        //@ts-ignore
-        const formatted = likes?.length;
+        const likes:any = row.getValue("likes");
+
+        const formatted = likes?.length || 0;
         return <div className="text-center font-medium">{formatted}</div>;
       },
     },
@@ -201,7 +209,9 @@ const columns: ColumnDef<blog>[] = [
                   blogId={blog._id}
                 />
               </DropdownMenuItem>
-              <DropdownMenuItem  onClick={() => deleteBlog(blog._id)}>delete blog</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => deleteBlog(blog._id)}>
+                delete blog
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -209,14 +219,11 @@ const columns: ColumnDef<blog>[] = [
     },
   ];
 
-  if (isLoading)
-    return (
-      <div className="flex justify-center items-center">
-        <Loader />
-      </div>
-    );
-
-  return (
+  return isLoading ? (
+    <div>
+      <Loader />
+    </div>
+  ) : (
     <>
       <div className={`p-4 sm:ml-64`}>
         <div className="container mx-auto py-10">

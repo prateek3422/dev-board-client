@@ -1,5 +1,5 @@
 "use client";
-import { SearchBar } from "@/components";
+import { SearchBar } from "@/components/main/SearchBar";
 import { Button } from "@/components/ui/button";
 import { Api } from "@/lib";
 import { useQuery } from "@tanstack/react-query";
@@ -7,37 +7,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { title } from "process";
 
-// async function getTags() {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tags?func=true`, {
-//     cache: "no-store",
-//   });
-//   const data = await res.json();
-//   return data;
-// }
 
-// async function getCategories() {
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_API_URL}/categories?func=true`,
-//     {
-//       cache: "no-store",
-//     }
-//   );
-//   const data = await res.json();
-//   return data;
-// }
-
-// async function getQuestions(){
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/qas`, {
-//     cache: "no-store",
-//   });
-//   const data = await res.json();
-//   console.log(data)
-//   return data;
-// }
 
 export default function Questions() {
-  // const tag = await getTags();
-  // const category = await getCategories();
+  
 
   const { data: questions } = useQuery({
     queryKey: ["question"],
@@ -67,9 +40,6 @@ export default function Questions() {
 
   
 
-
-  console.log(tag);
-  console.log(category)
 
   return (
     <section>

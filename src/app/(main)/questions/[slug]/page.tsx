@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import React from "react";
 
-function page({params}: {params: {slug: any}}) {
+export default function Page({params}: {params: {slug: any}}) {
   const { slug } = params;
 
   const { data: BlogData, isLoading } = useQuery({
@@ -44,4 +44,3 @@ function page({params}: {params: {slug: any}}) {
   );
 }
 
-export default page;

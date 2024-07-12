@@ -1,4 +1,4 @@
-import { SearchBar } from "@/components";
+import { SearchBar } from "@/components/main/SearchBar";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";

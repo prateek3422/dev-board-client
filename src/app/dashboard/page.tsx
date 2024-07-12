@@ -6,9 +6,9 @@ import { SiAnswer } from "react-icons/si";
 import { FaBlog } from "react-icons/fa6";
 import { HiCreditCard } from "react-icons/hi2";
 import { AiOutlineEye } from "react-icons/ai";
-import { Badges, Loader, TopContents } from "@/components";
-import { useQuery } from "@tanstack/react-query";
-import { Api } from "@/lib";
+import { Badges } from "@/components/dashboard/Badges";
+// import { useQuery } from "@tanstack/react-query";
+// import { Api } from "@/lib";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -16,15 +16,15 @@ import Link from "next/link";
 
 export default function Dashboard() {
 
-  const { data: profile, isLoading } = useQuery({
-    queryKey: ["Auth"],
-    queryFn: () => Api.get(`/auth/profile`).then((res) => res?.data?.data),
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    staleTime: Infinity,
-  });
+  // const { data: profile, isLoading } = useQuery({
+  //   queryKey: ["Auth"],
+  //   queryFn: () => Api.get(`/auth/profile`).then((res) => res?.data?.data),
+  //   refetchOnMount: false,
+  //   refetchOnWindowFocus: false,
+  //   staleTime: Infinity,
+  // });
 
-  if (isLoading) return <div><Loader /></div>;
+  // if (isLoading) return <div><Loader /></div>;
 
 
   return (

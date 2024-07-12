@@ -1,8 +1,7 @@
-"use client";
+"use client"
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,10 +14,6 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { BlogModal } from "@/components/dashboard/modal/BlogModal";
-import { DataTable } from "@/components/dashboard/dataTables/data-table";
-import { Api } from "@/lib";
-
-
 
 export type blog = {
   _id: string;
@@ -29,29 +24,22 @@ export type blog = {
   createdAt: Date;
 };
 
-
-
-
-const handleToggle = (isPublic: string) => {
-   const res = Api.post(`/blogs/${isPublic}/publish`);
-   return res;
-};
-
 export const columns: ColumnDef<blog>[] = [
-  
-
-  
   {
     accessorKey: "isPublic",
     header: () => <div className="text-center">Public</div>,
     cell: ({ row }) => {
-      const publicStatus = row.getValue("isPublic")
+      const publicStatus = row.getValue("isPublic");
       const blog = row.original;
-  
-      return ( 
+
+      return (
         <div className=" text-center">
-          {/* @ts-ignore */}
-          <Switch checked={publicStatus} onCheckedChange={() => handleToggle(blog._id)}>
+          <Switch
+            //  @ts-ignore
+
+            checked={publicStatus}
+            //   onCheckedChange={() => handleToggle(blog._id)}
+          >
             <Label>Public</Label>
           </Switch>
         </div>
@@ -124,9 +112,9 @@ export const columns: ColumnDef<blog>[] = [
       );
     },
     cell: ({ row }) => {
-      const likes = row.getValue("likes");
-      //@ts-ignore
-      const formatted = likes?.length;
+      const likes: any = row.getValue("likes");
+
+      const formatted = likes?.length || 0;
       return <div className="text-center font-medium">{formatted}</div>;
     },
   },
@@ -152,8 +140,14 @@ export const columns: ColumnDef<blog>[] = [
               Copy blog ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem><BlogModal buttonName="Update Blog" TitleName="Update Blog" blogId={blog._id} /></DropdownMenuItem>
-            <DropdownMenuItem >delete blog</DropdownMenuItem>
+            <DropdownMenuItem>
+              <BlogModal
+                buttonName="Update Blog"
+                TitleName="Update Blog"
+                blogId={blog._id}
+              />
+            </DropdownMenuItem>
+            <DropdownMenuItem>delete blog</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
