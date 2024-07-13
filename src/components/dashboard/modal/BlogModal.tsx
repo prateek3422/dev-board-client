@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-const Editor = dynamic(() => import("../../../components/dashboard/Editor"), {
+const Editor = dynamic(() => import("../../Editor"), {
   ssr: false,
 });
 import { Api } from "@/lib";
@@ -60,24 +60,7 @@ const formSchema = z.object({
   title: z.string().nonempty("Title required"),
 });
 
-async function getTags() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tags?func=true`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
-}
 
-async function getCategories() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/categories?func=true`,
-    {
-      cache: "no-store",
-    }
-  );
-  const data = await res.json();
-  return data;
-}
 
 export function BlogModal({
   buttonName,
@@ -99,12 +82,12 @@ export function BlogModal({
 
   const { data: tag } = useQuery({
     queryKey: ["tag"],
-    queryFn: getTags,
+    queryFn: () => Api.get(`${process.env.NEXT_PUBLIC_API_URL}/tags?func=true`).then((res) => res.data),
   });
 
   const { data: category } = useQuery({
     queryKey: ["category"],
-    queryFn: getCategories,
+    queryFn: () => Api.get(`${process.env.NEXT_PUBLIC_API_URL}/categories?func=true`).then((res) => res.data),
   });
 
   const [files, setFiles] = useState<File[]>();

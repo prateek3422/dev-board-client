@@ -3,10 +3,9 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "highlight.js/styles/github.css";
 
 
-export function Editor({ value, onChange, className }: any) {
+ function Editor({ value, onChange, className }: any) {
 
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons

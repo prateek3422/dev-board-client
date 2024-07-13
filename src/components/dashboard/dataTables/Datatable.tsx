@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import Link from "next/link"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -33,6 +34,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="rounded-md border">
+      <Link href="/dashboard/Writepost">
+      open
+      </Link>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

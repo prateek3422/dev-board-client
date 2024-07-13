@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
 
-export function SearchBar() {
-  const [Search, setSearch] = useState("");
+export function SearchBar({search, setSearch}: {search: string, setSearch: any}) {
+
 
   return (
     <form className="form relative">
@@ -12,7 +12,7 @@ export function SearchBar() {
         className="input rounded-full px-8 py-3 border-2 w-[40vw] border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 bg-[#4e4e4f] shadow-md"
         placeholder="Search..."
         required={false}
-        value={Search}
+        value={search}
         onChange={(e) => setSearch(e.target.value)}
         type="text"
       />

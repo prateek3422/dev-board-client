@@ -1,16 +1,17 @@
 "use client";
+
+import { BlogModal } from "@/components/dashboard/modal/BlogModal";
 import { SearchBar } from "@/components/main/SearchBar";
 import { Button } from "@/components/ui/button";
 import { Api } from "@/lib";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { title } from "process";
 
-
+import { useState } from "react";
 
 export default function Questions() {
-  
+  const [search, setSearch] = useState("");
 
   const { data: questions } = useQuery({
     queryKey: ["question"],
@@ -20,7 +21,6 @@ export default function Questions() {
     staleTime: Infinity,
   });
 
-
   const { data: tag } = useQuery({
     queryKey: ["tag"],
     queryFn: () => Api.get(`/tags?func=true`).then((res) => res.data),
@@ -29,7 +29,6 @@ export default function Questions() {
     staleTime: Infinity,
   });
 
-
   const { data: category } = useQuery({
     queryKey: ["category"],
     queryFn: () => Api.get(`/categories?func=true`).then((res) => res.data),
@@ -37,9 +36,6 @@ export default function Questions() {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
-
-  
-
 
   return (
     <section>
@@ -62,7 +58,7 @@ export default function Questions() {
 
       <main>
         <div className="search  rounded-lg shadow-lg px-8 py-4 flex flex-row items-center justify-center">
-          <SearchBar />
+          <SearchBar search={search} setSearch={setSearch} />
         </div>
 
         <div className="px-4 py-2 grid gap-4 mt-4 md:grid-cols-[70vw_minmax(20vw,_1fr)]">
@@ -79,7 +75,7 @@ export default function Questions() {
                     <span>{data.likes?.length} likes</span>
                   </div>
                   <div className="flex flex-col gap-4 items-start justify-center">
-                    <p className="text-white text-sm">{data.question}</p>
+                    <p className="text-white text-sm">{data.title}</p>
                     {data?.tags?.map((item: any) => (
                       <div
                         className="bg-[#3B82F6] text-white text-xs px-2 py-1 rounded-lg"
@@ -99,8 +95,9 @@ export default function Questions() {
           </div>
 
           <div className="border-2  flex flex-col items-center ">
+            
             <Link href="/Ask">
-            <Button className="mt-4 bg-[#3B82F6] hover:bg-blue-700 text-white ">
+            <Button className="mt-10 bg-[#3B82F6] hover:bg-blue-700 text-white">
               Add Question
             </Button>
             </Link>

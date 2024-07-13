@@ -26,4 +26,4 @@ export * from "./Loader";
 export * from "./dashboard/Sidebar";
 export * from "./dashboard/Badges";
 export * from "./dashboard/TopContents";
-export * from "./dashboard/Editor";
+export * from "./Editor";

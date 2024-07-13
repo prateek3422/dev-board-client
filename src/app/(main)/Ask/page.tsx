@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 const Editor = dynamic(() => import("../../../components/Editor"), {
   ssr: false,
-});
+})
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -19,19 +19,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import {
-  FileUploader,
-  FileUploaderContent,
-  FileUploaderItem,
-  FileInput,
-} from "@/components/customComponents/dropImage";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import MultiSelectTest from "@/components/dashboard/categorySelector";
-import Image from "next/image";
-import { Paperclip, Tags } from "lucide-react";
 import {
   MultiSelector,
   MultiSelectorTrigger,
@@ -40,7 +30,6 @@ import {
   MultiSelectorList,
   MultiSelectorItem,
 } from "@/components/multiselect";
-import { IoCloudUploadSharp } from "react-icons/io5";
 
 const formSchema = z.object({
   categories: z
@@ -50,24 +39,6 @@ const formSchema = z.object({
   title: z.string().nonempty("Title required"),
 });
 
-async function getTags() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tags?func=true`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
-}
-
-async function getCategories() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/categories?func=true`,
-    {
-      cache: "no-store",
-    }
-  );
-  const data = await res.json();
-  return data;
-}
 
 const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -81,12 +52,12 @@ const Page = () => {
 
   const { data: tag } = useQuery({
     queryKey: ["tag"],
-    queryFn: getTags,
+    queryFn: () => Api.get(`/tags?func=true`).then((res) => res?.data?.data),
   });
 
   const { data: category } = useQuery({
     queryKey: ["category"],
-    queryFn: getCategories,
+    queryFn: (() => Api.get(`/categories?func=true`).then((res) => res?.data?.data)),
   });
 
   const [files, setFiles] = useState<File[]>();
@@ -103,7 +74,7 @@ const Page = () => {
     onSuccess: (data: any) => {
       console.log(data);
       toast.success(data.message);
-        window.location.replace("/");
+      window.location.replace("/");
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
@@ -116,20 +87,12 @@ const Page = () => {
     formData.append("title", data.title);
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("content", value);
-    //@ts-ignore
-    formData.append("image", files[0]);
 
     mutate(formData);
   };
 
-  const dropZoneConfig = {
-    maxFiles: 1,
-    maxSize: 1024 * 1024 * 4,
-    multiple: true,
-  };
-
   return (
-    <div className="p-4 sm:ml-64">
+    <div className="p-4 sm:ml-64 mt-16">
       <div>
         {/* <h1 className="text-white text-2xl font-bold px-8 my-8 text-center ">Add Blog</h1> */}
         <Form {...form}>
@@ -230,40 +193,6 @@ const Page = () => {
                   </FormItem>
                 )}
               />
-
-              <div className="mt-8 w-full">
-                <FileUploader
-                  //@ts-ignore
-                  value={files}
-                  //@ts-ignore
-                  onValueChange={setFiles}
-                  dropzoneOptions={dropZoneConfig}
-                  className="relative  rounded-lg p-2"
-                >
-                  <FileInput className="outline-double outline-1 outline-gray-400">
-                    <div className="flex items-center justify-center flex-col pt-3 pb-4 w-full ">
-                      <IoCloudUploadSharp size={40} className="text-gray-400" />
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Click to upload</span>
-                        &nbsp; or drag and drop
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        SVG, PNG, JPG or GIF
-                      </p>
-                    </div>
-                  </FileInput>
-                  <FileUploaderContent>
-                    {files &&
-                      files.length > 0 &&
-                      files.map((file: File, i: number) => (
-                        <FileUploaderItem key={i} index={i}>
-                          <Paperclip className="h-4 w-4 stroke-current" />
-                          <span>{file.name}</span>
-                        </FileUploaderItem>
-                      ))}
-                  </FileUploaderContent>
-                </FileUploader>
-              </div>
 
               <Button
                 type="submit"
