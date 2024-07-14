@@ -7,24 +7,27 @@ import { FaBlog } from "react-icons/fa6";
 import { HiCreditCard } from "react-icons/hi2";
 import { AiOutlineEye } from "react-icons/ai";
 import { Badges } from "@/components/dashboard/Badges";
-// import { useQuery } from "@tanstack/react-query";
-// import { Api } from "@/lib";
+import { useQuery } from "@tanstack/react-query";
+import { Api } from "@/lib";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Loader } from "@/components/Loader";
+import Avatar from "react-avatar";
 
 
 
 export default function Dashboard() {
 
-  // const { data: profile, isLoading } = useQuery({
-  //   queryKey: ["Auth"],
-  //   queryFn: () => Api.get(`/auth/profile`).then((res) => res?.data?.data),
-  //   refetchOnMount: false,
-  //   refetchOnWindowFocus: false,
-  //   staleTime: Infinity,
-  // });
+  const { data: profile, isLoading } = useQuery({
+    queryKey: ["Auth"],
+    queryFn: () => Api.get(`/auth/profile`).then((res) => res?.data?.data),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
+  console.log(profile)
 
-  // if (isLoading) return <div><Loader /></div>;
+  if (isLoading) return <div className="flex items-center justify-center mt-24 min-h-screen"><Loader /></div>;
 
 
   return (
@@ -34,21 +37,20 @@ export default function Dashboard() {
           <div className="flex items-center justify-between space-x-4">
 
           <div className="flex items-center justify-start space-x-4">
-            <Image
-              src="/abstract-6047465_1920.jpg"
-              alt="abstract-6047465_1920.jpg"
-              width={1920}
-              height={1080}
-              className="rounded-full w-24 h-24 sm:w-32 sm:h-32 mr-4"
-            />
+          <Avatar
+                name={profile?.user?.name}
+                src={profile?.user?.avatar?.url}
+                size="80"
+                round
+              />
             <div className="flex flex-col justify-center items-start gap-2">
               <p className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
                 {" "}
-                @JohnDoe
+                {profile?.user?.name}
               </p>
               <p className="text-lg font-medium text-gray-900 dark:text-white">
                 {" "}
-                John Doe{" "}
+                {profile?.user?.role}
               </p>
             </div>
           </div>
@@ -79,7 +81,7 @@ export default function Dashboard() {
               <div className=" p-2 bg-blue-500 rounded-lg shadow-md px-4 w-[24rem] flex flex-row justify-between items-center">
                 <p className="text-white text-lg font-bold py-2">
                   {" "}
-                  50 Total Creadits
+                  {profile?.user?.credit} Total Creadits
                 </p>
                 <HiCreditCard className="text-white  text-2xl" />
               </div>

@@ -47,7 +47,7 @@ import "react-quill/dist/quill.snow.css";
       value={value}
       onChange={onChange}
       className={`w-full ${className}`}
-      style={{ height: "40vh" }}
+    
     />
     
   );

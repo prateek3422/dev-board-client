@@ -13,10 +13,10 @@ import { Separator } from "@/components/ui/separator";
 import { useAuthStore } from "@/store";
 import { Toggle } from "@/components/ui/toggle";
 import { BiSolidLike } from "react-icons/bi";
+import { AnswerModal } from "@/components/main/modal/AnswerModal";
 
 export default function Page({ params }: { params: { slug: any } }) {
   const { slug } = params;
-  const auth = useAuthStore((state) => state.auth);
 
   const { data: BlogData, isLoading } = useQuery({
     queryKey: ["question", slug],
@@ -27,32 +27,13 @@ export default function Page({ params }: { params: { slug: any } }) {
     staleTime: Infinity,
   });
 
-  const [value, setValue] = React.useState("");
-
-  const { mutate, isPending } = useMutation({
-    mutationKey: ["AskAnswer", slug],
-    mutationFn: (data: any) =>
-      Api.post(`qas/${slug}/answers`, { answer: data }).then((res) => res.data),
-    onSuccess: (data: any) => {
-      console.log(data);
-      toast.success(data.message);
-    },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || error?.message);
-    },
-  });
-
   if (isLoading)
     return (
-      <div className="flex flex-col items-center justify-center mt-24">
+      <div className="flex flex-col items-center justify-center mt-24 min-h-screen">
         <Loader />
       </div>
     );
 
-  const handleSubmit = () => {
-    mutate(value);
-    setValue("");
-  };
   return (
     <>
       <section>
@@ -63,8 +44,8 @@ export default function Page({ params }: { params: { slug: any } }) {
             <h3>{BlogData?.createdAt.slice(0, 10)}</h3>
           </div>
         </div>
+        <Separator className="my-4 w-[80vw] text-center" />
         <div className="flex flex-col justify-center items-center">
-          <Separator className="my-4 w-[80vw]" />
           <div>
             <div className="w-full py-2 px-4 m   flex flex-col gap-4 justify-center items-center">
               <h2 className=" mt-4  max-w-[80vw]">
@@ -81,60 +62,41 @@ export default function Page({ params }: { params: { slug: any } }) {
                   {tag.name}
                 </div>
               ))}
-            <Toggle className="bg-[#101010] text-white text-xs px-2 py-1 rounded-lg w-12 text-cener mt-4  "  aria-activedescendant="#FE0000"><BiSolidLike /></Toggle>
+              <Toggle
+                className="bg-[#101010] text-white text-xs px-2 py-1 rounded-lg w-12 text-cener mt-4  "
+                aria-activedescendant="#FE0000"
+              >
+                <BiSolidLike />
+              </Toggle>
             </div>
-
           </div>
+          <Separator className="my-8 w-[80vw]" />
 
-          <Separator className="my-4 w-[80vw]" />
-
-          <div>
-            <div className="w-full py-2 px-4 m   flex flex-col gap-4 justify-center items-center">
+          <div className=" ">
+            <div className="w-full py-2 px-4  flex flex-col  ">
+              <div className="mb-2 px-4 py-2 ">
+                <h1>{BlogData?.answers?.length} answers</h1>
+              </div>
               {BlogData?.answers?.map((answer: any) => (
                 <div
                   key={answer._id}
-                  className="w-full py-2 px-4 m   flex flex-col gap-4 justify-center items-center"
+                  className="w-full py-2 px-4flex flex-col items-center"
                 >
-                  <h2 className=" mt-4  max-w-[80vw]">
-                    {parse(answer.answer)}
-                  </h2>
-                  <div className="flex flex-row items-center gap-8">
-                    <h3>Asked by: {answer.author.name}</h3>
-                    {/* <h3>{answer.createdAt.slice(0, 10)}</h3> */}
+                  <div className="border-2  hover:bg-gray-800 border-[#5c5c5c] px-4 py-2  rounded-lg ">
+                    <h2 className=" mt-4  max-w-[80vw] ">
+                      {parse(answer.answer)}
+                    </h2>
+                    <div className="flex flex-row items-center gap-8">
+                      <h3>Asked by: {answer.author.name}</h3>
+                      {/* <h3>{answer.createdAt.slice(0, 10)}</h3> */}
+                    </div>
                   </div>
-
-                  <Separator className="my-4" />
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="border-2 bg-red-600 border-[redx-8]  "></div>
-
-          <div className="w-full py-2 px-4 flex flex-col gap-4 justify-center items-center">
-            <Editor
-              className="w-full py-2 px-4  max-w-[80vw] mt-4"
-              disabled={true}
-              value={value}
-              onChange={setValue}
-            />
-            {auth.isAuth ? (
-              <Link href="/Ask">
-                <Button
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg mx-auto mt-16"
-                  onClick={handleSubmit}
-                >
-                  Post your answer
-                </Button>
-              </Link>
-            ) : (
-              <Button
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg mx-auto mt-16"
-                disabled
-              >
-                Post your answer
-              </Button>
-            )}
+            <div className="my-8 px-4 ">
+              <AnswerModal slug={slug} />
+            </div>
           </div>
         </div>
       </section>
