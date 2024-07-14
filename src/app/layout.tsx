@@ -13,7 +13,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="favicon.ico" sizes="any" />
       </head>
-      <body className="bg-gray-950 min-h-screen inter">
+      <body className="bg-gray-950  inter">
          <ThemeProvider
             attribute="class"
             defaultTheme="system"

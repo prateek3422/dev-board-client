@@ -40,6 +40,7 @@ const formSchema = z.object({
 });
 
 
+
 const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,25 +53,22 @@ const Page = () => {
 
   const { data: tag } = useQuery({
     queryKey: ["tag"],
-    queryFn: () => Api.get(`/tags?func=true`).then((res) => res?.data?.data),
+    queryFn: () => Api.get(`/tags?func=true`).then((res) => res?.data),
   });
 
+  console.log(tag)
   const { data: category } = useQuery({
     queryKey: ["category"],
-    queryFn: (() => Api.get(`/categories?func=true`).then((res) => res?.data?.data)),
+    queryFn: (() => Api.get(`/categories?func=true`).then((res) => res?.data)),
   });
 
   const [files, setFiles] = useState<File[]>();
   const [value, setValue] = React.useState("");
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ["createBlog"],
+    mutationKey: ["AskQuestion"],
     mutationFn: (data: any) =>
-      Api.post("/blogs", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }).then((res) => res.data),
+      Api.post("/qas", data).then((res) => res.data),
     onSuccess: (data: any) => {
       console.log(data);
       toast.success(data.message);
@@ -86,13 +84,12 @@ const Page = () => {
     formData.append("categories", JSON.stringify(data.categories));
     formData.append("title", data.title);
     formData.append("tags", JSON.stringify(data.tags));
-    formData.append("content", value);
-
+    formData.append("question", value);
     mutate(formData);
   };
 
   return (
-    <div className="p-4 sm:ml-64 mt-16">
+    <div className="mt-24 px-4">
       <div>
         {/* <h1 className="text-white text-2xl font-bold px-8 my-8 text-center ">Add Blog</h1> */}
         <Form {...form}>
@@ -119,7 +116,7 @@ const Page = () => {
                   </FormItem>
                 )}
               />
-              <div className="mt-8 px-4 h-[40vh]  ">
+              <div className="mt-8 px-4   ">
                 <Editor value={value} onChange={setValue} />
               </div>
             </div>

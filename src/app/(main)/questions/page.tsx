@@ -4,6 +4,7 @@ import { BlogModal } from "@/components/dashboard/modal/BlogModal";
 import { SearchBar } from "@/components/main/SearchBar";
 import { Button } from "@/components/ui/button";
 import { Api } from "@/lib";
+import { useAuthStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +12,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Questions() {
+   const auth = useAuthStore((state) => state.auth);
   const [search, setSearch] = useState("");
 
   const { data: questions } = useQuery({
@@ -95,12 +97,16 @@ export default function Questions() {
           </div>
 
           <div className="border-2  flex flex-col items-center ">
-            
-            <Link href="/Ask">
+            {
+              auth.isAuth ? 
+              <Link href="/Ask">
             <Button className="mt-10 bg-[#3B82F6] hover:bg-blue-700 text-white">
               Add Question
             </Button>
-            </Link>
+            </Link>:<Button className="mt-10 bg-[#3B82F6] hover:bg-blue-700 text-white" disabled>
+              Add Question
+            </Button>
+            }
 
             <div className="border-2  mt-8 flex flex-row items-center justify-center ">
               {tag?.data?.tags?.map((item: any) => (
