@@ -1,12 +1,35 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["res.cloudinary.com", "images.unsplash.com","img.freepik.com","flowbite.s3.amazonaws.com"],
-
-
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "flowbite.s3.amazonaws.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/**",
+      },
+    ],
   },
-    reactStrictMode: true,
-  
+  reactStrictMode: true,
 };
 
 export default nextConfig;
