@@ -3,7 +3,7 @@ import Image from "next/image";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
 import { FaQuoteLeft } from "react-icons/fa6";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Api } from "@/lib";
+import { Api, queryClient } from "@/lib";
 import parse from "html-react-parser";
 import ReactQuill from "react-quill";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,7 @@ import { stat } from "fs";
 import Avatar from "react-avatar";
 import Blogs from "../page";
 import { CommentSheet } from "@/components/main/modal/CommentSheet";
+import toast from "react-hot-toast";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const auth = useAuthStore((state) => state.auth);
@@ -34,7 +35,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     staleTime: Infinity,
   });
 
-  console.log(BlogData);
+  
 
   const { data: Author } = useQuery({
     queryKey: ["author", BlogData?.author?._id],
@@ -46,8 +47,23 @@ export default function Page({ params }: { params: { slug: string } }) {
     staleTime: Infinity,
   });
 
-  console.log(Author);
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["BlogLike"],
+    mutationFn: () =>
+      Api.post(`/blogs/${BlogData?._id}/like`, {}).then((res) => res.data),
+    onSuccess: (data: any) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["blogs", slug] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || error?.message);
+    },
+  });
   
+  const handleLike = () => {
+    mutate();
+  }
 
  
 
@@ -241,7 +257,8 @@ export default function Page({ params }: { params: { slug: string } }) {
                       <button
                         type="button"
                         className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-                      >
+                      onClick={() => mutate()}
+                     >
                         <svg
                           className="flex-shrink-0 size-4"
                           xmlns="http://www.w3.org/2000/svg"
