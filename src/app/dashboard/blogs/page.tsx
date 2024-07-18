@@ -43,7 +43,7 @@ export default function Page() {
   
  
   const { data, isLoading } = useQuery({
-    queryKey: ["Auth"],
+    queryKey: ["blogs"],
     queryFn: () =>
       Api.get(`/blogs/author?func=true`).then((res) => res?.data?.data),
     refetchOnMount: false,

@@ -35,7 +35,7 @@ export function Navbar() {
         <Link className="hover-animate-wiggle" href="/questions">
         <Button variant="ghost" className="hover:bg-white hover:text-black" >Questions</Button>
         </Link>
-        <Link className="hover-animate-wiggle" href="/services">
+        <Link className="hover-animate-wiggle" href="/leaderboard">
         <Button variant="ghost" className="hover:bg-white hover:text-black">Leaderbord</Button>
         </Link>
       </nav>
@@ -51,7 +51,7 @@ export function Navbar() {
           <Link href="/">Home</Link>
           <Link href="/blogs">Blogs</Link>
           <Link href="/questions">Questions</Link>
-          <Link href="/services">Services</Link>
+          <Link href="/leaderboard">Leaderboard</Link>
         </div>
       </nav>
 

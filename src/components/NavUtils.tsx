@@ -25,7 +25,7 @@ function NavUtils() {
   const auth = useAuthStore((state) => state.auth);
   const storeSignOut = useAuthStore((state) => state.signOut);
 
-  console.log(auth.user.avatar.url);
+ 
   const { mutate } = useMutation({
     mutationFn: () => Api.post("/auth/signout").then((res) => res.data),
     onSuccess: (data: any) => {
@@ -64,7 +64,7 @@ function NavUtils() {
       {auth.isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="bg-transparent hover:bg-transparent ">
+            <button className="bg-transparent hover:bg-transparent mr-8 ">
               <Avatar
                 name={auth?.user?.name}
                 src={auth?.user?.avatar?.url}
@@ -73,7 +73,7 @@ function NavUtils() {
               />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 pr-8">
+          <DropdownMenuContent className="w-56 ">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>

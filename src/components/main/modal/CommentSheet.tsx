@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,14 +29,17 @@ import { GetComments } from "../GetComments";
 export function CommentSheet({
   blogId,
   comment,
+  auth
 }: {
   blogId: string;
   comment: any;
+  auth: any;
 }) {
-  const [value, setValue] = useState("");
+  const [comments, setComment] = useState("");
 
   const { mutate: addComment } = useMutation({
-    mutationFn: () => Api.post(`/blogs/${blogId}/comments`, { comment: value }),
+    
+    mutationFn: () => Api.post(`/blogs/${blogId}/comments`,  comments),
     onSuccess: (data) => {
       toast.success("Comment Added Successfully");
     },
@@ -44,13 +48,15 @@ export function CommentSheet({
       toast.error("Error Adding Comment");
     },
   });
-
+  console.log(comment);
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button
           className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-          variant="ghost"
+         //@ts-ignore
+          variant="none"
+          disabled={!auth.isAuth}
         >
           <FaRegComment />
           <TooltipProvider>
@@ -75,9 +81,9 @@ export function CommentSheet({
             <textarea
               className="py-3 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm focus:border-blue-500 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600"
               rows={3}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              placeholder="This is a textarea placeholder"
+              value={comments}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Add a comment"
             ></textarea>
           </div>
         </div>
@@ -86,14 +92,14 @@ export function CommentSheet({
             type="submit"
             onClick={() => {
               addComment();
-              setValue("");
+              setComment("");
             }}
           >
             comment
           </Button>
         </SheetFooter>
 
-        <div className="flex flex-col">
+        <div className="flex items-center justify-center">
           <GetComments blogId={blogId} />
         </div>
       </SheetContent>
