@@ -20,15 +20,24 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-export function SearchBar({
-  search,
-  setSearch,
-}: {
-  search: string;
-  setSearch: any;
-}) {
+import { Api, queryClient } from "@/lib";
+import { useQuery } from "@tanstack/react-query";
+export function SearchBar() {
   const [open, setOpen] = React.useState(false);
+  const [Search, setSearch] = useState<string>("");
 
+  const { data, isSuccess } = useQuery({
+    queryKey: ["blog"],
+    queryFn: () =>
+      Api.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/blogs?func=true&q=${Search}&limit=10&page=1&tags=&cats=&sort=`
+      ).then((res) => res?.data?.data),
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    
+  });
+
+  isSuccess && queryClient.invalidateQueries({ queryKey: ["blog"] });
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -39,6 +48,7 @@ export function SearchBar({
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
 
   return (
     <>
@@ -70,7 +80,8 @@ export function SearchBar({
               className="relative py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-700 dark:border-slate-700 dark:text-neutral-400 dark:placeholder-neutral-500 "
               type="text"
               placeholder="Type a command or search..."
-              value=""
+              value={Search}
+              onChange={(e) => setSearch(e.target.value)}
               data-hs-combo-box-input=""
             />
             <CommandShortcut className="absolute top-4 right-2  ">
@@ -86,9 +97,17 @@ export function SearchBar({
         <CommandList  >
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup className="" heading="Suggestions">
-            <CommandItem>Calendar</CommandItem>
-            <CommandItem>Search Emoji</CommandItem>
-            <CommandItem>Calculator</CommandItem>
+            {data?.blogs.map((item: any) => (
+              <CommandItem
+                key={item._id}
+                onSelect={() => {
+                  setSearch(item.title);
+                }}
+              >
+                {item.title}
+              </CommandItem>
+            ))}
+            {/* <CommandItem>Calculator</CommandItem> */}
           </CommandGroup>
         </CommandList>
       </CommandDialog>

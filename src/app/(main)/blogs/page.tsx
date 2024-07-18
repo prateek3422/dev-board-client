@@ -13,8 +13,8 @@ import parse from "html-react-parser"
 
 
 export default function Blogs() {
-  const [Search, setSearch] = useState<string>("");
-  console.log(Search);
+  
+  
 
   const { data } = useQuery({
     queryKey: ["blog"],
@@ -22,7 +22,6 @@ export default function Blogs() {
       Api.get(
         `${process.env.NEXT_PUBLIC_API_URL}/blogs?func=true&q=${Search}&limit=10&page=1&tags=&cats=&sort=`
       ).then((res) => res?.data?.data),
-    refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
@@ -31,7 +30,7 @@ export default function Blogs() {
   return (
     <div className="mt-[88px] ">
       <header className="flex justify-center items-center ">
-        <SearchBar search={Search} setSearch={setSearch} />
+        <SearchBar/>
       </header>
 
       {/* <section className=" grid sm:grid-cols-2 md:grid-cols-3 mt-16 max-w-screen-3xl mx-auto gap-8 px-12">
