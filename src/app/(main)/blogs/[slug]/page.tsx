@@ -35,7 +35,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     queryKey: ["blog", slug],
     queryFn: () => Api.get(`/blogs/${slug}`).then((res) => res?.data?.data),
     enabled: !!slug,
-    refetchOnMount: false,
+    // refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
@@ -58,8 +58,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       Api.post(`/blogs/${BlogData?._id}/like`, {}).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["blogs", slug]});
-      queryClient.invalidateQueries({ queryKey: ["Author", BlogData?.author?._id]});
+      queryClient.invalidateQueries({ queryKey: ["blog", slug] });
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
