@@ -18,7 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Api } from "@/lib";
+import { Api, queryClient } from "@/lib";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -35,20 +35,22 @@ export function CommentSheet({
   comment: any;
   auth: any;
 }) {
-  const [comments, setComment] = useState("");
+  const [value, setValue] = useState("");
 
   const { mutate: addComment } = useMutation({
     
-    mutationFn: () => Api.post(`/blogs/${blogId}/comments`,  comments),
+    mutationFn: () => Api.post(`/blogs/${blogId}/comments`, { comment: value }),
     onSuccess: (data) => {
+      setValue("");
       toast.success("Comment Added Successfully");
+      queryClient.invalidateQueries({ queryKey: ["comment", blogId] });
     },
     onError: (error) => {
       console.log(error);
       toast.error("Error Adding Comment");
     },
   });
-  console.log(comment);
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -81,8 +83,8 @@ export function CommentSheet({
             <textarea
               className="py-3 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm focus:border-blue-500 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600"
               rows={3}
-              value={comments}
-              onChange={(e) => setComment(e.target.value)}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
               placeholder="Add a comment"
             ></textarea>
           </div>
@@ -92,7 +94,6 @@ export function CommentSheet({
             type="submit"
             onClick={() => {
               addComment();
-              setComment("");
             }}
           >
             comment
