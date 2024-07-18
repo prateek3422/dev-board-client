@@ -1,6 +1,7 @@
 "use client";
 
 import { BlogModal } from "@/components/dashboard/modal/BlogModal";
+import { QuestionSearchBar } from "@/components/main/QuestionSearch";
 import { SearchBar } from "@/components/main/SearchBar";
 import { Button } from "@/components/ui/button";
 import { Api } from "@/lib";
@@ -13,12 +14,10 @@ import { useState } from "react";
 
 export default function Questions() {
    const auth = useAuthStore((state) => state.auth);
-  const [search, setSearch] = useState("");
-
   const { data: questions } = useQuery({
     queryKey: ["question"],
     queryFn: () => Api.get(`/qas`).then((res) => res.data?.data?.questions),
-    refetchOnMount: false,
+
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
@@ -60,7 +59,7 @@ export default function Questions() {
 
       <main>
         <div className="search  rounded-lg shadow-lg px-8 py-4 flex flex-row items-center justify-center">
-          <SearchBar search={search} setSearch={setSearch} />
+          <QuestionSearchBar/>
         </div>
 
         <div className="px-4 py-2 grid gap-4 mt-4 md:grid-cols-[70vw_minmax(20vw,_1fr)]">
