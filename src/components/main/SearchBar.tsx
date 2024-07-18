@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/command";
 import { Api, queryClient } from "@/lib";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 export function SearchBar() {
   const [open, setOpen] = React.useState(false);
   const [Search, setSearch] = useState<string>("");
@@ -81,7 +82,7 @@ export function SearchBar() {
               type="text"
               placeholder="Type a command or search..."
               value={Search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) =>  setSearch(e.target.value)}
               data-hs-combo-box-input=""
             />
             <CommandShortcut className="absolute top-4 right-2  ">
@@ -98,14 +99,18 @@ export function SearchBar() {
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup className="" heading="Suggestions">
             {data?.blogs.map((item: any) => (
+              <Link key={item._id} href={`/blogs/${item.slug}`}>
+
               <CommandItem
-                key={item._id}
                 onSelect={() => {
                   setSearch(item.title);
                 }}
-              >
+                >
+                
                 {item.title}
+               
               </CommandItem>
+                </Link>
             ))}
             {/* <CommandItem>Calculator</CommandItem> */}
           </CommandGroup>
