@@ -1,5 +1,9 @@
+'use client';
+import { Api } from "@/lib";
+import { useQuery } from "@tanstack/react-query";
 import { Itim } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 import React, { use } from "react";
 
 const Questions = [
@@ -38,6 +42,16 @@ const itim = Itim({
   display: "swap",
 });
 export function TopQuestions() {
+
+  const { data: questions } = useQuery({
+    queryKey: ["question"],
+    queryFn: () => Api.get(`/qas`).then((res) => res.data?.data?.questions),
+
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
+
+
   return (
     <div>
       <div className="flex flex-col gap-4 p-4">
@@ -46,9 +60,10 @@ export function TopQuestions() {
         </h3>
 
         <div className=" grid sm:grid-cols-2 md:grid-cols-3  mx-auto gap-4 max-w-screen-2xl md:p-4 lg:p-8 ">
-          {Questions.map((item) => {
+          {questions.map((item:any) => {
             return (
-              <div
+              <Link
+                href={`/questions/${item._id}`}
                 key={item.id}
                 className="flex flex-col  gap-2 bg-[#3B82F6] rounded-xl p-2 md:p-4"
               >
@@ -69,9 +84,9 @@ export function TopQuestions() {
                   <div>{/* //display time */}</div>
                 </div>
                 <div>
-                  <p>{item.question}</p>
+                  <p>{item.title}</p>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

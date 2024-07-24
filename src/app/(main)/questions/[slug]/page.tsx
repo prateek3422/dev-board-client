@@ -14,10 +14,11 @@ import { useAuthStore } from "@/store";
 import { Toggle } from "@/components/ui/toggle";
 import { BiSolidLike } from "react-icons/bi";
 import { AnswerModal } from "@/components/main/modal/AnswerModal";
+import { format } from "timeago.js";
 
 export default function Page({ params }: { params: { slug: any } }) {
   const { slug } = params;
-
+  const auth = useAuthStore((state) => state.auth);
   const { data: BlogData, isLoading } = useQuery({
     queryKey: ["question", slug],
     queryFn: () => Api.get(`/qas/${slug}`).then((res) => res?.data?.data),
@@ -36,24 +37,43 @@ export default function Page({ params }: { params: { slug: any } }) {
 
   return (
     <>
-      <section>
-        <div className="px-10 py-2 flex  flex-col mt-20 gap-2 items-center justify-center">
-          <h1 className="text-3xl font-bold">{BlogData?.title}</h1>
-          <div className="flex flex-row items-center gap-8">
-            <h3>Asked by: {BlogData?.author.name}</h3>
-            <h3>{BlogData?.createdAt.slice(0, 10)}</h3>
+      <section className="max-w-4xl px-4 mt-20 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
+        <div className=" flex  items-center justify-between">
+          <div className=" py-2 flex  flex-col  gap-2 items-start justify-center">
+            <h1 className="text-3xl font-bold">{BlogData?.title}</h1>
+            <div className="flex flex-row items-center gap-8">
+              <h3>Asked {format(BlogData?.createdAt.slice(0, 10))}</h3>
+              <h3>Answer {BlogData?.answers?.length}</h3>
+            </div>
+          </div>
+
+          <div>
+            {auth.isAuth ? (
+              <Link href="/Ask">
+                <Button className="mt-4 bg-[#4926b0] hover:bg-[#3000b6] text-white">
+                  Add Question
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                className="mt-4 bg-[#4926b0] hover:bg-[#3000b6] text-white"
+                disabled
+              >
+                Add Question
+              </Button>
+            )}
           </div>
         </div>
-        <Separator className="my-4 w-[80vw] text-center" />
+        <Separator className="my-4 text-center" />
         <div className="flex flex-col justify-center items-center">
           <div>
             <div className="w-full py-2 px-4 m   flex flex-col gap-4 justify-center items-center">
-              <h2 className=" mt-4  max-w-[80vw]">
+              <h2 className=" mt-4  ">
                 {parse(BlogData?.question)}
               </h2>
             </div>
 
-            <div className="flex flex-row items-center gap-8">
+            <div className="flex flex-row items-center gap-8 px-4 ">
               {BlogData?.tags?.map((tag: any) => (
                 <div
                   className="bg-[#3B82F6] text-white text-xs px-2 py-1 rounded-lg w-12 text-cener mt-4 "
@@ -70,7 +90,7 @@ export default function Page({ params }: { params: { slug: any } }) {
               </Toggle>
             </div>
           </div>
-          <Separator className="my-8 w-[80vw]" />
+          <Separator className="my-8 " />
 
           <div className=" ">
             <div className="w-full py-2 px-4  flex flex-col  ">
@@ -88,7 +108,6 @@ export default function Page({ params }: { params: { slug: any } }) {
                     </h2>
                     <div className="flex flex-row items-center gap-8">
                       <h3>Asked by: {answer.author.name}</h3>
-                      {/* <h3>{answer.createdAt.slice(0, 10)}</h3> */}
                     </div>
                   </div>
                 </div>

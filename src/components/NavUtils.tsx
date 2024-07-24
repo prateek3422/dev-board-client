@@ -64,7 +64,7 @@ function NavUtils() {
       {auth.isAuth ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="bg-transparent hover:bg-transparent mr-8 ">
+            <button className="bg-transparent hover:bg-transparent  ">
               <Avatar
                 name={auth?.user?.name}
                 src={auth?.user?.avatar?.url}
@@ -95,7 +95,7 @@ function NavUtils() {
         </DropdownMenu>
       ) : (
         <Link href="/auth/signin">
-          <Button className=" bg-[#3B82F6] hover:bg-blue-700 text-white">
+          <Button className=" bg-[#4926b0] hover:bg-[#3000b6] text-white">
             Sign In
           </Button>
         </Link>

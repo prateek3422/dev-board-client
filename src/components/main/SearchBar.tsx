@@ -3,14 +3,6 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
 import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react";
-import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -38,17 +30,17 @@ export function SearchBar() {
     
   });
 
-  isSuccess && queryClient.invalidateQueries({ queryKey: ["blog"] });
-  React.useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen((open) => !open);
-      }
-    };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
+  // isSuccess && queryClient.invalidateQueries({ queryKey: ["blog"] });
+  // React.useEffect(() => {
+  //   const down = (e: KeyboardEvent) => {
+  //     if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+  //       e.preventDefault();
+  //       setOpen((open) => !open);
+  //     }
+  //   };
+  //   document.addEventListener("keydown", down);
+  //   return () => document.removeEventListener("keydown", down);
+  // }, []);
 
 
   return (
@@ -68,9 +60,9 @@ export function SearchBar() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                 strokeLinejoin="round"
               >
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.3-4.3"></path>
@@ -94,7 +86,7 @@ export function SearchBar() {
       </div>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput className="" placeholder="Type a command or search..." />
+        <CommandInput className="" placeholder=" search..." />
         <CommandList  >
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup className="" heading="Suggestions">

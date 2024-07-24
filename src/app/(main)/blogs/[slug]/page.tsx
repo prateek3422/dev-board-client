@@ -10,7 +10,6 @@ import parse from "html-react-parser";
 import ReactQuill from "react-quill";
 import { Button } from "@/components/ui/button";
 import { CommentsModal, GetComments, Loader } from "@/components";
-
 import Link from "next/link";
 import {
   Tooltip,
@@ -226,14 +225,14 @@ export default function Page({ params }: { params: { slug: string } }) {
                   round={true}
                 />
 
-                <a className="group grow block" href="">
+                <Link   href={`/AuthorBlog/${BlogData?.author?._id}`} className="group grow block">
                   <h5 className="group-hover:text-gray-600 text-sm font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                     {BlogData?.author?.name}
                   </h5>
                   <p className="text-sm text-gray-500 dark:text-neutral-500">
                     {BlogData?.author?.email}
                   </p>
-                </a>
+                </Link>
 
                 <div className="grow">
                   <div className="flex justify-end">

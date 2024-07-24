@@ -19,10 +19,7 @@ export function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
         />
         <Link href="/" className="cursor-pointer mx-3 ">
-          <span className=" rounded-md p-0 text-blue-600 text-2xl font-bold ltim">
-            Dev
-          </span>
-          <span className="font-semibold text-2xl ltim">Board</span>
+        <img src="/logo1.svg" alt="logo" className="w-48" />
         </Link>
       </div>
       <nav className="hidden md:flex md:space-x-5 font-roboto font-medium">

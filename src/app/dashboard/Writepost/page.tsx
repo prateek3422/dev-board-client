@@ -101,7 +101,7 @@ const Page = () => {
         },
       }).then((res) => res.data),
     onSuccess: (data: any) => {
-      console.log(data);
+
       toast.success(data.message);
         window.location.replace("/");
     },

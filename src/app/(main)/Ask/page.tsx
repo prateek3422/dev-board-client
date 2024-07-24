@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 const Editor = dynamic(() => import("../../../components/Editor"), {
   ssr: false,
-})
+});
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -32,20 +32,14 @@ import {
 } from "@/components/multiselect";
 
 const formSchema = z.object({
-  categories: z
-    .array(z.string())
-    .nonempty("Please select at least one category"),
   tags: z.array(z.string()).nonempty("Please select at least one tag"),
   title: z.string().nonempty("Title required"),
 });
-
-
 
 const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      categories: [],
       tags: [],
       title: "",
     },
@@ -56,21 +50,15 @@ const Page = () => {
     queryFn: () => Api.get(`/tags?func=true`).then((res) => res?.data),
   });
 
-  console.log(tag)
-  const { data: category } = useQuery({
-    queryKey: ["category"],
-    queryFn: (() => Api.get(`/categories?func=true`).then((res) => res?.data)),
-  });
-
-  const [files, setFiles] = useState<File[]>();
   const [value, setValue] = React.useState("");
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["AskQuestion"],
-    mutationFn: (data: any) =>
-      Api.post("/qas", data).then((res) => res.data),
-    onSuccess: (data: any) => {
+    mutationFn: (data: any) => {
       console.log(data);
+      return Api.post("/qas", data).then((res) => res.data);
+    },
+    onSuccess: (data: any) => {
       toast.success(data.message);
       window.location.replace("/");
     },
@@ -81,17 +69,16 @@ const Page = () => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const formData = new FormData();
-    formData.append("categories", JSON.stringify(data.categories));
     formData.append("title", data.title);
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("question", value);
+    console.log(formData);
     mutate(formData);
   };
 
   return (
     <div className="mt-24 px-4">
       <div>
-        {/* <h1 className="text-white text-2xl font-bold px-8 my-8 text-center ">Add Blog</h1> */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -122,40 +109,6 @@ const Page = () => {
             </div>
 
             <div className=" lg:w-1/3 lg:px-2 flex flex-col items-center justify-center sm:w-full sm:px-2">
-              <FormField
-                control={form.control}
-                name="categories"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col items-center justify-center gap-2 px-4 w-full">
-                    <FormLabel className="text-white"></FormLabel>
-                    <FormControl>
-                      <MultiSelector
-                        onValuesChange={field.onChange}
-                        values={field.value}
-                      >
-                        <MultiSelectorTrigger>
-                          <MultiSelectorInput placeholder="Select categories" />
-                        </MultiSelectorTrigger>
-                        <MultiSelectorContent>
-                          <MultiSelectorList>
-                            {category?.data?.categories.map((item: any) => (
-                              <MultiSelectorItem
-                                key={item._id}
-                                value={item._id}
-                              >
-                                <div className="flex items-center space-x-2">
-                                  <span>{item.name}</span>
-                                </div>
-                              </MultiSelectorItem>
-                            ))}
-                          </MultiSelectorList>
-                        </MultiSelectorContent>
-                      </MultiSelector>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="tags"
@@ -196,7 +149,7 @@ const Page = () => {
                 className="mt-4   bg-[#3B82F6] hover:bg-blue-700 text-white w-[96%] "
                 disabled={isPending}
               >
-                Create Blog
+                Ask Question
               </Button>
             </div>
           </form>

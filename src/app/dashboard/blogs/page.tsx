@@ -203,11 +203,7 @@ export default function Page() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <BlogModal
-                  buttonName="Update Blog"
-                  TitleName="Update Blog"
-                  blogId={blog._id}
-                />
+                update blog
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => deleteBlog(blog._id)}>
                 delete blog

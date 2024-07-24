@@ -37,7 +37,7 @@ export default function Home() {
           </p>
 
           <Link href="/blogs">
-            <Button className="mt-10 bg-[#3B82F6] hover:bg-blue-700 text-white">
+            <Button className="mt-10 bg-[#4926b0] hover:bg-[#3000b6] text-white">
               Get Started
             </Button>
           </Link>
@@ -49,10 +49,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative w-full h-full mt-16  ">
-        <TrandingPost />
-      </div>
-      <TopQuestions />
+      {/* <div className="relative w-full h-full mt-16  "> */}
+        {/* <TrandingPost /> */}
+      {/* </div> */}
+      {/* <TopQuestions /> */}
     </>
   );
 }

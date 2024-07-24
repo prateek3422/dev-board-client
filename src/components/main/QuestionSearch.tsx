@@ -37,17 +37,17 @@ export function QuestionSearchBar() {
   console.log(data)
 
 
-  isSuccess && queryClient.invalidateQueries({ queryKey: ["question"] });
-  React.useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen((open) => !open);
-      }
-    };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
+  // isSuccess && queryClient.invalidateQueries({ queryKey: ["question"] });
+  // React.useEffect(() => {
+  //   const down = (e: KeyboardEvent) => {
+  //     if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+  //       e.preventDefault();
+  //       setOpen((open) => !open);
+  //     }
+  //   };
+  //   document.addEventListener("keydown", down);
+  //   return () => document.removeEventListener("keydown", down);
+  // }, []);
 
 
   return (
@@ -93,7 +93,7 @@ export function QuestionSearchBar() {
       </div>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput className="" placeholder="Type a command or search..." />
+        <CommandInput className="" placeholder="search..." />
         <CommandList  >
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup className="" heading="Suggestions">
