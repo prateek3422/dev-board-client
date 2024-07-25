@@ -11,8 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Avatar from "react-avatar";
-import { format } from "timeago.js"
-
+import { format } from "timeago.js";
 
 export default function Questions() {
   const auth = useAuthStore((state) => state.auth);
@@ -79,14 +78,16 @@ export default function Questions() {
                   </div>
                   <div className="flex flex-col gap-4 items-start justify-center">
                     <p className="text-white text-sm">{data.title}</p>
-                    {data?.tags?.map((item: any) => (
-                      <div
-                        className="bg-[#3B82F6] text-white text-xs px-2 py-1 rounded-lg"
-                        key={item._id}
-                      >
-                        {item.name}
-                      </div>
-                    ))}
+                    <div className="flex flex-row gap-2 items-start justify-center">
+                      {data?.tags?.map((item: any) => (
+                        <div
+                          className="bg-[#3B82F6] text-white text-xs px-2 py-1 rounded-lg  "
+                          key={item._id}
+                        >
+                          {item.name}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <div className=" flex gap-4 items-end justify-end">
@@ -127,7 +128,7 @@ export default function Questions() {
                 Add Question
               </Button>
             )}
-{/* 
+            {/* 
             <div className="border-2   flex flex-row items-center justify-center ">
               {tag?.data?.tags?.map((item: any) => (
                 <div

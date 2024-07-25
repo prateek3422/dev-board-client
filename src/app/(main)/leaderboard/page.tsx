@@ -1,52 +1,121 @@
+"use client";
 import { DatePickerWithRange } from "@/components/DatePicker";
 import LeaderBoardTable from "@/components/main/LeaderBoardTable";
+import { Api } from "@/lib";
+import { useAuthStore } from "@/store";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import React from "react";
+import Avatar from "react-avatar";
 
 const Page = () => {
-  return (
+  const auth = useAuthStore((state) => state.auth);
+  const { data } = useQuery({
+    queryKey: ["leaderboard"],
+    queryFn: () =>
+      Api.get(`${process.env.NEXT_PUBLIC_API_URL}/users/leaderboard`).then(
+        (res) => res?.data?.data
+      ),
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
+
+  return auth?.isAuth ? (
     <div className="max-w-[85rem] mx-auto  mt-24">
       <div className="grid grid-cols-1 md:grid-cols-[30rem_minmax(50rem,_2fr)] gap-7">
         <div className="flex flex-col gap-y-5 items-end  ">
-        <div className="border-1 border-gray-400 bg-[#16171a] rounded-xl px-10 py-4  text-center flex flex-col items-center justify-center gap-4">
+          <div className="border-1 border-gray-400 bg-[#16171a] rounded-xl px-10 py-4  text-center flex flex-col items-center justify-center gap-4">
             <h1 className="text-xl font-medium text-white">
               Top Sender Last Week{" "}
             </h1>
-            <img
-              src="https://img.freepik.com/free-photo/3d-cartoon-style-character_23-2151034097.jpg?t=st=1718526536~exp=1718530136~hmac=4b0f8febf835db4853f050e1100c5b6966593d1ae6961034a931fd220252078c&w=740"
-              alt=""
-              className="rounded-full w-24 h-24"
+            <Avatar
+              name={data?.[0]?.name}
+              src={data?.[0]?.avatar}
+              size="100"
+              round={true}
             />
             <div className="flex flex-col items-center ">
               <h2 className="text-xl font-medium text-white ">
-                DANIEL RICCIARDO
+                {data?.[0]?.name}
               </h2>
-              <h3>Daniel Ricciardo</h3>
+              <h3>{data?.[0]?.email}</h3>
             </div>
           </div>
-          <div className="border-2 border-gray-200 bg-[#D9E0EA] rounded-xl p-4 text-center flex  gap-8">
-            <div className="flex flex-col items-start">
-              <h2 className="text-xl font-medium text-black">My Rank</h2>
-              <h1 className="text-3xl font-bold text-black">3rd Rank</h1>
-            </div>
-            <div className="flex flex-col items-center">
-              <h2 className="text-xl font-medium text-black">My Score</h2>
-              <h1 className="text-3xl font-bold text-black">24</h1>
-            </div>
-          </div>
-         
+          {data?.map(
+            (item: any, index: number) =>
+              auth?.user?.name === item.name && (
+                <div className="border-2 border-gray-200 bg-[#D9E0EA] rounded-xl p-8 text-center flex  gap-8">
+                  <div className="flex flex-col items-start">
+                    <h2 className="text-xl font-medium text-black">My Rank</h2>
+                    <h1 className="text-3xl font-bold text-black">
+                      {index + 1} Rank
+                    </h1>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <h2 className="text-xl font-medium text-black">My Score</h2>
+                    <h1 className="text-3xl font-bold text-black">
+                      {item.credit}
+                    </h1>
+                  </div>
+                </div>
+              )
+          )}
         </div>
 
         <div>
           <div className="border-1 bg-[#16171a] border-gray-400 w-full rounded-xl max-w-3xl px-10  p-4">
-            <div className="  flex items-center justify-between gap-10">
+            <div className="  flex items-center justify-between gap-10 mb-4">
               <h1>Dev Wave</h1>
-              <DatePickerWithRange />
+              {/* <DatePickerWithRange /> */}
             </div>
-          <LeaderBoardTable/>
+            <LeaderBoardTable data={data} />
           </div>
         </div>
       </div>
     </div>
+  ) : (
+    <>
+      <div className="max-w-[50rem] flex flex-col mx-auto mt-56">
+        {/* <!-- ========== MAIN CONTENT ========== --> */}
+        <main id="content">
+          <div className="text-center py-10 px-4 sm:px-6 lg:px-8">
+            <h1 className="block text-2xl font-bold text-white sm:text-4xl">
+              LeaderBoard Page
+            </h1>
+            <p className="mt-3 text-lg text-gray-300">
+              "To access the leaderboard and see your rankings, please log in to
+              your account. Stay updated on your progress and compare your
+              performance with other developers. If you don't have an account
+              yet, sign up now to join the community and start competing!"
+            </p>
+            <div className="mt-5 flex flex-col justify-center items-center gap-2 sm:flex-row sm:gap-3">
+              <Link
+                className="w-full sm:w-auto py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-white text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none"
+                target="parent"
+                href="/auth/signin"
+              >
+                <svg
+                  className="shrink-0 size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+                Back to Login Page
+              </Link>
+            </div>
+          </div>
+        </main>
+        {/* <!-- ========== END MAIN CONTENT ========== --> */}
+      </div>
+    </>
   );
 };
 

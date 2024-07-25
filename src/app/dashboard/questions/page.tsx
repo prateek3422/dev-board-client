@@ -21,13 +21,14 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { BlogModal } from "@/components/dashboard/modal/BlogModal";
+import { useRouter } from "next/navigation";
 
 
 
-export type blog = {
+export type Questions = {
   _id: string;
   isPublic: boolean;
-  image: string;
+
   title: string;
   likes: number;
   createdAt: Date;
@@ -36,6 +37,7 @@ export type blog = {
 
 export default function Page() {
   const [Render, setRender] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setRender(true);
@@ -54,59 +56,42 @@ export default function Page() {
 
   
 
-  const { mutate, isPending } = useMutation({
-    mutationKey: ["blogPublic"],
-    mutationFn: (blogId: any) =>
-      Api.post(`/blogs/${blogId}/publish`, data).then((res) => res.data),
-    onSuccess: (data: any) => {
-      toast.success(data.message);
+  // const { mutate, isPending } = useMutation({
+  //   mutationKey: ["blogPublic"],
+  //   mutationFn: (questionId: any) =>
+  //     Api.post(`/blogs/${blogId}/publish`, data).then((res) => res.data),
+  //   onSuccess: (data: any) => {
+  //     toast.success(data.message);
 
-      queryClient.invalidateQueries({ queryKey: ["Auth"] });
-    },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || error?.message);
-    },
-  });
+  //     queryClient.invalidateQueries({ queryKey: ["question"] });
+  //   },
+  //   onError: (error: any) => {
+  //     toast.error(error?.response?.data?.message || error?.message);
+  //   },
+  // });
+
+
+
   const { mutate: deleteBlog, isPending: isDeletePending } = useMutation({
-    mutationKey: ["delete_blog"],
+    mutationKey: ["delete_question"],
     mutationFn: (blogId: any) =>
-      Api.delete(`/blogs/${blogId}`, {}).then((res) => res.data),
+      Api.delete(`/qas/${blogId}`, {}).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
+
+      queryClient.invalidateQueries({ queryKey: ["question"] });
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
     },
   });
 
-  const handleToggle = (blogId: string) => {
-    mutate(blogId);
-  };
+ 
   if (!Render) return;
 
 
-  const columns: ColumnDef<blog>[] = [
-    {
-      accessorKey: "isPublic",
-      header: () => <div className="text-center">Public</div>,
-      cell: ({ row }) => {
-        const publicStatus = row.getValue("isPublic");
-        const blog = row.original;
-
-        return (
-          <div className=" text-center">
-            <Switch
-              //  @ts-ignore
-
-              checked={publicStatus}
-              onCheckedChange={() => handleToggle(blog._id)}
-            >
-              <Label>Public</Label>
-            </Switch>
-          </div>
-        );
-      },
-    },
+  const columns: ColumnDef<Questions>[] = [
+  
    
     {
       accessorKey: "title",
@@ -169,7 +154,7 @@ export default function Page() {
     {
       id: "actions",
       cell: ({ row }) => {
-        const blog = row.original;
+        const question = row.original;
 
         return (
           <DropdownMenu>
@@ -182,15 +167,15 @@ export default function Page() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(blog._id)}
+                onClick={() => navigator.clipboard.writeText(question._id)}
               >
                 Copy blog ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push(`/Ask/${question._id}`)}>
                 update question
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => deleteBlog(blog._id)}>
+              <DropdownMenuItem onClick={() => deleteBlog(question._id)}>
                 delete blog
               </DropdownMenuItem>
             </DropdownMenuContent>

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Image from "next/image";
 import { AiFillLike } from "react-icons/ai";
 import { BsQuestionSquareFill } from "react-icons/bs";
@@ -14,10 +14,7 @@ import Link from "next/link";
 import { Loader } from "@/components/Loader";
 import Avatar from "react-avatar";
 
-
-
 export default function Dashboard() {
-
   const { data: profile, isLoading } = useQuery({
     queryKey: ["Auth"],
     queryFn: () => Api.get(`/auth/profile`).then((res) => res?.data?.data),
@@ -25,39 +22,43 @@ export default function Dashboard() {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
-  console.log(profile)
 
-  if (isLoading) return <div className="flex items-center justify-center mt-24 min-h-screen"><Loader /></div>;
-
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center mt-24 min-h-screen">
+        <Loader />
+      </div>
+    );
 
   return (
     <section>
       <div className={`p-4 sm:ml-64`}>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <div className="flex items-center justify-between space-x-4">
-
-          <div className="flex items-center justify-start space-x-4">
-          <Avatar
+            <div className="flex items-center justify-start space-x-4">
+              <Avatar
                 name={profile?.user?.name}
                 src={profile?.user?.avatar?.url}
                 size="80"
                 round
               />
-            <div className="flex flex-col justify-center items-start gap-2">
-              <p className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                {" "}
-                {profile?.user?.name}
-              </p>
-              <p className="text-lg font-medium text-gray-900 dark:text-white">
-                {" "}
-                {profile?.user?.role}
-              </p>
-            </div>
-          </div>
-          <Link href="/dashboard/updateProfile">
-          <Button className="mt-10 bg-[#3B82F6] hover:bg-blue-700 text-white" >update profile</Button>
-          </Link>
+              <div className="flex flex-col justify-center items-start gap-2">
+                <p className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  {" "}
+                  {profile?.user?.name}
+                </p>
+                <p className="text-lg font-medium text-gray-900 dark:text-white">
+                  {" "}
+                  {profile?.user?.role}
+                </p>
               </div>
+            </div>
+            <Link href="/dashboard/updateProfile">
+              <Button className="mt-10 bg-[#3B82F6] hover:bg-blue-700 text-white">
+                update profile
+              </Button>
+            </Link>
+          </div>
           <div>
             <h1 className="text-2xl font-bold  mt-16 text-gray-900 dark:text-white px-4">
               {" "}
@@ -112,7 +113,6 @@ export default function Dashboard() {
             BADGES
           </h1>
           <Badges />
-
         </div>
       </div>
     </section>

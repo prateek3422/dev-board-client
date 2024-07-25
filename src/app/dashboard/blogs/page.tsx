@@ -21,6 +21,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { BlogModal } from "@/components/dashboard/modal/BlogModal";
+import { useRouter } from "next/navigation";
 
 
 
@@ -40,7 +41,8 @@ export default function Page() {
   useEffect(() => {
     setRender(true);
   }, []);
-  
+
+  const router = useRouter();
  
   const { data, isLoading } = useQuery({
     queryKey: ["blogs"],
@@ -58,7 +60,7 @@ export default function Page() {
     onSuccess: (data: any) => {
       toast.success(data.message);
 
-      queryClient.invalidateQueries({ queryKey: ["Auth"] });
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
@@ -70,6 +72,8 @@ export default function Page() {
       Api.delete(`/blogs/${blogId}`, data).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
+
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
@@ -202,7 +206,7 @@ export default function Page() {
                 Copy blog ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push(`/dashboard/Writepost/${blog._id}`)}>
                 update blog
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => deleteBlog(blog._id)}>

@@ -7,6 +7,9 @@ import React from "react";
 import { FaRegQuestionCircle } from "react-icons/fa"
 import { SiAnswer } from "react-icons/si"
 import { LiaBlogSolid } from "react-icons/lia"
+
+
+
 export default function Sidebar() {
   return (
     <div>
@@ -92,16 +95,6 @@ export default function Sidebar() {
                 <SiAnswer />
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Anawers</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <TbActivityHeartbeat />
-
-                <span className="flex-1 ms-3 whitespace-nowrap">Activity</span>
               </Link>
             </li>
             <li>

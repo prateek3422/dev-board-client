@@ -5,10 +5,13 @@ import { RiMenu2Fill } from "react-icons/ri";
 import NavUtils from "../NavUtils";
 import { Button } from "../ui/button";
 import { THemeSwitch } from "../THemeSwitch";
+import { useAuthStore } from "@/store";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const auth = useAuthStore((state) => state.auth);
 
+  console.log(auth);
   return (
     <header className="flex items-center justify-between px-5 py-6 bg-transparent backdrop-blur-md text-white fixed top-0 z-50 w-full">
       <div className="flex items-center poppins gap-2 font-semibold">
@@ -19,22 +22,38 @@ export function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
         />
         <Link href="/" className="cursor-pointer mx-3 ">
-        <img src="/logo1.svg" alt="logo" className="w-48" />
+          <img src="/logo1.svg" alt="logo" className="w-48" />
         </Link>
       </div>
       <nav className="hidden md:flex md:space-x-5 font-roboto font-medium">
         <Link href="/" className="hover-animate-wiggle ">
-        <Button variant="ghost" className="hover:bg-white hover:text-black" >Home</Button>
+          <Button variant="ghost" className="hover:bg-white hover:text-black">
+            Home
+          </Button>
         </Link>
         <Link className="hover-animate-wiggle" href="/blogs">
-        <Button variant="ghost" className="hover:bg-white hover:text-black" >Blog</Button>
+          <Button variant="ghost" className="hover:bg-white hover:text-black">
+            Blog
+          </Button>
         </Link>
         <Link className="hover-animate-wiggle" href="/questions">
-        <Button variant="ghost" className="hover:bg-white hover:text-black" >Questions</Button>
+          <Button variant="ghost" className="hover:bg-white hover:text-black">
+            Questions
+          </Button>
         </Link>
-        <Link className="hover-animate-wiggle" href="/leaderboard">
-        <Button variant="ghost" className="hover:bg-white hover:text-black">Leaderbord</Button>
-        </Link>
+        {auth?.isAuth ? (
+          <Link className="hover-animate-wiggle" href="/leaderboard">
+            <Button variant="ghost" className="hover:bg-white hover:text-black">
+              Leaderbord
+            </Button>
+          </Link>
+        ) : (
+          <Button
+            variant="ghost"
+            className="hover:bg-white hover:text-black"
+            disabled
+          ></Button>
+        )}
       </nav>
 
       {/* mobile nav view */}
@@ -48,7 +67,11 @@ export function Navbar() {
           <Link href="/">Home</Link>
           <Link href="/blogs">Blogs</Link>
           <Link href="/questions">Questions</Link>
-          <Link href="/leaderboard">Leaderboard</Link>
+          {auth?.isAuth ? (
+            <Link href="/leaderboard">Leaderboard</Link>
+          ) : (
+            <button disabled={true}>Login</button>
+          )}
         </div>
       </nav>
 

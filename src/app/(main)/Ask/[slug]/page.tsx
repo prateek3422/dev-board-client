@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-const Editor = dynamic(() => import("../../../components/Editor"), {
+const Editor = dynamic(() => import("../../../../components/Editor"), {
   ssr: false,
 });
 import { Api } from "@/lib";
@@ -55,11 +55,7 @@ const Page = () => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["AskQuestion"],
     mutationFn: (data: any) => {
-      return Api.post("/qas", {
-        title: data.title,
-        question: value,
-        tags: data.tags,
-      }).then((res) => res.data);
+      return Api.post("/qas", data).then((res) => res.data);
     },
     onSuccess: (data: any) => {
       toast.success(data.message);
@@ -72,7 +68,7 @@ const Page = () => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data);
-    mutate(data);
+    // mutate(data);
   };
 
   return (
@@ -148,7 +144,7 @@ const Page = () => {
                 className="mt-4   bg-[#3B82F6] hover:bg-blue-700 text-white w-[96%] "
                 disabled={isPending}
               >
-                Ask Question
+                update Question
               </Button>
             </div>
           </form>
