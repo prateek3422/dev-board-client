@@ -31,7 +31,6 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
-  
   });
 
   const { data: updateComment, isPending } = useMutation({
@@ -49,7 +48,9 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
 
   const { mutate: deleteComment } = useMutation({
     mutationFn: ({ commentId }: any) =>
-      Api.delete(`blogs/comments/${commentId}`, {}).then((res) => res?.data?.data),
+      Api.delete(`blogs/comments/${commentId}`, {}).then(
+        (res) => res?.data?.data
+      ),
     onSuccess: (data) => {
       toast.success("Comment Deleted Successfully");
       queryClient.invalidateQueries({ queryKey: ["comment", blogId] });
@@ -73,9 +74,7 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
 
   const handleChange = (index: number, value: string) => {
     setCommentStates((prevStates) =>
-      prevStates.map((state, i) =>
-        i === index ? { ...state, value } : state
-      )
+      prevStates.map((state, i) => (i === index ? { ...state, value } : state))
     );
   };
 
@@ -122,18 +121,19 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuItem onClick={() => handleToggleVisibility(index)}>
+                      <DropdownMenuItem
+                        onClick={() => handleToggleVisibility(index)}
+                      >
                         Edit comment
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <button
-                          type="button"
+                        <Button
                           onClick={() => {
                             handleDeleteComment(comments?._id);
                           }}
                         >
                           Delete comment
-                        </button>
+                        </Button>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -153,7 +153,9 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
                     <div>
                       <Button
                         type="submit"
-                        onClick={() => handleUpdateComment(index, comments?._id)}
+                        onClick={() =>
+                          handleUpdateComment(index, comments?._id)
+                        }
                       >
                         Update comment
                       </Button>

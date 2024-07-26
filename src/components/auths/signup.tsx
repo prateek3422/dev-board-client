@@ -52,11 +52,11 @@ export const SignUpComp = () => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["signIn"],
     mutationFn: (data: any) =>
-      Api.post("/auth/signin", data).then((res) => res.data),
+      Api.post("/auth/signup", data).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
-      storeSignIn(data.data);
-      window.location.replace("/dashboard");
+      // storeSignIn(data.data);
+      window.location.replace("/auth/email/verify");
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
@@ -82,23 +82,23 @@ export const SignUpComp = () => {
               name="name"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
-                <FormLabel className="text-white "> </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input
-                    type="email"
-                      placeholder="Enter your email"
-                      className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
-                      {...field}
-                    />
-                    <SiNamecheap
-                      size={20}
-                      className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+                  <FormLabel className="text-white "> </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        type="text"
+                        placeholder="Enter your Name"
+                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
+                        {...field}
+                      />
+                      <SiNamecheap
+                        size={20}
+                        className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
             />
 
@@ -107,23 +107,23 @@ export const SignUpComp = () => {
               name="email"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
-                <FormLabel className="text-white "> </FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input
-                    type="email"
-                      placeholder="Enter your email"
-                      className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
-                      {...field}
-                    />
-                    <MdEmail
-                      size={20}
-                      className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+                  <FormLabel className="text-white "> </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        type="email"
+                        placeholder="Enter your email"
+                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
+                        {...field}
+                      />
+                      <MdEmail
+                        size={20}
+                        className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
             />
 
@@ -195,13 +195,17 @@ export const SignUpComp = () => {
               )}
             /> */}
 
-            <Button type="submit" className=" w-60 md:w-72 xl:w-96 mx-auto" disabled={isPending}>
+            <Button
+              type="submit"
+              className=" w-60 md:w-72 xl:w-96 mx-auto"
+              disabled={isPending}
+            >
               Sign Up
             </Button>
             <div className="font-medium">
-              <p >
+              <p>
                 You have an account ?
-                <Link href="/auth/signin" className="text-blue-600 ml-2"  >
+                <Link href="/auth/signin" className="text-blue-600 ml-2">
                   Sign In
                 </Link>
               </p>

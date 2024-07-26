@@ -13,7 +13,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Loader } from "@/components/Loader";
 import Avatar from "react-avatar";
-
+import { FaHeart } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 export default function Dashboard() {
   const { data: profile, isLoading } = useQuery({
     queryKey: ["Auth"],
@@ -53,11 +54,6 @@ export default function Dashboard() {
                 </p>
               </div>
             </div>
-            <Link href="/dashboard/updateProfile">
-              <Button className="mt-10 bg-[#3B82F6] hover:bg-blue-700 text-white">
-                update profile
-              </Button>
-            </Link>
           </div>
           <div>
             <h1 className="text-2xl font-bold  mt-16 text-gray-900 dark:text-white px-4">
@@ -68,14 +64,14 @@ export default function Dashboard() {
               <div className=" p-2 bg-blue-500 rounded-lg shadow-md px-4 w-[24rem] flex flex-row justify-between items-center">
                 <p className="text-white text-lg font-bold py-2">
                   {" "}
-                  50 Total Answers
+                  {profile?.user?.blogCount} Total Blogs
                 </p>
-                <SiAnswer className="text-white  text-2xl" />
+                <FaBlog className="text-white  text-2xl" />
               </div>
               <div className=" p-2 bg-blue-500 rounded-lg shadow-md px-4 w-[24rem] flex flex-row justify-between items-center">
                 <p className="text-white text-lg font-bold py-2">
                   {" "}
-                  100 Total Questions
+                  {profile?.user?.questionCount} Total Questions
                 </p>
                 <BsQuestionSquareFill className="text-white  text-2xl" />
               </div>
@@ -89,30 +85,31 @@ export default function Dashboard() {
               <div className=" p-2 bg-blue-500 rounded-lg shadow-md px-4 w-[24rem] flex flex-row justify-between items-center">
                 <p className="text-white text-lg font-bold py-2">
                   {" "}
-                  10 Total Blogs
+                  {profile?.user?.answersCount} Total Answers
                 </p>
-                <FaBlog className="text-white  text-2xl" />
+                <SiAnswer className="text-white  text-2xl" />
               </div>
               <div className=" p-2 bg-blue-500 rounded-lg shadow-md px-4 w-[24rem] flex flex-row justify-between items-center">
                 <p className="text-white text-lg font-bold py-2">
                   {" "}
-                  1k Total Likes
+                  {profile?.user?.blogLikesCount} Total Likes
                 </p>
+                <FaHeart />
+              </div>
+              <div className=" p-2 bg-blue-500 rounded-lg shadow-md px-4 w-[24rem] flex flex-row justify-between items-center">
+                <p className="text-white text-lg font-bold py-2">
+                  {" "}
+                  {profile?.user?.questionLikesCount} Total question Likes
+                </p>
+
                 <AiFillLike className="text-white  text-2xl" />
-              </div>
-              <div className=" p-2 bg-blue-500 rounded-lg shadow-md px-4 w-[24rem] flex flex-row justify-between items-center">
-                <p className="text-white text-lg font-bold py-2">
-                  {" "}
-                  1k Total Views
-                </p>
-                <AiOutlineEye className="text-white  text-2xl" />
               </div>
             </div>
           </div>
-          <h1 className="text-2xl font-bold  mt-16 text-gray-900 dark:text-white px-4">
+          {/* <h1 className="text-2xl font-bold  mt-16 text-gray-900 dark:text-white px-4">
             BADGES
-          </h1>
-          <Badges />
+          </h1> */}
+          {/* <Badges /> */}
         </div>
       </div>
     </section>

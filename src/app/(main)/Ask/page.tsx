@@ -71,7 +71,6 @@ const Page = () => {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
     mutate(data);
   };
 

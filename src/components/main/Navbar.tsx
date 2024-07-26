@@ -10,8 +10,6 @@ import { useAuthStore } from "@/store";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const auth = useAuthStore((state) => state.auth);
-
-  console.log(auth);
   return (
     <header className="flex items-center justify-between px-5 py-6 bg-transparent backdrop-blur-md text-white fixed top-0 z-50 w-full">
       <div className="flex items-center poppins gap-2 font-semibold">

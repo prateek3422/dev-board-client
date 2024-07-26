@@ -42,9 +42,18 @@ export function AnswerModal({ slug }: { slug: string }) {
     <Dialog>
       <DialogTrigger asChild>
         {auth.isAuth ? (
-          <Button  variant="outline">Post your answer</Button>
+          <Button
+            className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+            variant="outline"
+          >
+            Post your answer
+          </Button>
         ) : (
-          <Button disabled variant="outline">
+          <Button
+            disabled
+            variant="outline"
+            className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+          >
             Post your answer
           </Button>
         )}
@@ -57,15 +66,16 @@ export function AnswerModal({ slug }: { slug: string }) {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <Editor
-            className="w-full px-4 h-[20vh] sm:h-[30vh] "
-            disabled={true}
-            value={value}
-            onChange={setValue}
-          />
+          <Editor value={value} onChange={setValue} />
         </div>
         <DialogFooter></DialogFooter>
-        <Button onClick={handleSubmit} type="submit" mt-8>
+        <Button
+          onClick={handleSubmit}
+          className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+          type="submit"
+          mt-8
+          disabled={isPending}
+        >
           Post your answer
         </Button>
       </DialogContent>

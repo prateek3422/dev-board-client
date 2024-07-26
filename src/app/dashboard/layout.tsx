@@ -14,9 +14,10 @@ export default function DashLayout({
   return (
     <DashWrapper>
       <main>
-      <Sidebar />
+        <Sidebar />
         {children}
-        </main>;
+      </main>
+      ;
     </DashWrapper>
   );
 }

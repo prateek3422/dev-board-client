@@ -44,7 +44,10 @@ const Page = () => {
           {data?.map(
             (item: any, index: number) =>
               auth?.user?.name === item.name && (
-                <div className="border-2 border-gray-200 bg-[#D9E0EA] rounded-xl p-8 text-center flex  gap-8">
+                <div
+                  className="border-2 border-gray-200 bg-[#D9E0EA] rounded-xl p-8 text-center flex  gap-8"
+                  key={index}
+                >
                   <div className="flex flex-col items-start">
                     <h2 className="text-xl font-medium text-black">My Rank</h2>
                     <h1 className="text-3xl font-bold text-black">
@@ -83,15 +86,15 @@ const Page = () => {
               LeaderBoard Page
             </h1>
             <p className="mt-3 text-lg text-gray-300">
-              "To access the leaderboard and see your rankings, please log in to
-              your account. Stay updated on your progress and compare your
-              performance with other developers. If you don't have an account
-              yet, sign up now to join the community and start competing!"
+              To access the leaderboard and see your rankings &sbquo; please log
+              in to your account. Stay updated on your progress and compare your
+              performance with other developers. If you don &#8217; t have an
+              account yet &sbquo; sign up now to join the community and start
+              competing
             </p>
             <div className="mt-5 flex flex-col justify-center items-center gap-2 sm:flex-row sm:gap-3">
               <Link
                 className="w-full sm:w-auto py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-white text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none"
-                target="parent"
                 href="/auth/signin"
               >
                 <svg

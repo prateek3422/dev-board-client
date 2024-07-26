@@ -26,6 +26,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useAuthStore } from "@/store";
 
 const formSchema = z.object({
   pin: z.string().min(6, {
@@ -37,17 +38,18 @@ function Page() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      pin: '',
+      pin: "",
     },
   });
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["verifyPassword"],
     mutationFn: (data: any) =>
-      Api.post("/auth/verify-email", {otp: data.pin}).then((res) => res.data),
+      Api.post("/auth/verify-email", { otp: data.pin }).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
-      window.location.replace("/dashboard");
+
+      window.location.replace("/auth/signin");
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
@@ -105,15 +107,14 @@ function Page() {
                 <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
                   <FormLabel>One-Time Password</FormLabel>
                   <FormControl>
-                    <InputOTP maxLength={6} {...field} >
+                    <InputOTP maxLength={6} {...field}>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} className=" bg-gray-600" />
                         <InputOTPSlot index={1} className=" bg-gray-600" />
-                        <InputOTPSlot index={2}  className=" bg-gray-600" />
-                        <InputOTPSlot index={3}  className=" bg-gray-600" />
-                        <InputOTPSlot index={4}   className=" bg-gray-600" />
-                        <InputOTPSlot index={5}   className=" bg-gray-600" />
-                       
+                        <InputOTPSlot index={2} className=" bg-gray-600" />
+                        <InputOTPSlot index={3} className=" bg-gray-600" />
+                        <InputOTPSlot index={4} className=" bg-gray-600" />
+                        <InputOTPSlot index={5} className=" bg-gray-600" />
                       </InputOTPGroup>
                     </InputOTP>
                   </FormControl>
@@ -126,9 +127,8 @@ function Page() {
             />
 
             <Button type="submit" className="mx-auto mb-8" disabled={isPending}>
-             Submit
+              Submit
             </Button>
-
           </form>
         </Form>
       </section>

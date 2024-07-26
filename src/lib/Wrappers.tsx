@@ -8,7 +8,7 @@ export function AuthWrapper({ children }: { children: React.ReactNode }) {
   const auth = useAuthStore((state) => state.auth);
 
   useEffect(() => {
-    if (auth.isAuth) router.push("/");
+    if (auth.isAuth) router.push("/dashboard");
   }, [auth, router]);
 
   return <>{children}</>;

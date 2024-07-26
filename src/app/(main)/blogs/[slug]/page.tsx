@@ -4,10 +4,10 @@ import { TfiLayoutLineSolid } from "react-icons/tfi";
 import { FaQuoteLeft } from "react-icons/fa6";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Api, queryClient } from "@/lib";
-//@ts-ignore
+
 import parse from "html-react-parser";
 //@ts-ignore
-import ReactQuill from "react-quill";
+
 import { Button } from "@/components/ui/button";
 import { CommentsModal, GetComments, Loader } from "@/components";
 import Link from "next/link";
@@ -26,8 +26,6 @@ import toast from "react-hot-toast";
 import { ShareComponent } from "@/components/Share";
 
 export default function Page({ params }: { params: { slug: string } }) {
-
-  
   const auth = useAuthStore((state) => state.auth);
   const { slug } = params;
   const { data: BlogData, isLoading } = useQuery({
@@ -63,8 +61,6 @@ export default function Page({ params }: { params: { slug: string } }) {
       toast.error(error?.response?.data?.message || error?.message);
     },
   });
-
- 
 
   if (isLoading)
     return (
@@ -154,7 +150,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                     {/* <!-- Button --> */}
                     <div className="hs-tooltip inline-block">
                       <Button
-                      //@ts-ignore
+                        //@ts-ignore
                         variant="none"
                         className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200"
                         onClick={() => mutate()}
@@ -204,7 +200,6 @@ export default function Page({ params }: { params: { slug: string } }) {
                     <div className="block h-3 border-e border-gray-300 mx-3 dark:border-neutral-600"></div>
                     <ShareComponent slug={slug} />
 
-
                     {/* <!-- Button --> */}
                   </div>
                 </div>
@@ -225,7 +220,10 @@ export default function Page({ params }: { params: { slug: string } }) {
                   round={true}
                 />
 
-                <Link   href={`/AuthorBlog/${BlogData?.author?._id}`} className="group grow block">
+                <Link
+                  href={`/AuthorBlog/${BlogData?.author?._id}`}
+                  className="group grow block"
+                >
                   <h5 className="group-hover:text-gray-600 text-sm font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                     {BlogData?.author?.name}
                   </h5>
@@ -234,12 +232,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                   </p>
                 </Link>
 
-                <div className="grow">
+                {/* <div className="grow">
                   <div className="flex justify-end">
-                    <button
-                      type="button"
-                      className="py-1.5 px-2.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                    >
+                    <Button className="py-1.5 px-2.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                       <svg
                         className="flex-shrink-0 size-4"
                         xmlns="http://www.w3.org/2000/svg"
@@ -258,9 +253,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                         <line x1="22" x2="16" y1="11" y2="11" />
                       </svg>
                       Follow
-                    </button>
+                    </Button>
                   </div>
-                </div>
+                </div> */}
               </div>
               {/* <!-- End Avatar Media --> */}
 

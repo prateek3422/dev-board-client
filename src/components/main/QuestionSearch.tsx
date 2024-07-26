@@ -34,29 +34,23 @@ export function QuestionSearchBar() {
     staleTime: Infinity,
   });
 
-  console.log(data)
-
-
-  // isSuccess && queryClient.invalidateQueries({ queryKey: ["question"] });
-  // React.useEffect(() => {
-  //   const down = (e: KeyboardEvent) => {
-  //     if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-  //       e.preventDefault();
-  //       setOpen((open) => !open);
-  //     }
-  //   };
-  //   document.addEventListener("keydown", down);
-  //   return () => document.removeEventListener("keydown", down);
-  // }, []);
-
+  isSuccess && queryClient.invalidateQueries({ queryKey: ["question"] });
+  React.useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen((open) => !open);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   return (
     <>
       <div className="max-w-md">
         {/* <!-- SearchBox --> */}
-        <div
-          className="relative"
-        >
+        <div className="relative">
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
               <svg
@@ -67,9 +61,9 @@ export function QuestionSearchBar() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.3-4.3"></path>
@@ -81,7 +75,7 @@ export function QuestionSearchBar() {
               type="text"
               placeholder="Type a command or search..."
               value={Search}
-              onChange={(e) =>  setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               data-hs-combo-box-input=""
             />
             <CommandShortcut className="absolute top-4 right-2  ">
@@ -94,22 +88,19 @@ export function QuestionSearchBar() {
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput className="" placeholder="search..." />
-        <CommandList  >
+        <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup className="" heading="Suggestions">
             {data?.map((item: any) => (
               <Link key={item._id} href={`/questions/${data?._id}`}>
-
-              <CommandItem
-                onSelect={() => {
-                  setSearch(item.title);
-                }}
+                <CommandItem
+                  onSelect={() => {
+                    setSearch(item.title);
+                  }}
                 >
-                
-                {item.title}
-               
-              </CommandItem>
-                </Link>
+                  {item.title}
+                </CommandItem>
+              </Link>
             ))}
             {/* <CommandItem>Calculator</CommandItem> */}
           </CommandGroup>

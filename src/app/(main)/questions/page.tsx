@@ -41,24 +41,25 @@ export default function Questions() {
 
   return (
     <section>
-      <header className="bg-fixed h-[calc(60vh-4vh)] bg-[#030712]  bg-cover bg-center bg-no-repeat rounded-lg shadow-lg px-4 py-2">
+      {/* <header className="bg-fixed h-[calc(60vh-4vh)] bg-[#030712]  bg-cover bg-center bg-no-repeat rounded-lg shadow-lg px-4 py-2">
         <div className="bg-[url('/alex-perez-pEgsWN0kwbQ-unsplash.jpg')] h-full bg-cover bg-center bg-no-repeat w-full  flex flex-col items-center justify-center">
           <h1 className="text-3xl  font-bold  text-white w-50vw ">
             Share & grow the world knowledge!
           </h1>
 
           <p className="text-center text-white max-w-3xl mt-4 font-bold ">
-            Our mission is to connect developers and enthusiasts with the
-            knowledge they seek, enabling a dynamic exchange of coding expertise
-            and diverse perspectives. By fostering a collaborative environment,
-            we aim to enhance understanding and empower everyone to share their
-            programming knowledge, driving innovation and growth in the tech
-            community
+            At DaveWave, we believe in the strength of community-driven learning
+            and problem-solving. Our platform connects developers from around
+            the globe, providing a space where you can ask questions, share
+            insights, and collaborate on code challenges. Whether you’re a
+            seasoned professional or just starting your coding journey, DaveWave
+            is your go-to resource for quick, reliable answers and innovative
+            solutions.
           </p>
         </div>
-      </header>
+      </header> */}
 
-      <main>
+      <main className="mt-24">
         <div className="search  rounded-lg shadow-lg px-8 py-4 flex flex-row items-center justify-center">
           <QuestionSearchBar />
         </div>
@@ -103,10 +104,10 @@ export default function Questions() {
 
                   <div
                     className="flex gap-2
-                   items-center"
+                   items-center "
                   >
                     <span>asked</span>
-                    <span>{format(data?.createdAt)}</span>
+                    <span className="w-max">{format(data?.createdAt)}</span>
                   </div>
                 </div>
               </Link>

@@ -55,10 +55,10 @@ function Page() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["verifyPassword"],
     mutationFn: (data: any) =>
-      Api.post("/auth/verify-email", data).then((res) => res.data),
+      Api.post("/auth/reset-password", data).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
-      window.location.replace("/");
+      window.location.replace("/auth/signin");
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
@@ -79,7 +79,6 @@ function Page() {
           >
             <h1 className="text-center font-semibold text-xl mt-4">Sign In</h1>
 
-         
             <FormField
               control={form.control}
               name="otp"
@@ -106,7 +105,7 @@ function Page() {
               )}
             />
 
-<FormField
+            <FormField
               control={form.control}
               name="otp"
               render={({ field }) => (
