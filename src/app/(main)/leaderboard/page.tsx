@@ -1,6 +1,7 @@
 "use client";
-import { DatePickerWithRange } from "@/components/DatePicker";
+// import { DatePickerWithRange } from "@/components/DatePicker";
 import LeaderBoardTable from "@/components/main/LeaderBoardTable";
+import { Button } from "@/components/ui/button";
 import { Api } from "@/lib";
 import { useAuthStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
@@ -69,6 +70,13 @@ const Page = () => {
           <div className="border-1 bg-[#16171a] border-gray-400 w-full rounded-xl max-w-3xl px-10  p-4">
             <div className="  flex items-center justify-between gap-10 mb-4">
               <h1>Dev Wave</h1>
+              <Button
+                variant="default"
+                className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+              >
+                {" "}
+                All Time
+              </Button>
               {/* <DatePickerWithRange /> */}
             </div>
             <LeaderBoardTable data={data} />

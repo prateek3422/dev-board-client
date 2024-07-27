@@ -20,7 +20,7 @@ import {
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { BlogModal } from "@/components/dashboard/modal/BlogModal";
+
 import { useRouter } from "next/navigation";
 
 export type Questions = {

@@ -29,7 +29,7 @@ export default function Home() {
             Discover &#8218; Learn &#8218; and Grow with Us
           </h1>
 
-          <p className="leading-7 [&:not(:first-child)]:mt-6 text-white text-pretty sm:w-[80vw] md:w-[60vw] max-w-[90vw]   text-[1rem]">
+          <p className="leading-7 [&:not(:first-child)]:mt-6 text-justify text-white  sm:w-[80vw] md:w-[60vw] max-w-[90vw]   text-sm">
             Welcome to DevWave &#8218; the ultimate destination for developers
             &#8218; coders &#8218; and tech enthusiasts! At DevWave &#8218; we
             believe in the power of community and collaboration. Whether you

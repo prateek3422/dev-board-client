@@ -7,7 +7,7 @@ import { FaBlog } from "react-icons/fa6";
 import { HiCreditCard } from "react-icons/hi2";
 import { AiOutlineEye } from "react-icons/ai";
 import { Badges } from "@/components/dashboard/Badges";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Api } from "@/lib";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -15,6 +15,7 @@ import { Loader } from "@/components/Loader";
 import Avatar from "react-avatar";
 import { FaHeart } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
+import toast from "react-hot-toast";
 export default function Dashboard() {
   const { data: profile, isLoading } = useQuery({
     queryKey: ["Auth"],
@@ -22,6 +23,20 @@ export default function Dashboard() {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
+  });
+
+  const { mutate: deleteAccount } = useMutation({
+    mutationKey: ["deleteAccount"],
+    mutationFn: () => {
+      return Api.delete("/users/profile").then((res) => res.data);
+    },
+    onSuccess: (data: any) => {
+      toast.success(data.message);
+      window.location.replace("/");
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || error?.message);
+    },
   });
 
   if (isLoading)
@@ -35,7 +50,7 @@ export default function Dashboard() {
     <section>
       <div className={`p-4 sm:ml-64`}>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-          <div className="flex items-center justify-between space-x-4">
+          <div className="flex flex-col md:flex-row  items-center justify-between space-x-4">
             <div className="flex items-center justify-start space-x-4">
               <Avatar
                 name={profile?.user?.name}
@@ -48,12 +63,15 @@ export default function Dashboard() {
                   {" "}
                   {profile?.user?.name}
                 </p>
-                <p className="text-lg font-medium text-gray-900 dark:text-white">
+                <p className="text-lg font-small text-gray-900 dark:text-white">
                   {" "}
-                  {profile?.user?.role}
+                  {profile?.user?.email}
                 </p>
               </div>
             </div>
+            <Button className="mt-4" variant="destructive">
+              Delete
+            </Button>
           </div>
           <div>
             <h1 className="text-2xl font-bold  mt-16 text-gray-900 dark:text-white px-4">

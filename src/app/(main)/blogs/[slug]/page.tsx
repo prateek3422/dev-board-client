@@ -24,6 +24,7 @@ import Blogs from "../page";
 import { CommentSheet } from "@/components/main/modal/CommentSheet";
 import toast from "react-hot-toast";
 import { ShareComponent } from "@/components/Share";
+import { format } from "timeago.js";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const auth = useAuthStore((state) => state.auth);
@@ -102,14 +103,8 @@ export default function Page({ params }: { params: { slug: string } }) {
                 </h2>
 
                 <div className="flex items-center gap-x-5">
-                  <a
-                    className="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-neutral-800 dark:hover:bg-neutral-800 dark:text-neutral-200"
-                    href="#"
-                  >
-                    Company News
-                  </a>
                   <span className="text-xs sm:text-sm text-gray-800 dark:text-neutral-200">
-                    {BlogData?.createdAt.split("T")[0]}
+                    {format(BlogData?.createdAt)}
                   </span>
                 </div>
                 <figure>
@@ -118,9 +113,6 @@ export default function Page({ params }: { params: { slug: string } }) {
                     src={BlogData?.image?.url}
                     alt={BlogData?.title}
                   />
-                  {/* <figcaption className="mt-3 text-sm text-center text-gray-500 dark:text-neutral-500">
-                    A man and a woman looking at a cell phone.
-                  </figcaption> */}
                 </figure>
 
                 <div className="space-y-3">
@@ -129,7 +121,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                   </h3>
 
                   <span className="text-lg text-gray-800 dark:text-neutral-200">
-                    {parse(BlogData?.content)}
+                    {BlogData?.comtent ? parse(BlogData?.content) : ""}
                   </span>
                 </div>
                 <div className="grid lg:flex lg:justify-between lg:items-center gap-y-5 lg:gap-y-0">
@@ -183,11 +175,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                         </TooltipProvider>
                       </Button>
                     </div>
-                    {/* <!-- Button --> */}
 
                     <div className="block h-3 border-e border-gray-300 mx-3 dark:border-neutral-600"></div>
 
-                    {/* <!-- Button --> */}
                     <div className="hs-tooltip inline-block">
                       <CommentSheet
                         blogId={BlogData?._id}
@@ -195,12 +185,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                         auth={auth}
                       />
                     </div>
-                    {/* <!-- Button --> */}
 
                     <div className="block h-3 border-e border-gray-300 mx-3 dark:border-neutral-600"></div>
                     <ShareComponent slug={slug} />
-
-                    {/* <!-- Button --> */}
                   </div>
                 </div>
               </div>

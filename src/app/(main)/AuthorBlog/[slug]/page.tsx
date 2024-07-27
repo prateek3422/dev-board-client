@@ -8,7 +8,6 @@ import { Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
 import parse from "html-react-parser";
 import Avatar from "react-avatar";
 import { Separator } from "@/components/ui/separator";
@@ -40,11 +39,9 @@ export default function Page({ params }: { params: { slug: string } }) {
     staleTime: Infinity,
   });
 
-  console.log(data);
-
   return (
     <>
-      <section className="mt-[20vh] max-w-[70rem] mx-auto">
+      <section className="mt-[20vh] max-w-[80rem] mx-auto">
         <div className="flex items-center justify-between  gap-6 px-8 max-w-[35rem]  mx-auto">
           <Avatar
             name={data?.blogs[0]?.author?.name}
@@ -58,18 +55,16 @@ export default function Page({ params }: { params: { slug: string } }) {
               {data?.blogs[0]?.author?.name}
             </h1>
             <div className="flex  gap-4 items-start justify-start">
-              <p className="text-sm mt-4">
+              <div className="text-sm mt-4">
                 {toggle === "blog" ? data?.blogs.length : questions.length}{" "}
                 posts{" "}
-              </p>
-              <p className="text-sm mt-4">10 following </p>
-              <p className="text-sm mt-4">20 followers </p>
+              </div>
+              {/* <p className="text-sm mt-4">10 following </p> */}
+              {/* <p className="text-sm mt-4">20 followers </p> */}
             </div>
           </div>
 
-          <div>
-            <Button>follow</Button>
-          </div>
+          <div>{/* <Button>follow</Button> */}</div>
         </div>
 
         <div className="flex gap-4 px-8 py-4 max-w-[35rem]  mx-auto justify-center items-center">
@@ -104,7 +99,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         </div>
 
         <div className={`${toggle === "blog" ? "block" : "hidden"}`}>
-          <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+          <div className="max-w-[85rem]  mx-auto">
             {/* <!-- Grid --> */}
             <div className="grid lg:grid-cols-2 lg:gap-y-16 gap-10">
               {/* <!-- Card --> */}
@@ -130,9 +125,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                       <h3 className="text-xl font-semibold text-gray-800 group-hover:text-gray-600 dark:text-neutral-300 dark:group-hover:text-white">
                         {item.title}
                       </h3>
-                      <p className="mt-3 text-gray-600 dark:text-neutral-400">
-                        {parse(item.content.substring(0, 200))}
-                      </p>
+                      <span className="mt-3 text-gray-600 dark:text-neutral-400">
+                        {parse(item.content.substring(0, 120))}
+                      </span>
                       <p className="mt-4 inline-flex items-center gap-x-1 text-blue-600 decoration-2 hover:underline font-medium">
                         Read more
                         <svg
@@ -143,9 +138,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         >
                           <path d="m9 18 6-6-6-6" />
                         </svg>
@@ -167,7 +162,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               {questions?.map((data: any) => (
                 <Link
                   href={`/questions/${data?._id}`}
-                  key={data.id}
+                  key={data._id}
                   className="flex flex-col sm:flex-row  border-2 mb-4 w-full justify-between  gap-4 bg-[#847f7f21] px-4 py-2 rounded-lg"
                 >
                   <div className="flex gap-4 flex-col sm:flex-row items-start  justify-start">

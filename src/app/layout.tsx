@@ -1,4 +1,3 @@
-
 import { ReactQueryProvider, ThemeProvider } from "@/lib";
 import "@/styles/globals.css";
 import { Toaster } from "react-hot-toast";
@@ -14,13 +13,12 @@ export default function RootLayout({
         <link rel="icon" href="favicon.ico" sizes="any" />
       </head>
       <body className="bg-gray-950  inter">
-         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </ThemeProvider>
         <Toaster />

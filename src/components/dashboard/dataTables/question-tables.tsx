@@ -30,7 +30,6 @@ import { useState } from "react";
 import { ChevronDownIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
-import { BlogModal } from "@/components/dashboard/modal/BlogModal";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -92,11 +91,7 @@ export function DataTable<TData, TValue>({
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="px-2">
-            <BlogModal
-              buttonName="Add Blog"
-              TitleName="Add Blog"
-              blogId={"blogId"}
-            />
+       
           </div>
         </div>
 

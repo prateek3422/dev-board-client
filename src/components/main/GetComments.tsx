@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 import toast from "react-hot-toast";
+import { format } from "timeago.js";
 
 export const GetComments = ({ blogId }: { blogId: string }) => {
   const [commentStates, setCommentStates] = useState(
@@ -107,7 +108,7 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
                       {comments?.author?.name}
                     </h5>
                     <p className="text-sm text-gray-500 dark:text-neutral-500">
-                      {comments?.createdAt.split("T")[0]}
+                      {format(comments?.createdAt)}
                     </p>
                   </span>
                 </div>

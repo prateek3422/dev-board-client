@@ -21,10 +21,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ClipboardPen, Edit, Trash2 } from "lucide-react";
+import { EditAnswerModal } from "@/components/main/modal/EditAnswerModal";
 
 export default function Page({ params }: { params: { slug: any } }) {
   const { slug } = params;
   const auth = useAuthStore((state) => state.auth);
+
   const { data: BlogData, isLoading } = useQuery({
     queryKey: ["question", slug],
     queryFn: () => Api.get(`/qas/${slug}`).then((res) => res?.data?.data),
@@ -38,6 +41,19 @@ export default function Page({ params }: { params: { slug: any } }) {
     mutationKey: ["BlogLike"],
     mutationFn: () =>
       Api.post(`/qas/${slug}/like`, {}).then((res) => res?.data),
+    onSuccess: (data: any) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["question", slug] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || error?.message);
+    },
+  });
+
+  const { mutate: DeleteAnswer } = useMutation({
+    mutationKey: ["DeleteAnswer"],
+    mutationFn: (data: any) =>
+      Api.delete(`/qas/${data}`).then((res) => res?.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["question", slug] });
@@ -147,13 +163,29 @@ export default function Page({ params }: { params: { slug: any } }) {
                   className="w-full py-2 px-4flex flex-col items-center"
                 >
                   <div className="border-2  hover:bg-gray-800 border-[#5c5c5c] px-4 py-2  rounded-lg ">
-                    <h2 className=" mt-4  max-w-[80vw] ">
+                    <span className=" mt-4  max-w-[80vw] ">
                       {parse(answer.answer)}
-                    </h2>
-                    <div className="flex flex-row items-center gap-8 mt-4">
+                    </span>
+                    <div className="flex flex-row items-center justify-between gap-8 mt-4">
                       <h3 className="text-[#3B82F6]">
                         Asked by: {answer.author.name}
                       </h3>
+
+                      {auth.user?.email === answer.author.email ? (
+                        <div className="flex gap-4">
+                          {/* <Button
+                            variant="none"
+                            onClick={() => DeleteAnswer(answer?._id)}
+                          >
+                            <Trash2 />
+                          </Button> */}
+                          <EditAnswerModal
+                            slug={answer?._id}
+                            qusId={slug}
+                            content={answer?.answer}
+                          />
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </div>
