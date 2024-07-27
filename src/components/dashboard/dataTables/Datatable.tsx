@@ -66,8 +66,6 @@ export function DataTable<TData, TValue>({
   return (
     <>
       <div className="rounded-md border px-4">
-    
-
         <div className="flex items-center py-4">
           <Input
             placeholder="Filter titles..."
@@ -105,9 +103,9 @@ export function DataTable<TData, TValue>({
           </DropdownMenu>
 
           <Link href="/dashboard/Writepost">
-              <Button variant="outline" className="ml-4">
-                Add Blog
-              </Button>
+            <Button variant="outline" className="ml-4">
+              Add Blog
+            </Button>
           </Link>
         </div>
 
@@ -131,8 +129,8 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+            {table?.getRowModel()?.rows?.length ? (
+              table?.getRowModel()?.rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}

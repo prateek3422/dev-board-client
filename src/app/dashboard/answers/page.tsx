@@ -1,7 +1,7 @@
 "use client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 // import {columns } from "./Colounm";
-import {DataTable} from "@/components/dashboard/dataTables/Datatable";
+import { DataTable } from "@/components/dashboard/dataTables/Datatable";
 import { Api, queryClient } from "@/lib";
 import { Loader } from "@/components/Loader";
 import toast from "react-hot-toast";
@@ -23,8 +23,6 @@ import { Label } from "@/components/ui/label";
 import { BlogModal } from "@/components/dashboard/modal/BlogModal";
 import { useAuthStore } from "@/store";
 
-
-
 export type blog = {
   _id: string;
   isPublic: boolean;
@@ -34,29 +32,22 @@ export type blog = {
   createdAt: Date;
 };
 
-
 export default function Page() {
   const [Render, setRender] = useState(false);
-
-
-
 
   useEffect(() => {
     setRender(true);
   }, []);
-  
- 
+
   const { data, isLoading } = useQuery({
     queryKey: ["question"],
     queryFn: () =>
       // /:questionId/answers/author
-      Api.get(`/qas/6687676fd47113db6320144f/answers`).then((res) => res?.data?.data),
+      Api.get(`/qas/author`).then((res) => res?.data?.data),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
-
-  
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["blogPublic"],
@@ -88,7 +79,6 @@ export default function Page() {
   };
   if (!Render) return;
 
-
   const columns: ColumnDef<blog>[] = [
     {
       accessorKey: "isPublic",
@@ -111,7 +101,7 @@ export default function Page() {
         );
       },
     },
-   
+
     {
       accessorKey: "title",
       header: () => <div className="text-center">Title</div>,
@@ -163,7 +153,7 @@ export default function Page() {
         );
       },
       cell: ({ row }) => {
-        const likes:any = row.getValue("likes");
+        const likes: any = row.getValue("likes");
 
         const formatted = likes?.length || 0;
         return <div className="text-center font-medium">{formatted}</div>;
@@ -191,9 +181,7 @@ export default function Page() {
                 Copy blog ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                update question
-              </DropdownMenuItem>
+              <DropdownMenuItem>update question</DropdownMenuItem>
               <DropdownMenuItem onClick={() => deleteBlog(blog._id)}>
                 delete blog
               </DropdownMenuItem>

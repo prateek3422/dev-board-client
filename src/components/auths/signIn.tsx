@@ -83,7 +83,7 @@ export function SignInComp() {
                   <FormControl>
                     <div className="relative">
                       <Input
-                      type="email"
+                        type="email"
                         placeholder="Enter your email"
                         className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
                         {...field}
@@ -147,7 +147,7 @@ export function SignInComp() {
                 Forgot Password
               </Link>
               <br />
-              <p >
+              <p>
                 Don&apos;t have an account ?
                 <Link href="/auth/signup" className="text-blue-600 ml-2">
                   Sign Up

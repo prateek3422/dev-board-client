@@ -1,7 +1,7 @@
 "use client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 // import {columns } from "./Colounm";
-import {DataTable} from "@/components/dashboard/dataTables/Datatable";
+import { DataTable } from "@/components/dashboard/dataTables/Datatable";
 import { Api, queryClient } from "@/lib";
 import { Loader } from "@/components/Loader";
 import toast from "react-hot-toast";
@@ -23,8 +23,6 @@ import { Label } from "@/components/ui/label";
 import { BlogModal } from "@/components/dashboard/modal/BlogModal";
 import { useRouter } from "next/navigation";
 
-
-
 export type blog = {
   _id: string;
   isPublic: boolean;
@@ -34,7 +32,6 @@ export type blog = {
   createdAt: Date;
 };
 
-
 export default function Page() {
   const [Render, setRender] = useState(false);
 
@@ -43,7 +40,7 @@ export default function Page() {
   }, []);
 
   const router = useRouter();
- 
+
   const { data, isLoading } = useQuery({
     queryKey: ["blogs"],
     queryFn: () =>
@@ -84,7 +81,6 @@ export default function Page() {
     mutate(blogId);
   };
   if (!Render) return;
-
 
   const columns: ColumnDef<blog>[] = [
     {
@@ -178,7 +174,7 @@ export default function Page() {
         );
       },
       cell: ({ row }) => {
-        const likes:any = row.getValue("likes");
+        const likes: any = row.getValue("likes");
 
         const formatted = likes?.length || 0;
         return <div className="text-center font-medium">{formatted}</div>;
@@ -206,7 +202,9 @@ export default function Page() {
                 Copy blog ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push(`/dashboard/Writepost/${blog._id}`)}>
+              <DropdownMenuItem
+                onClick={() => router.push(`/dashboard/Writepost/${blog._id}`)}
+              >
                 update blog
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => deleteBlog(blog._id)}>
@@ -227,7 +225,7 @@ export default function Page() {
     <>
       <div className={`p-4 sm:ml-64`}>
         <div className="container mx-auto py-10">
-          <DataTable columns={columns} data={data?.blogs} />
+          <DataTable columns={columns} data={data?.blogs ? data?.blogs : []} />
         </div>
       </div>
     </>

@@ -25,7 +25,6 @@ function NavUtils() {
   const auth = useAuthStore((state) => state.auth);
   const storeSignOut = useAuthStore((state) => state.signOut);
 
- 
   const { mutate } = useMutation({
     mutationFn: () => Api.post("/auth/signout").then((res) => res.data),
     onSuccess: (data: any) => {
@@ -45,6 +44,8 @@ function NavUtils() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === `q`) {
         handleSignOut();
+      } else if ((event.metaKey || event.ctrlKey) && event.key === `d`) {
+        setShowDropdown(!showDropdown);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -54,8 +55,6 @@ function NavUtils() {
   }, []);
 
   useEffect(() => setMounted(true), []);
-
-
 
   if (!mounted) return false;
 
@@ -81,7 +80,7 @@ function NavUtils() {
                 <Link href="/dashboard" className="justify-between">
                   Dashboard
                 </Link>
-                <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
+                <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -89,7 +88,7 @@ function NavUtils() {
             <DropdownMenuItem>
               <button onClick={handleSignOut}>Log out</button>
 
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+              <DropdownMenuShortcut>⌘Q</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
