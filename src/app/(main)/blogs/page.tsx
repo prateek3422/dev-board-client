@@ -16,7 +16,7 @@ export default function Blogs() {
     queryKey: ["blog"],
     queryFn: () =>
       Api.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/blogs?func=true&q=${Search}&limit=10&page=1&tags=&cats=&sort=`
+        `${process.env.NEXT_PUBLIC_API_URL}/blogs?func=true&q=&limit=10&page=1&tags=&cats=&sort=`
       ).then((res) => res?.data?.data),
     refetchOnWindowFocus: false,
     staleTime: Infinity,

@@ -25,9 +25,9 @@ const Page = () => {
     <div className="max-w-[85rem] mx-auto  mt-24">
       <div className="grid grid-cols-1 md:grid-cols-[30rem_minmax(50rem,_2fr)] gap-7">
         <div className="flex flex-col gap-y-5 items-end  ">
-          <div className="border-1 border-gray-400 bg-[#16171a] rounded-xl px-10 py-4  text-center flex flex-col items-center justify-center gap-4">
+          <div className="border-1 border-gray-400 bg-[#16171a] rounded-xl px-8 py-4  text-center flex flex-col items-center justify-center gap-4">
             <h1 className="text-xl font-medium text-white">
-              Top Sender Last Week{" "}
+              Top Sender Last Month
             </h1>
             <Avatar
               name={data?.[0]?.name}
@@ -39,12 +39,12 @@ const Page = () => {
               <h2 className="text-xl font-medium text-white ">
                 {data?.[0]?.name}
               </h2>
-              <h3>{data?.[0]?.email}</h3>
+              <h3>score {data?.[0]?.credit}</h3>
             </div>
           </div>
           {data?.map(
             (item: any, index: number) =>
-              auth?.user?.name === item.name && (
+              auth?.user?.email === item.email && (
                 <div
                   className="border-2 border-gray-200 bg-[#D9E0EA] rounded-xl p-8 text-center flex  gap-8"
                   key={index}

@@ -16,6 +16,8 @@ import Avatar from "react-avatar";
 import { FaHeart } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import toast from "react-hot-toast";
+import { DeleteUser } from "@/components/dashboard/AlertModal/deleteUser";
+
 export default function Dashboard() {
   const { data: profile, isLoading } = useQuery({
     queryKey: ["Auth"],
@@ -23,20 +25,6 @@ export default function Dashboard() {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
-  });
-
-  const { mutate: deleteAccount } = useMutation({
-    mutationKey: ["deleteAccount"],
-    mutationFn: () => {
-      return Api.delete("/users/profile").then((res) => res.data);
-    },
-    onSuccess: (data: any) => {
-      toast.success(data.message);
-      window.location.replace("/");
-    },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || error?.message);
-    },
   });
 
   if (isLoading)
@@ -69,9 +57,11 @@ export default function Dashboard() {
                 </p>
               </div>
             </div>
-            <Button className="mt-4" variant="destructive">
+            {/* <Button className="mt-4" variant="destructive">
               Delete
-            </Button>
+            </Button> */}
+
+            <DeleteUser />
           </div>
           <div>
             <h1 className="text-2xl font-bold  mt-16 text-gray-900 dark:text-white px-4">

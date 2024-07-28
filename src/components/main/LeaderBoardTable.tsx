@@ -30,7 +30,7 @@ const LeaderBoardTable = ({ data }: { data: any[] }) => {
           <TableRow key={index}>
             <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell>{item.name}</TableCell>
-            <TableCell>{item.email}</TableCell>
+            <TableCell>{item.email.spli}</TableCell>
             <TableCell className="text-right">{item.credit}</TableCell>
           </TableRow>
         ))}
