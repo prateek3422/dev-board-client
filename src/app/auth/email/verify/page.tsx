@@ -45,7 +45,9 @@ function Page() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["verifyPassword"],
     mutationFn: (data: any) =>
-      Api.post("/auth/verify-email", { otp: data.pin }).then((res) => res.data),
+      Api.post("/users/email-verify", { otp: data.pin }).then(
+        (res) => res.data
+      ),
     onSuccess: (data: any) => {
       toast.success(data.message);
 

@@ -4,10 +4,7 @@ import { TfiLayoutLineSolid } from "react-icons/tfi";
 import { FaQuoteLeft } from "react-icons/fa6";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Api, queryClient } from "@/lib";
-
 import parse from "html-react-parser";
-//@ts-ignore
-
 import { Button } from "@/components/ui/button";
 import { CommentsModal, GetComments, Loader } from "@/components";
 import Link from "next/link";
@@ -29,9 +26,11 @@ import { format } from "timeago.js";
 export default function Page({ params }: { params: { slug: string } }) {
   const auth = useAuthStore((state) => state.auth);
   const { slug } = params;
+
   const { data: BlogData, isLoading } = useQuery({
     queryKey: ["blog", slug],
-    queryFn: () => Api.get(`/blogs/${slug}`).then((res) => res?.data?.data),
+    queryFn: () =>
+      Api.get(`/Blogs/getBlogById/${slug}`).then((res) => res?.data?.data),
     enabled: !!slug,
     // refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -53,7 +52,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const { mutate, isPending } = useMutation({
     mutationKey: ["BlogLike"],
     mutationFn: () =>
-      Api.post(`/blogs/${BlogData?._id}/like`, {}).then((res) => res.data),
+      Api.post(`/Likes//toggle/b/${BlogData?._id}`, {}).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["blog", slug] });
@@ -62,7 +61,6 @@ export default function Page({ params }: { params: { slug: string } }) {
       toast.error(error?.response?.data?.message || error?.message);
     },
   });
-
   if (isLoading)
     return (
       <div className="flex  items-center justify-center min-h-screen">
@@ -116,9 +114,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                 </figure>
 
                 <div className="space-y-3">
-                  <h3 className="text-2xl font-semibold dark:text-white">
+                  {/* <h3 className="text-2xl font-semibold dark:text-white">
                     Bringing the culture of sharing to everyone
-                  </h3>
+                  </h3> */}
 
                   <span className="text-lg text-gray-800 dark:text-neutral-200">
                     {BlogData?.comtent ? parse(BlogData?.content) : ""}
@@ -130,7 +128,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                     {BlogData?.tags?.map((tag: any) => (
                       <span
                         className="m-0.5 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200"
-                        key={tag._id}
+                        key={tag?._id}
                       >
                         {tag.name}
                       </span>
@@ -142,7 +140,6 @@ export default function Page({ params }: { params: { slug: string } }) {
                     {/* <!-- Button --> */}
                     <div className="hs-tooltip inline-block">
                       <Button
-                        //@ts-ignore
                         variant="none"
                         className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200"
                         onClick={() => mutate()}
@@ -166,7 +163,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger>
-                              {BlogData?.likes?.length}
+                              {BlogData?.like?.length}
                             </TooltipTrigger>
                             <TooltipContent>
                               <p>likes</p>
@@ -247,7 +244,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               {/* <!-- End Avatar Media --> */}
 
               {Author?.blogs?.map((blog: any) => (
-                <div className="space-y-6" key={blog._id}>
+                <div className="space-y-6" key={blog?._id}>
                   {/* <!-- Media --> */}
                   <Link
                     className="group flex items-center gap-x-6"

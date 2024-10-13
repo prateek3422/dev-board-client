@@ -22,12 +22,11 @@ export function SearchBar() {
   const { data, isSuccess } = useQuery({
     queryKey: ["blog"],
     queryFn: () =>
-      Api.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/blogs?func=true&q=${Search}&limit=10&page=1&tags=&cats=&sort=`
-      ).then((res) => res?.data?.data),
+      Api.get(`${process.env.NEXT_PUBLIC_API_URL}/Blogs/getAllBlog`).then(
+        (res) => res?.data?.data
+      ),
     refetchOnWindowFocus: false,
     staleTime: Infinity,
-    
   });
 
   // isSuccess && queryClient.invalidateQueries({ queryKey: ["blog"] });
@@ -42,14 +41,11 @@ export function SearchBar() {
   //   return () => document.removeEventListener("keydown", down);
   // }, []);
 
-
   return (
     <>
       <div className="max-w-md">
         {/* <!-- SearchBox --> */}
-        <div
-          className="relative"
-        >
+        <div className="relative">
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
               <svg
@@ -62,7 +58,7 @@ export function SearchBar() {
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
-                 strokeLinejoin="round"
+                strokeLinejoin="round"
               >
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.3-4.3"></path>
@@ -74,7 +70,7 @@ export function SearchBar() {
               type="text"
               placeholder="Type a command or search..."
               value={Search}
-              onChange={(e) =>  setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               data-hs-combo-box-input=""
             />
             <CommandShortcut className="absolute top-4 right-2  ">
@@ -87,22 +83,19 @@ export function SearchBar() {
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput className="" placeholder=" search..." />
-        <CommandList  >
+        <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup className="" heading="Suggestions">
-            {data?.blogs.map((item: any) => (
+            {data?.blogs?.map((item: any) => (
               <Link key={item._id} href={`/blogs/${item.slug}`}>
-
-              <CommandItem
-                onSelect={() => {
-                  setSearch(item.title);
-                }}
+                <CommandItem
+                  onSelect={() => {
+                    setSearch(item.title);
+                  }}
                 >
-                
-                {item.title}
-               
-              </CommandItem>
-                </Link>
+                  {item.title}
+                </CommandItem>
+              </Link>
             ))}
             {/* <CommandItem>Calculator</CommandItem> */}
           </CommandGroup>

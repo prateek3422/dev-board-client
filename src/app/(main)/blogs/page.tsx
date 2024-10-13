@@ -15,9 +15,9 @@ export default function Blogs() {
   const { data } = useQuery({
     queryKey: ["blog"],
     queryFn: () =>
-      Api.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/blogs?func=true&q=&limit=10&page=1&tags=&cats=&sort=`
-      ).then((res) => res?.data?.data),
+      Api.get(`${process.env.NEXT_PUBLIC_API_URL}/Blogs/getAllBlog`).then(
+        (res) => res?.data?.data
+      ),
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
@@ -33,7 +33,11 @@ export default function Blogs() {
         <div className="grid lg:grid-cols-2 lg:gap-y-16 gap-10">
           {/* <!-- Card --> */}
 
-          {data?.blogs.map((item: any) => (
+          {/* {data?.blogs?.length === 0 && (
+            <div className="text-center">No Blogs found</div>
+          )} */}
+
+          {data?.map((item: any) => (
             <Link
               key={item._id}
               href={`/blogs/${item.slug}`}
@@ -41,12 +45,17 @@ export default function Blogs() {
             >
               <div className="sm:flex">
                 <div className="flex-shrink-0 relative rounded-xl overflow-hidden w-full sm:w-72 h-56">
-                  <Image
-                    className="group-hover:scale-105 transition-transform duration-500 ease-in-out size-full absolute top-0 start-0 object-cover rounded-xl"
+                  {/* <Image
+                        className="group-hover:scale-105 transition-transform duration-500 ease-in-out size-full absolute top-0 start-0 object-cover rounded-xl"
+                        src={item?.image?.url}
+                        height={1920}
+                        width={1080}
+                        alt="Image Description"
+                      /> */}
+                  <img
                     src={item?.image?.url}
-                    height={1920}
-                    width={1080}
                     alt="Image Description"
+                    className="group-hover:scale-105 transition-transform duration-500 ease-in-out size-full absolute top-0 start-0 object-cover rounded-xl"
                   />
                 </div>
 

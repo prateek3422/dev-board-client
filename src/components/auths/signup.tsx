@@ -24,10 +24,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { TbPasswordFingerprint } from "react-icons/tb";
 import { SiNamecheap } from "react-icons/si";
+import axios from "axios";
+import { User } from "lucide-react";
 
 const formSchema = z.object({
-  name: z.string().min(3, { message: "name must be at least 3 characters" }),
+  Fullname: z
+    .string()
+    .min(3, { message: "name must be at least 3 characters" }),
+  Username: z
+    .string()
+    .min(3, { message: "name must be at least 3 characters" }),
   email: z.string().email({ message: "Invalid email" }),
+
   password: z
     .string({ required_error: "password required" })
     .min(8, { message: "password most be 8 characters" }),
@@ -35,8 +43,6 @@ const formSchema = z.object({
 
 export const SignUpComp = () => {
   const [isPassword, setIsPassword] = useState(true);
-  const storeSignIn = useAuthStore((state) => state.signIn);
-
   const passwordToggle = () => {
     setIsPassword(!isPassword);
   };
@@ -44,6 +50,8 @@ export const SignUpComp = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      Fullname: "",
+      Username: "",
       email: "",
       password: "",
     },
@@ -52,7 +60,7 @@ export const SignUpComp = () => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["signIn"],
     mutationFn: (data: any) =>
-      Api.post("/auth/signup", data).then((res) => res.data),
+      Api.post("/users/register", data).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
       // storeSignIn(data.data);
@@ -79,7 +87,7 @@ export const SignUpComp = () => {
 
             <FormField
               control={form.control}
-              name="name"
+              name="Fullname"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
                   <FormLabel className="text-white "> </FormLabel>
@@ -87,11 +95,36 @@ export const SignUpComp = () => {
                     <div className="relative">
                       <Input
                         type="text"
-                        placeholder="Enter your Name"
+                        placeholder="Enter your Fullname"
                         className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
                         {...field}
                       />
                       <SiNamecheap
+                        size={20}
+                        className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="Username"
+              render={({ field }) => (
+                <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
+                  <FormLabel className="text-white "> </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        type="text"
+                        placeholder="Enter your Username"
+                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
+                        {...field}
+                      />
+                      <User
                         size={20}
                         className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5"
                       />

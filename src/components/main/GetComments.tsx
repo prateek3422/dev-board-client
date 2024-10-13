@@ -26,7 +26,7 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
   const { data: comment, isLoading } = useQuery({
     queryKey: ["comment", blogId],
     queryFn: () =>
-      Api.get(`/blogs/${blogId}/comments?&func=true`).then(
+      Api.get(`/Comments/getBlogComment/${blogId}`).then(
         (res) => res?.data?.data
       ),
     refetchOnMount: false,
@@ -91,21 +91,21 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
   return (
     <>
       <ScrollArea className=" h-[60vh] w-80 rounded-md border mt-8">
-        {comment?.comments?.map((comments: any, index: number) => (
-          <div key={comments._id}>
+        {comment?.map((comments: any, index: number) => (
+          <div key={comments?._id}>
             <Separator className="mt-4" />
             <div className="flex flex-col gap-4 p-3 mt-4">
               <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-row items-center gap-2">
                   <Avatar
-                    name={comments?.author?.name}
-                    src={comments?.author?.avatar?.url}
+                    name={comments?.owner?.Fullname}
+                    src={comments?.owner?.avatar?.url}
                     size="40"
                     round
                   />
                   <span className="group grow block">
                     <h5 className="group-hover:text-gray-600 text-sm font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
-                      {comments?.author?.name}
+                      {comments?.owner?.Username}
                     </h5>
                     <p className="text-sm text-gray-500 dark:text-neutral-500">
                       {format(comments?.createdAt)}
@@ -163,7 +163,7 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
                     </div>
                   </div>
                 ) : (
-                  comments?.comment
+                  comments?.content
                 )}
               </div>
             </div>

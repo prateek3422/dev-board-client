@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,7 +29,7 @@ import { GetComments } from "../GetComments";
 export function CommentSheet({
   blogId,
   comment,
-  auth
+  auth,
 }: {
   blogId: string;
   comment: any;
@@ -38,8 +38,7 @@ export function CommentSheet({
   const [value, setValue] = useState("");
 
   const { mutate: addComment } = useMutation({
-    
-    mutationFn: () => Api.post(`/blogs/${blogId}/comments`, { comment: value }),
+    mutationFn: () => Api.post(`/Comments/${blogId}`, { content: value }),
     onSuccess: (data) => {
       setValue("");
       toast.success("Comment Added Successfully");
@@ -56,7 +55,7 @@ export function CommentSheet({
       <SheetTrigger asChild>
         <Button
           className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-         //@ts-ignore
+          //@ts-ignore
           variant="none"
           disabled={!auth.isAuth}
         >

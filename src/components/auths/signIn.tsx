@@ -26,6 +26,7 @@ import { TbPasswordFingerprint } from "react-icons/tb";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
+
   password: z
     .string({ required_error: "password required" })
     .min(8, { message: "password most be 8 characters" }),
@@ -49,10 +50,11 @@ export function SignInComp() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["signIn"],
     mutationFn: (data: any) =>
-      Api.post("/auth/signin", data).then((res) => res.data),
+      Api.post("/users/signin", data).then((res) => res.data),
     onSuccess: (data: any) => {
+      // console.log(data);
       toast.success(data.message);
-      storeSignIn(data.data?.user);
+      storeSignIn(data.data);
       window.location.replace("/dashboard");
     },
     onError: (error: any) => {
