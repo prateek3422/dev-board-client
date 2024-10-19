@@ -1,1 +1,1 @@
-Next Js Dev Board
+Next Js Dev wave

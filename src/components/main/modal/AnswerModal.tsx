@@ -17,16 +17,17 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export function AnswerModal({ slug }: { slug: string }) {
+export function AnswerModal({ questionId }: { questionId: string }) {
   const [value, setValue] = useState("");
   const auth = useAuthStore((state) => state.auth);
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ["AskAnswer", slug],
+    mutationKey: ["AskAnswer", questionId],
     mutationFn: (data: any) =>
-      Api.post(`qas/${slug}/answers`, { answer: data }).then((res) => res.data),
+      Api.post(`${process.env.NEXT_PUBLIC_API_URL}/Answers/${questionId}`, {
+        answer: data,
+      }).then((res) => res.data),
     onSuccess: (data: any) => {
-      console.log(data);
       toast.success(data.message);
     },
     onError: (error: any) => {
@@ -43,7 +44,7 @@ export function AnswerModal({ slug }: { slug: string }) {
       <DialogTrigger asChild>
         {auth.isAuth ? (
           <Button
-            className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+            className="bg-primary hover:bg-[#3000b6] text-white"
             variant="outline"
           >
             Post your answer
@@ -52,7 +53,7 @@ export function AnswerModal({ slug }: { slug: string }) {
           <Button
             disabled
             variant="outline"
-            className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+            className="bg-primary hover:bg-[#3000b6] text-white"
           >
             Post your answer
           </Button>
@@ -71,7 +72,7 @@ export function AnswerModal({ slug }: { slug: string }) {
         <DialogFooter></DialogFooter>
         <Button
           onClick={handleSubmit}
-          className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+          className="bg-primary hover:bg-[#3000b6] text-white"
           type="submit"
           mt-8
           disabled={isPending}

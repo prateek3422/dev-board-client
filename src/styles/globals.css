@@ -13,6 +13,7 @@
 .inter {
   font-family: "Inter", sans-serif;
 }
+
 .ltim {
   font-family: "Itim", cursive;
   font-style: normal;
@@ -24,7 +25,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: #eee9f7;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -33,16 +34,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: #371f60;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: #9c7adc;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
+    --accent: #672acf;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -56,7 +57,7 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: #0d0815;
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -65,16 +66,16 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: #b79fe0;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: #462385;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
+    --accent: #6c30d5;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -90,56 +91,67 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 @keyframes spin {
+
   0%,
   100% {
     transform: rotate(0deg);
   }
+
   50% {
     transform: rotate(10deg);
   }
 }
 
 @keyframes spin-full {
+
   0%,
   100% {
     transform: rotate(0deg);
   }
+
   50% {
     transform: rotate(360deg);
   }
 }
 
 @keyframes bounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-5%);
   }
 }
 
 @keyframes bounce_two {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10%);
   }
 }
 
 @keyframes fade {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -150,6 +162,7 @@
   0% {
     width: 0;
   }
+
   100% {
     width: 100%;
   }
@@ -157,20 +170,24 @@
 
 /* Cursor blink effect */
 @keyframes blink {
+
   0%,
   100% {
     border-color: transparent;
   }
+
   50% {
     border-color: #fff;
   }
 }
 
 @keyframes wiggle {
+
   0%,
   100% {
     transform: rotate(-3deg);
   }
+
   50% {
     transform: rotate(3deg);
   }
@@ -188,6 +205,7 @@
 .animate-spin {
   animation: spin 3s linear infinite;
 }
+
 .animate-spin-full {
   animation: spin-full 3s linear infinite;
 }
@@ -259,11 +277,13 @@
     transform: rotateY(0deg);
   }
 
-  50%, 80% {
+  50%,
+  80% {
     transform: rotateY(-180deg);
   }
 
-  90%, 100% {
+  90%,
+  100% {
     opacity: 0;
     transform: rotateY(-180deg);
   }

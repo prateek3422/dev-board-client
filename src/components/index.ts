@@ -8,7 +8,6 @@ export * from "./main/Footer";
 export * from "./auths/signIn";
 export * from "./auths/signup";
 
-
 // tranding post
 export * from "./main/TrandingPost";
 
@@ -17,7 +16,7 @@ export * from "./main/TopQuestions";
 
 // search bar
 // export * from "./main/SearchBar";
-export * from "./main/CommentssModal"
+export * from "./main/CommentssModal";
 export * from "./main/GetComments";
 
 export * from "./Loader";
@@ -26,4 +25,4 @@ export * from "./Loader";
 export * from "./dashboard/Sidebar";
 export * from "./dashboard/Badges";
 export * from "./dashboard/TopContents";
-export * from "./Editor";
+// export * from "./Editor";

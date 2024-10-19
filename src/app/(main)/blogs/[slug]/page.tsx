@@ -40,7 +40,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const { data: Author } = useQuery({
     queryKey: ["author", BlogData?.author?._id],
     queryFn: () =>
-      Api.get(`/blogs/author/${BlogData?.author?._id}`).then(
+      Api.get(`/Blogs/getAllBlog?userId=${BlogData?.author?._id}`).then(
         (res) => res?.data?.data
       ),
     enabled: !!BlogData?.author?._id,
@@ -198,7 +198,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               {/* <!-- Avatar Media --> */}
               <div className="group flex items-center gap-x-3 border-b border-gray-200 pb-8 mb-8 dark:border-neutral-700">
                 <Avatar
-                  name={BlogData?.author?.name}
+                  name={BlogData?.author?.Fullname}
                   src={BlogData?.author?.avatar?.url}
                   size="40"
                   round={true}
@@ -209,10 +209,10 @@ export default function Page({ params }: { params: { slug: string } }) {
                   className="group grow block"
                 >
                   <h5 className="group-hover:text-gray-600 text-sm font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
-                    {BlogData?.author?.name}
+                    {BlogData?.author?.Fullname}
                   </h5>
                   <p className="text-sm text-gray-500 dark:text-neutral-500">
-                    {BlogData?.author?.email}
+                    {BlogData?.author?.Username}
                   </p>
                 </Link>
 
@@ -243,7 +243,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               </div>
               {/* <!-- End Avatar Media --> */}
 
-              {Author?.blogs?.map((blog: any) => (
+              {Author?.map((blog: any) => (
                 <div className="space-y-6" key={blog?._id}>
                   {/* <!-- Media --> */}
                   <Link

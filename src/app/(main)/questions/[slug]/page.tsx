@@ -30,15 +30,17 @@ export default function Page({ params }: { params: { slug: any } }) {
 
   const { data: BlogData, isLoading } = useQuery({
     queryKey: ["question", slug],
-    queryFn: () => Api.get(`/qas/${slug}`).then((res) => res?.data?.data),
+    queryFn: () => Api.get(`Questions/${slug}`).then((res) => res?.data?.data),
     enabled: !!slug,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
 
+  console.log(BlogData);
+
   const { mutate, isPending } = useMutation({
-    mutationKey: ["BlogLike"],
+    mutationKey: ["QuestionLike"],
     mutationFn: () =>
       Api.post(`/qas/${slug}/like`, {}).then((res) => res?.data),
     onSuccess: (data: any) => {
@@ -85,13 +87,13 @@ export default function Page({ params }: { params: { slug: any } }) {
           <div>
             {auth.isAuth ? (
               <Link href="/Ask">
-                <Button className="mt-4 bg-[#4926b0] hover:bg-[#3000b6] text-white">
+                <Button className="mt-4 bg-primary hover:bg-[#3000b6] text-white">
                   Add Question
                 </Button>
               </Link>
             ) : (
               <Button
-                className="mt-4 bg-[#4926b0] hover:bg-[#3000b6] text-white"
+                className="mt-4 bg-primary hover:bg-[#3000b6] text-white"
                 disabled
               >
                 Add Question
@@ -155,9 +157,9 @@ export default function Page({ params }: { params: { slug: any } }) {
           <div className=" ">
             <div className="w-full py-2 px-4  flex flex-col  ">
               <div className="mb-2 px-4 py-2 ">
-                <h1>{BlogData?.answers?.length} answers</h1>
+                <h1>{BlogData?.answer?.length} answers</h1>
               </div>
-              {BlogData?.answers?.map((answer: any) => (
+              {BlogData?.answer?.map((answer: any) => (
                 <div
                   key={answer._id}
                   className="w-full py-2 px-4flex flex-col items-center"
@@ -168,10 +170,10 @@ export default function Page({ params }: { params: { slug: any } }) {
                     </span>
                     <div className="flex flex-row items-center justify-between gap-8 mt-4">
                       <h3 className="text-[#3B82F6]">
-                        Asked by: {answer.author.name}
+                        Asked by: {answer.owner.Fullname}
                       </h3>
 
-                      {auth.user?.email === answer.author.email ? (
+                      {auth.user?.email === answer.owner.email ? (
                         <div className="flex gap-4">
                           {/* <Button
                             variant="none"
@@ -192,7 +194,7 @@ export default function Page({ params }: { params: { slug: any } }) {
               ))}
             </div>
             <div className="my-8 px-4 ">
-              <AnswerModal slug={slug} />
+              <AnswerModal questionId={BlogData?._id} />
             </div>
           </div>
         </div>

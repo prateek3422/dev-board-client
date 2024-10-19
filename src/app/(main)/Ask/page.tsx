@@ -45,17 +45,18 @@ const Page = () => {
     },
   });
 
+  // tag api call
   const { data: tag } = useQuery({
     queryKey: ["tag"],
-    queryFn: () => Api.get(`/tags?func=true`).then((res) => res?.data),
+    queryFn: () => Api.get(`/Tags/getAllTag`).then((res) => res?.data),
   });
 
   const [value, setValue] = React.useState("");
-
+  // question create APi call
   const { mutate, isPending } = useMutation({
     mutationKey: ["AskQuestion"],
     mutationFn: (data: any) => {
-      return Api.post("/qas", {
+      return Api.post("/Questions/create-question", {
         title: data.title,
         question: value,
         tags: data.tags,
@@ -123,7 +124,7 @@ const Page = () => {
                         </MultiSelectorTrigger>
                         <MultiSelectorContent>
                           <MultiSelectorList>
-                            {tag?.data?.tags?.map((item: any) => (
+                            {tag?.data?.map((item: any) => (
                               <MultiSelectorItem
                                 key={item._id}
                                 value={item._id}

@@ -4,8 +4,8 @@ import Link from "next/link";
 import { RiMenu2Fill } from "react-icons/ri";
 import NavUtils from "../NavUtils";
 import { Button } from "../ui/button";
-import { THemeSwitch } from "../THemeSwitch";
 import { useAuthStore } from "@/store";
+import { ThemeProvider } from "../themeProvider";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,7 +74,7 @@ export function Navbar() {
       </nav>
 
       <div className="flex items-center animate-bounce_two gap-2">
-        {/* <THemeSwitch /> */}
+        <ThemeProvider />
         <NavUtils />
       </div>
     </header>

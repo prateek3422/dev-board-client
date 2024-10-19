@@ -18,6 +18,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import BUTTON from "./main/button";
 
 function NavUtils() {
   const [mounted, setMounted] = useState(false);
@@ -36,7 +37,6 @@ function NavUtils() {
     },
   });
   const handleSignOut = () => {
-    console.log("sign out");
     mutate();
   };
 
@@ -94,9 +94,7 @@ function NavUtils() {
         </DropdownMenu>
       ) : (
         <Link href="/auth/signin">
-          <Button className=" bg-[#4926b0] hover:bg-[#3000b6] text-white">
-            Sign In
-          </Button>
+          <BUTTON>Sign In</BUTTON>
         </Link>
       )}
     </>

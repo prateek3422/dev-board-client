@@ -49,9 +49,7 @@ export const GetComments = ({ blogId }: { blogId: string }) => {
 
   const { mutate: deleteComment } = useMutation({
     mutationFn: ({ commentId }: any) =>
-      Api.delete(`blogs/comments/${commentId}`, {}).then(
-        (res) => res?.data?.data
-      ),
+      Api.delete(`/Comments/${blogId}`, {}).then((res) => res?.data?.data),
     onSuccess: (data) => {
       toast.success("Comment Deleted Successfully");
       queryClient.invalidateQueries({ queryKey: ["comment", blogId] });

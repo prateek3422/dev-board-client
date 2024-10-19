@@ -1,10 +1,17 @@
+"use client";
 // import { TopQuestions &#8218;	 TrandingPost } from "@/components";
+
 import Image from "next/image";
 import { Itim, Poppins } from "next/font/google";
 import { RxDoubleArrowDown } from "react-icons/rx";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RiSingleQuotesR } from "react-icons/ri";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+
+import { Particles } from "@/components/ui/glowing-stars";
+import BUTTON from "@/components/main/button";
 
 const itim = Itim({
   subsets: ["latin"],
@@ -19,17 +26,31 @@ const itim = Itim({
 // });
 
 export default function Home() {
+  const { theme } = useTheme();
+  const [color, setColor] = useState("#ffffff");
+
+  // useEffect(() => {
+  //   setColor(theme === "dark" ? "#ffffff" : "#000000");
+  // }, [theme]);
   return (
     <>
-      <div className="w-full min-h-[100vh] relative   bg-circle">
+      {/* <div className="w-full min-h-[100vh] relative    overflow-y">
         <div className=" absolute bg-dot inset-0 opacity-80"></div>
+
+        <Particles
+          className="absolute inset-0 z-50"
+          quantity={150}
+          ease={80}
+          // color={color}
+          refresh
+        />
 
         <div className="w-full  flex flex-col items-center justify-start absolute top-1/2   -translate-y-1/2">
           <h1 className="scroll-m-20 text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight lg:text-5xl   text-white  lg:mt-16 text-center">
             Discover &#8218; Learn &#8218; and Grow with Us
           </h1>
 
-          <p className="leading-7 [&:not(:first-child)]:mt-6 text-justify text-white  sm:w-[80vw] md:w-[60vw] max-w-[90vw]   text-sm">
+          <p className="leading-4 md:leading-6 [&:not(:first-child)]:mt-6 text-center text-white  sm:w-[80vw] md:w-[60vw]  max-w-[80vw] text-[0.5rem]   md:text-sm">
             Welcome to DevWave &#8218; the ultimate destination for developers
             &#8218; coders &#8218; and tech enthusiasts! At DevWave &#8218; we
             believe in the power of community and collaboration. Whether you
@@ -46,22 +67,87 @@ export default function Home() {
           </p>
 
           <Link href="/blogs">
-            <Button className="mt-10 bg-[#4926b0] hover:bg-[#3000b6] text-white">
-              Get Started
-            </Button>
+            <BUTTON className="">Get Started</BUTTON>
           </Link>
-          {/* 
-            <Button className="mt-16 animate-bounce text-3xl ">
-              {" "}
-              <RxDoubleArrowDown />
-            </Button> */}
+ 
         </div>
-      </div>
+      </div> */}
+      <section className="w-full min-h-[100vh]">
+        <div className="grid grid-col-1 lg:grid-cols-2 gap-2  h-[100vh]">
+          <div className="flex justify-center items-center">
+            <div className="flex flex-col justify-center mx-12 my-2 gap-8 ">
+              <Image
+                src="/circle.svg"
+                alt="Hero Image"
+                width={100}
+                height={100}
+                className="w-10 h-10 "
+              />
+              <div className="flex flex-col items-center gap-4 w-full lg:w-[29vw] ">
+                <h1 className=" text-3xl sm:text-6xl font-bold w-full leading-[3rem] sm:leading-[5rem]">
+                  Discover &#44; Learn &#44; and Grow with Us
+                </h1>
+                <p className="text-sm  leading-[1.6rem]">
+                  Join DevWave &#8211; your hub for developers, coders, and tech
+                  enthusiasts! Access resources, tutorials, and the latest in
+                  tech. Connect, learn, and innovate with a vibrant community.
+                  Dive in now!
+                </p>
 
-      {/* <div className="relative w-full h-full mt-16  "> */}
-      {/* <TrandingPost /> */}
-      {/* </div> */}
-      {/* <TopQuestions /> */}
+                <div>
+                  <BUTTON className="">Get started</BUTTON>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className=" relative my-4 hidden lg:block  ">
+            <div className="mt-2 grid grid-cols-2 w-max gap-6 absolute right-0 top-[5rem]">
+              <div className="flex flex-col justify-center items-center gap-2">
+                <img src="/imgsvg1.svg" alt="Hero Image" className="h-52" />
+
+                <div className="flex gap-2 items-end">
+                  <img src="/rombus.svg" alt="" className=" h-12" />
+                  <img src="/midleft.svg" alt="Hero Image" className="h-32 " />
+                </div>
+                <img
+                  src="/Wavy Buddies Avatar (2).svg"
+                  alt="Hero img"
+                  className="h-52"
+                />
+              </div>
+
+              <div className="flex flex-col justify-center items-center gap-4">
+                <img
+                  src="/Wavy Buddies Out of Stock.svg"
+                  alt="Hero Image"
+                  className="h-32 mr-20"
+                />
+
+                <div className="flex items-center gap-6">
+                  <img
+                    src="/Wavy Buddies Avatar.svg"
+                    alt="Hero Image"
+                    className=" h-64"
+                  />
+
+                  <img
+                    src="Rectangle 9.svg"
+                    alt="cullerd-circle"
+                    className="h-6"
+                  />
+                </div>
+
+                <img
+                  src="/Wavy Buddies Out of Stock (1).svg"
+                  alt="Hero Image"
+                  className=" h-40"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

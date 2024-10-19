@@ -209,7 +209,7 @@ const Page = () => {
                     placeholder={profile?.user?.name}
                   />
                   <Button
-                    className=" bg-[#4926b0] hover:bg-[#3000b6] text-white"
+                    className=" bg-primary hover:bg-[#3000b6] text-white"
                     type="submit"
                   >
                     change name
@@ -263,7 +263,7 @@ const Page = () => {
                   />
 
                   <Button
-                    className=" bg-[#4926b0] hover:bg-[#3000b6] text-white "
+                    className=" bg-primary hover:bg-[#3000b6] text-white "
                     type="submit"
                   >
                     change password

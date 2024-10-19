@@ -70,7 +70,7 @@ export function EditAnswerModal({
         <DialogClose asChild>
           <Button
             onClick={handleSubmit}
-            className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+            className="bg-primary hover:bg-[#3000b6] text-white"
             type="submit"
             mt-8
             disabled={isPending}

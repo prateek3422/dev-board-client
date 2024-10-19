@@ -72,7 +72,7 @@ const Page = () => {
               <h1>Dev Wave</h1>
               <Button
                 variant="default"
-                className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
+                className="bg-primary hover:bg-[#3000b6] text-white"
               >
                 {" "}
                 All Time
