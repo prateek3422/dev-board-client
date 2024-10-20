@@ -1,14 +1,12 @@
-
+"use client";
 import { SignInComp } from "@/components";
 
 function SignIn() {
-
   return (
     <>
-      <SignInComp/>
+      <SignInComp />
     </>
-
-);
+  );
 }
 
 export default SignIn;

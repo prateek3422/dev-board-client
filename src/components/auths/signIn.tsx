@@ -23,6 +23,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { TbPasswordFingerprint } from "react-icons/tb";
+import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -68,13 +69,16 @@ export function SignInComp() {
 
   return (
     <>
-      <section className="flex justify-center items-center h-screen">
+      <section className="flex justify-center items-center min-h-screen relative">
+        <BackgroundBeams />
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex gap-4 flex-col bg-gray-800 rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1"
+            className="flex gap-4 flex-col rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1 h-full bg-gradient-to-tr from-gray-500/10 to-white/5 z-10  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 "
           >
-            <h1 className="text-center font-semibold text-xl mt-4">Sign In</h1>
+            <h1 className="text-center font-semibold text-xl mt-4">
+              Sign in devwave
+            </h1>
 
             <FormField
               control={form.control}
@@ -141,7 +145,11 @@ export function SignInComp() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="mx-auto" disabled={isPending}>
+            <Button
+              type="submit"
+              className="mx-auto text-black dark:text-white bg-[#4926b0] hover:bg-[#3000b6]"
+              disabled={isPending}
+            >
               Sign In
             </Button>
             <div className="font-medium ">
