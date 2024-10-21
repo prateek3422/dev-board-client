@@ -12,6 +12,7 @@ import { useTheme } from "next-themes";
 
 import { Particles } from "@/components/ui/glowing-stars";
 import BUTTON from "@/components/main/button";
+import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 
 const itim = Itim({
   subsets: ["latin"],
@@ -73,6 +74,7 @@ export default function Home() {
         </div>
       </div> */}
       <section className="w-full min-h-[100vh]">
+        <BackgroundBeams />
         <div className="grid grid-col-1 lg:grid-cols-2 gap-2  h-[100vh]">
           <div className="flex justify-center items-center">
             <div className="flex flex-col justify-center mx-12 my-2 gap-8 ">

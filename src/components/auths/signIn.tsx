@@ -24,6 +24,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { TbPasswordFingerprint } from "react-icons/tb";
 import { BackgroundBeams } from "@/components/ui/backgroundBeam";
+import { FcGoogle } from "react-icons/fc";
+import { FaXTwitter } from "react-icons/fa6";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -74,24 +76,24 @@ export function SignInComp() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex gap-4 flex-col rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1 h-full bg-gradient-to-tr from-gray-500/10 to-white/5 z-10  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 "
+            className="flex gap-4 flex-col rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1 h-full bg-gradient-to-tr from-gray-300/10 to-gray-200/5 z-10  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 "
           >
-            <h1 className="text-center font-semibold text-xl mt-4">
-              Sign in devwave
-            </h1>
+            <div className="flex flex-col justify-center items-center gap-2">
+              <img src="/Vector.png" alt="" className="w-10" />
+              <h1 className="text-center  text-base ">Sign in devwave</h1>
+            </div>
 
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
-                  <FormLabel className="text-white "> </FormLabel>
+                <FormItem className="flex flex-col items-center justify-center  ">
                   <FormControl>
-                    <div className="relative">
+                    <div className="relative flex  w-full md:w-70  xl:w-96">
                       <Input
                         type="email"
                         placeholder="Enter your email"
-                        className=" grow border-2 border-gray-600 h-[2.5rem]  w-full md:w-72 xl:w-96 m-1  py-2 pl-8 pr-4 "
+                        className=" grow border-2  mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg  border-gray-600/50    h-[2.5rem]  m-1 py-2 pl-8 pr-4 w-full md:w-72 xl:w-96 "
                         {...field}
                       />
                       <MdEmail
@@ -110,16 +112,16 @@ export function SignInComp() {
               name="password"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center justify-center ">
-                  <FormLabel> </FormLabel>
                   <FormControl>
-                    <div className="relative">
+                    <div className="relative flex  w-full md:w-70  xl:w-96">
                       <Input
                         placeholder="Enter your password"
-                        className=" grow border-2 border-gray-600 h-[2.5rem]   w-full md:w-72 xl:w-96 m-1 py-2 pl-8 pr-4 "
+                        className=" flex-1 border-2 mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg  border-gray-600/50 h-[2.5rem]   w-full md:w-72  xl:w-96 m-1 py-2 pl-8 pr-4 "
                         autoComplete="false"
                         type={isPassword ? "password" : "text"}
                         {...field}
                       />
+
                       <TbPasswordFingerprint
                         size={20}
                         className="absolute start-2 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
@@ -129,13 +131,13 @@ export function SignInComp() {
                         <FaEye
                           size={22}
                           onClick={passwordToggle}
-                          className="absolute end-2 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
+                          className="absolute end-4 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
                         />
                       ) : (
                         <FaEyeSlash
                           size={22}
                           onClick={passwordToggle}
-                          className="absolute end-2 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
+                          className="absolute end-4 top-0 bottom-0 m-auto w-5 h-5 text-gray-400"
                         />
                       )}
                     </div>
@@ -147,19 +149,36 @@ export function SignInComp() {
             />
             <Button
               type="submit"
-              className="mx-auto text-black dark:text-white bg-[#4926b0] hover:bg-[#3000b6]"
+              className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2  items-center"
               disabled={isPending}
             >
               Sign In
             </Button>
-            <div className="font-medium ">
-              <Link href="/auth/password/forget" className="text-blue-600">
-                Forgot Password
-              </Link>
-              <br />
+            <div className="flex justify-center items-center">
+              <div className="border my-2  border-gray-900 w-[25%]"></div>
+              <span className="mx-2 text-sm">OR</span>
+              <div className="border my-2 border-gray-900 w-[25%] "></div>
+            </div>
+
+            <div className="flex flex-col justify-center items-center gap-2">
+              <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2">
+                {" "}
+                <FcGoogle size={25} />
+                signIn with Google
+              </Button>
+              <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 ">
+                {" "}
+                <FaXTwitter size={25} />
+                signIn with Twitter
+              </Button>
+            </div>
+            <div className="flex items-center justify-center py-2 text-sm ">
               <p>
                 Don&apos;t have an account ?
-                <Link href="/auth/signup" className="text-blue-600 ml-2">
+                <Link
+                  href="/auth/signup"
+                  className="text-blue-600 ml-2 text-lg font-bold"
+                >
                   Sign Up
                 </Link>
               </p>
