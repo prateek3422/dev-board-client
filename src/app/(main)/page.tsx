@@ -96,7 +96,7 @@ export default function Home() {
                   Dive in now!
                 </p>
 
-                <div>
+                <div className="flex justify-start items-center w-full">
                   <BUTTON className="">Get started</BUTTON>
                 </div>
               </div>

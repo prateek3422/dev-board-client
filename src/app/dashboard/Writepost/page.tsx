@@ -1,9 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-const Editor = dynamic(() => import("../../../components/Editor"), {
-  ssr: false,
-});
+
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -42,6 +40,9 @@ import {
 } from "@/components/multiselect";
 import { IoCloudUploadSharp } from "react-icons/io5";
 
+import Editor from "@/components/Editor/Editor";
+import { JSONContent } from "novel";
+
 const formSchema = z.object({
   // categories: z
   //   .array(z.string())
@@ -58,6 +59,16 @@ async function getTags() {
   return data;
 }
 
+export const defaultValue = {
+  type: "doc",
+  content: [
+    {
+      type: "paragraph",
+      content: [],
+    },
+  ],
+};
+
 const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -73,13 +84,13 @@ const Page = () => {
     queryFn: getTags,
   });
 
-  const { data: category } = useQuery({
-    queryKey: ["category"],
-    queryFn: getCategories,
-  });
+  // const { data: category } = useQuery({
+  //   queryKey: ["category"],
+  //   queryFn: getCategories,
+  // });
 
   const [files, setFiles] = useState<File[]>();
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState<JSONContent>(defaultValue);
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["createBlog"],
@@ -103,7 +114,7 @@ const Page = () => {
     // formData.append("categories", JSON.stringify(data.categories));
     formData.append("title", data.title);
     formData.append("tags", JSON.stringify(data.tags));
-    formData.append("content", value);
+    formData.append("content", JSON.stringify(value));
 
     //@ts-ignore
     formData.append("image", files[0]);
@@ -146,7 +157,7 @@ const Page = () => {
                 )}
               />
               <div className="mt-8 px-4 h-[40vh]  ">
-                <Editor value={value} onChange={setValue} />
+                <Editor initialValue={value} onChange={setValue} />
               </div>
             </div>
 

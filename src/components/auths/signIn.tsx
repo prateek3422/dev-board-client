@@ -116,7 +116,7 @@ export function SignInComp() {
                     <div className="relative flex  w-full md:w-70  xl:w-96">
                       <Input
                         placeholder="Enter your password"
-                        className=" flex-1 border-2 mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg  border-gray-600/50 h-[2.5rem]   w-full md:w-72  xl:w-96 m-1 py-2 pl-8 pr-4 "
+                        className=" grow border-2 mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg  border-gray-600/50 h-[2.5rem]   w-full md:w-72  xl:w-96 m-1 py-2 pl-8 pr-4 "
                         autoComplete="false"
                         type={isPassword ? "password" : "text"}
                         {...field}
@@ -142,6 +142,15 @@ export function SignInComp() {
                       )}
                     </div>
                   </FormControl>
+
+                  <div className="w-full md:w-70 xl:w-96  flex items-center justify-end">
+                    <Link
+                      href="/auth/password/forget"
+                      className="text-blue-600  text-sm font-bold"
+                    >
+                      forgot password ?
+                    </Link>
+                  </div>
 
                   <FormMessage />
                 </FormItem>

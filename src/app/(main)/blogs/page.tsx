@@ -33,9 +33,9 @@ export default function Blogs() {
         <div className="grid lg:grid-cols-2 lg:gap-y-16 gap-10">
           {/* <!-- Card --> */}
 
-          {/* {data?.blogs?.length === 0 && (
+          {data?.blogs?.length === 0 && (
             <div className="text-center">No Blogs found</div>
-          )} */}
+          )}
 
           {data?.map((item: any) => (
             <Link
@@ -64,7 +64,7 @@ export default function Blogs() {
                     {item.title}
                   </h3>
                   <span className="mt-3 text-gray-600 dark:text-neutral-400">
-                    {parse(item.content.substring(0, 120))}
+                    {parse(item.content.substring(0, 110))}
                   </span>
                   <p className="mt-4 inline-flex items-center gap-x-1 text-blue-600 decoration-2 hover:underline font-medium">
                     Read more

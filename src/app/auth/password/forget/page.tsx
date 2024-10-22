@@ -18,6 +18,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -50,26 +51,28 @@ function Page() {
 
   return (
     <>
-      <section className="flex justify-center items-center h-screen mx-2">
+      <section className="flex justify-center items-center min-h-screen relative">
+        <BackgroundBeams />
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex gap-4 flex-col bg-gray-800 rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1"
+            className="flex gap-4 flex-col rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1 h-full bg-gradient-to-tr from-gray-300/10 to-gray-200/5 z-10  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50"
           >
-            <h1 className="text-center font-semibold text-xl mt-4">Sign In</h1>
-
+            <div className="flex flex-col justify-center items-center gap-2">
+              <img src="/Vector.png" alt="" className="w-10" />
+              <h1 className="text-center  text-base ">Forget password</h1>
+            </div>
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="flex flex-col items-center justify-center gap-2 px-4">
-                  <FormLabel className="text-white "> </FormLabel>
+                <FormItem className="flex flex-col items-center justify-center">
                   <FormControl>
-                    <div className="relative">
+                    <div className="relative  w-full md:w-70  xl:w-96">
                       <Input
                         type="email"
                         placeholder="Enter your email"
-                        className=" grow border-2 border-gray-600 h-[2.5rem] w-full md:w-72 xl:w-96 m-1   py-2 pl-8 pr-4 "
+                        className="grow border-2  mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg  border-gray-600/50    h-[2.5rem]  m-1 py-2 pl-8 pr-4 w-full md:w-70 xl:w-96"
                         {...field}
                       />
                       <MdEmail
@@ -83,17 +86,13 @@ function Page() {
               )}
             />
 
-            <Button type="submit" className="mx-auto" disabled={isPending}>
+            <Button
+              type="submit"
+              className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2  items-center"
+              disabled={isPending}
+            >
               Forgot Password
             </Button>
-            <div className="font-medium ">
-              <p>
-                Don&apos;t have an account?{" "}
-                <Link href="/auth/signup" className="text-blue-600">
-                  Sign Up
-                </Link>
-              </p>
-            </div>
           </form>
         </Form>
       </section>

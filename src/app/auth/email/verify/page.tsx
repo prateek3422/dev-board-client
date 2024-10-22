@@ -27,6 +27,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuthStore } from "@/store";
+import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 
 const formSchema = z.object({
   pin: z.string().min(6, {
@@ -64,41 +65,12 @@ function Page() {
 
   return (
     <>
-      {/* <section className="flex justify-center items-center h-screen mx-2">
-        <form className="flex gap-8 flex-col bg-gray-800 rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1">
-          <h1 className="text-center font-semibold text-xl">Verify Email</h1>
-
-          <div>
-            <label className="input input-bordered flex items-center gap-2">
-              <MdOutlinePhoneAndroid size={20} />
-              <input type="text" className="grow" placeholder="OTP" />
-            </label>
-
-            <p className="text-red-500 font-medium"></p>
-          </div>
-
-          <div>
-            <button type="submit" className="btn btn-sm btn-primary w-full">
-              Verify Email
-            </button>
-          </div>
-
-          <div className="font-medium ">
-            <p>
-              Don t have an account?{" "}
-              <Link href="/auth/signup" className="text-primary">
-                Sign Up
-              </Link>
-            </p>
-          </div>
-        </form>
-      </section> */}
-
-      <section className="flex justify-center items-center h-screen mx-2 p-4">
+      <section className="flex justify-center items-center min-h-screen relative">
+        <BackgroundBeams />
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex gap-4 flex-col bg-gray-800 rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1"
+            className="flex gap-4 flex-col rounded-lg p-3 w-full md:w-1/2 lg:w-1/3 m-1 h-full bg-gradient-to-tr from-gray-300/10 to-gray-200/5 z-10  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 "
           >
             <h1 className="text-center font-semibold text-xl mt-4">Sign In</h1>
 
@@ -128,9 +100,25 @@ function Page() {
               )}
             />
 
-            <Button type="submit" className="mx-auto mb-8" disabled={isPending}>
+            <Button
+              type="submit"
+              className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50  flex gap-2  items-center"
+              disabled={isPending}
+            >
               Submit
             </Button>
+
+            <div className="flex items-center justify-center py-2 text-sm ">
+              <p>
+                Don&apos;t receive code?
+                <Link
+                  href="/auth/email/verification"
+                  className="text-blue-600 ml-2 text-lg font-bold"
+                >
+                  Resend
+                </Link>
+              </p>
+            </div>
           </form>
         </Form>
       </section>

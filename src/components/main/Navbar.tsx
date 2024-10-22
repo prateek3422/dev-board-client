@@ -74,7 +74,7 @@ export function Navbar() {
       </nav>
 
       <div className="flex items-center animate-bounce_two gap-2">
-        <ThemeProvider />
+        {/* <ThemeProvider /> */}
         <NavUtils />
       </div>
     </header>
