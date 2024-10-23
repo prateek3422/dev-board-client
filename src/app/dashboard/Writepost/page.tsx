@@ -27,8 +27,6 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import MultiSelectTest from "@/components/dashboard/categorySelector";
-import Image from "next/image";
 import { Paperclip, Tags } from "lucide-react";
 import {
   MultiSelector,
@@ -41,7 +39,12 @@ import {
 import { IoCloudUploadSharp } from "react-icons/io5";
 
 import Editor from "@/components/Editor/Editor";
+
+// const Editor = dynamic(() => import("@/components/Editor/Editor"), {
+//   ssr: false,
+// });
 import { JSONContent } from "novel";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const formSchema = z.object({
   // categories: z
@@ -64,7 +67,7 @@ export const defaultValue = {
   content: [
     {
       type: "paragraph",
-      content: [],
+      content: [{ type: "text", text: "Start writing your blog here" }],
     },
   ],
 };
@@ -156,9 +159,9 @@ const Page = () => {
                   </FormItem>
                 )}
               />
-              <div className="mt-8 px-4 h-[40vh]  ">
+              <ScrollArea className="mt-4 h-96">
                 <Editor initialValue={value} onChange={setValue} />
-              </div>
+              </ScrollArea>
             </div>
 
             <div className=" lg:w-1/3 lg:px-2 flex flex-col items-center justify-center sm:w-full sm:px-2">
@@ -275,6 +278,8 @@ const Page = () => {
             </div>
           </form>
         </Form>
+
+        <div className="bg-primary border-2 w-full mt-8 h-5"></div>
       </div>
     </div>
   );
