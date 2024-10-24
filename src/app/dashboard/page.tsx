@@ -29,14 +29,14 @@ export default function Dashboard() {
 
   if (isLoading)
     return (
-      <div className="flex items-center justify-center mt-24 min-h-screen">
+      <div className="flex items-center justify-center mt-24 min-h-screen w-full">
         <Loader />
       </div>
     );
 
   return (
     <section>
-      <div className={`p-4 sm:ml-64`}>
+      <div className={`flex flex-1 min-h-screen`}>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <div className="flex flex-col md:flex-row  items-center justify-between space-x-4">
             <div className="flex items-center justify-start space-x-4">

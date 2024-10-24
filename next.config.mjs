@@ -23,6 +23,11 @@ const nextConfig = {
         pathname: "/**",
       },
       {
+        protocol: "https",
+        hostname: "assets.aceternity.com",
+        pathname: "/**",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         pathname: "/**",

@@ -67,6 +67,8 @@ export default function Page({ params }: { params: { slug: string } }) {
         <Loader />
       </div>
     );
+
+  console.log(BlogData?.content);
   return (
     <>
       <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto mt-20">
@@ -119,7 +121,8 @@ export default function Page({ params }: { params: { slug: string } }) {
                   </h3> */}
 
                   <span className="text-lg text-gray-800 dark:text-neutral-200">
-                    {BlogData?.comtent ? parse(BlogData?.content) : ""}
+                    {/* {BlogData?.comtent ? parse(BlogData?.content) : ""} */}
+                    {parse(BlogData?.content)}
                   </span>
                 </div>
                 <div className="grid lg:flex lg:justify-between lg:items-center gap-y-5 lg:gap-y-0">
