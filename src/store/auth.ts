@@ -9,6 +9,7 @@ interface User {
   };
   role: string;
   email: string;
+  _id: string;
 }
 interface AuthState {
   auth: {
@@ -22,6 +23,7 @@ interface AuthState {
 let initialState = {
   isAuth: false,
   user: {
+    _id: "",
     Fullname: "",
     Username: "",
     avatar: {

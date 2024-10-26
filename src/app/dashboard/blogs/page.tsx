@@ -21,6 +21,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store";
 
 export type blog = {
   _id: string;
@@ -34,6 +35,7 @@ export type blog = {
 export default function Page() {
   const [Render, setRender] = useState(false);
 
+  const auth = useAuthStore((state) => state.auth);
   useEffect(() => {
     setRender(true);
   }, []);
@@ -43,7 +45,9 @@ export default function Page() {
   const { data, isLoading } = useQuery({
     queryKey: ["blogs"],
     queryFn: () =>
-      Api.get(`/blogs/author?func=true`).then((res) => res?.data?.data),
+      Api.get(`/Blogs/getAllBlog?userId=${auth.user._id}`).then(
+        (res) => res?.data?.data
+      ),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
@@ -65,7 +69,7 @@ export default function Page() {
   const { mutate: deleteBlog, isPending: isDeletePending } = useMutation({
     mutationKey: ["delete_blog"],
     mutationFn: (blogId: any) =>
-      Api.delete(`/blogs/${blogId}`, data).then((res) => res.data),
+      Api.delete(`/Blogs/${blogId}`, data).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
 
@@ -223,8 +227,8 @@ export default function Page() {
   ) : (
     <>
       <div className={`flex flex-1 min-h-screen`}>
-        <div className="container mx-auto py-10">
-          <DataTable columns={columns} data={data?.blogs ? data?.blogs : []} />
+        <div className="container mx-auto pt-14">
+          <DataTable columns={columns} data={data ? data : []} />
         </div>
       </div>
     </>

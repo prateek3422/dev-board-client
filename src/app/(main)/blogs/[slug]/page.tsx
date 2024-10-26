@@ -68,7 +68,6 @@ export default function Page({ params }: { params: { slug: string } }) {
       </div>
     );
 
-  console.log(BlogData?.content);
   return (
     <>
       <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto mt-20">

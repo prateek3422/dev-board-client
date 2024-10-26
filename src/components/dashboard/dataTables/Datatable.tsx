@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="rounded-md border px-4">
+      <div className="rounded-md border-2 border-gray-500/20 px-4 dark:bg-neutral-700 shadow-sm shadow-slate-700/20">
         <div className="flex items-center py-4">
           <Input
             placeholder="Filter titles..."
@@ -73,15 +73,21 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("title")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="max-w-sm border-gray-500/20 border-2"
           />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
+              <Button
+                variant="outline"
+                className="ml-auto bg-[#4926b0] hover:bg-[#3000b6] text-white"
+              >
                 Columns
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent
+              align="end"
+              className="dark:bg-neutral-600 px-4 py-4"
+            >
               {table
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
@@ -89,7 +95,7 @@ export function DataTable<TData, TValue>({
                   return (
                     <DropdownMenuCheckboxItem
                       key={column.id}
-                      className="capitalize"
+                      className="capitalize dark:hover:bg-neutral-700 "
                       checked={column.getIsVisible()}
                       onCheckedChange={(value) =>
                         column.toggleVisibility(!!value)
@@ -103,7 +109,10 @@ export function DataTable<TData, TValue>({
           </DropdownMenu>
 
           <Link href="/dashboard/Writepost">
-            <Button variant="outline" className="ml-4">
+            <Button
+              variant="outline"
+              className="ml-4 bg-[#4926b0] hover:bg-[#3000b6] text-white"
+            >
               Add Blog
             </Button>
           </Link>
@@ -160,6 +169,7 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center justify-end space-x-2 py-4">
           <Button
             variant="outline"
+            className="bg-[#4926b0] hover:bg-[#3000b6] text-white px-4 py-2"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -168,6 +178,7 @@ export function DataTable<TData, TValue>({
           </Button>
           <Button
             variant="outline"
+            className="bg-[#4926b0] hover:bg-[#3000b6] text-white px-4 py-2"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}

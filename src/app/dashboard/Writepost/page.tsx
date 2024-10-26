@@ -103,13 +103,6 @@ const Page = () => {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    // const formData = new FormData();
-    // formData.append("title", data.title);
-    // console.log(data.tags);
-    // formData.append("tags", JSON.stringify(data.tags));
-    // formData.append("content", JSON.stringify(value));
-    // formData.append("image", files[0]);
-
     const upload = {
       title: data.title,
       tags: data.tags,
@@ -148,7 +141,7 @@ const Page = () => {
                     <Input
                       type="text"
                       placeholder="Enter your title"
-                      className="h-12 rounded-lg w-full"
+                      className="h-12 rounded-lg w-full dark:bg-neutral-700"
                       {...field}
                     />
                   </FormControl>
@@ -206,7 +199,7 @@ const Page = () => {
                 dropzoneOptions={dropZoneConfig}
                 className="relative  rounded-lg p-2"
               >
-                <FileInput className="outline-double outline-1 outline-gray-400">
+                <FileInput className=" outline-gray-400 dark:bg-neutral-700">
                   <div className="flex items-center justify-center flex-col pt-3 pb-4 w-full ">
                     <IoCloudUploadSharp size={40} className="text-gray-400" />
                     <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -233,7 +226,7 @@ const Page = () => {
 
             <Button
               type="submit"
-              className="mt-4   bg-[#3B82F6] hover:bg-blue-700 text-white w-[96%] "
+              className="mt-4  bg-[#4926b0] hover:bg-[#3000b6] text-white w-[96%] "
               disabled={isPending}
             >
               Create Blog

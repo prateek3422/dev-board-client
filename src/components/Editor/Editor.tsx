@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   EditorCommand,
@@ -15,7 +15,7 @@ import {
 
 import { ImageResizer, handleCommandNavigation } from "novel/extensions";
 import { handleImageDrop, handleImagePaste } from "novel/plugins";
-
+import { useDebouncedCallback } from "use-debounce";
 import {
   slashCommand,
   suggestionItems,
@@ -55,17 +55,36 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
   const [openColor, setOpenColor] = useState(false);
   const [openLink, setOpenLink] = useState(false);
   const [openAI, setOpenAI] = useState(false);
-
+  // const [charsCount, setCharsCount] = useState(0);
+  // const [saveStatus, setSaveStatus] = useState("Saved");
   //Apply Codeblock Highlighting on the HTML from editor.getHTML()
-  const highlightCodeblocks = (content: string) => {
-    const doc = new DOMParser().parseFromString(content, "text/html");
-    doc.querySelectorAll("pre code").forEach((el) => {
-      // @ts-ignore
-      //highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
-      https: hljs.highlightElement(el);
-    });
-    return new XMLSerializer().serializeToString(doc);
-  };
+  // const highlightCodeblocks = (content: string) => {
+  //   const doc = new DOMParser().parseFromString(content, "text/html");
+  //   doc.querySelectorAll("pre code").forEach((el) => {
+  //     // @ts-ignore
+  //     // highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
+  //     hljs.highlightElement(el);
+  //   });
+  //   return new XMLSerializer().serializeToString(doc);
+  // };
+
+  // const debouncedUpdates = useDebouncedCallback(
+  //   async (editor: EditorInstance) => {
+  //     const json = editor.getJSON();
+  //     setCharsCount(editor.storage.characterCount.words());
+  //     window.localStorage.setItem(
+  //       "html-content",
+  //       highlightCodeblocks(editor.getHTML())
+  //     );
+  //     window.localStorage.setItem("novel-content", JSON.stringify(json));
+  //     window.localStorage.setItem(
+  //       "markdown",
+  //       editor.storage.markdown.getMarkdown()
+  //     );
+  //     setSaveStatus("Saved");
+  //   },
+  //   500
+  // );
 
   return (
     <div className="relative w-full max-w-screen-lg">
@@ -74,7 +93,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
           immediatelyRender={false}
           initialContent={initialValue}
           extensions={extensions}
-          className="min-h-96 rounded-xl border p-4"
+          className="min-h-96 rounded-xl border p-4 bg-neutral-700"
           editorProps={{
             handleDOMEvents: {
               keydown: (_view, event) => handleCommandNavigation(event),
@@ -93,7 +112,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
           }}
           slotAfter={<ImageResizer />}
         >
-          <EditorCommand className="z-50 h-auto max-h-96 overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
+          <EditorCommand className="z-50 h-auto max-h-96 overflow-y-auto rounded-md border border-muted bg-neutral-700 px-1 py-2 shadow-md transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">
               No results
             </EditorCommandEmpty>
@@ -102,10 +121,10 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
                 <EditorCommandItem
                   value={item.title}
                   onCommand={(val) => item.command?.(val)}
-                  className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent"
+                  className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-gray-500 aria-selected:bg-gray-500"
                   key={item.title}
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-md border border-muted bg-background">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-md border border-muted bg-neutral-700">
                     {item.icon}
                   </div>
                   <div>

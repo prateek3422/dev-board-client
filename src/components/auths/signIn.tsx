@@ -158,7 +158,7 @@ export function SignInComp() {
             />
             <Button
               type="submit"
-              className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2  items-center"
+              className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50  w-full md:w-70 xl:w-96 flex gap-2  items-center"
               disabled={isPending}
             >
               Sign In

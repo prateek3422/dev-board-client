@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-const Editor = dynamic(() => import("../../../../components/Editor"), {
-  ssr: false,
-});
+
+import Editor from "@/components/Editor/Editor";
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -41,6 +40,7 @@ import {
   MultiSelectorItem,
 } from "@/components/multiselect";
 import { IoCloudUploadSharp } from "react-icons/io5";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const formSchema = z.object({
   categories: z
@@ -51,30 +51,27 @@ const formSchema = z.object({
 });
 
 async function getTags() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tags?func=true`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Tags/getAllTag`, {
     cache: "no-store",
   });
   const data = await res.json();
   return data;
 }
 
-async function getCategories() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/categories?func=true`,
+export const defaultValue = {
+  type: "doc",
+  content: [
     {
-      cache: "no-store",
-    }
-  );
-  const data = await res.json();
-  return data;
-}
-
+      type: "paragraph",
+      content: [{ type: "text", text: "Start writing your blog here" }],
+    },
+  ],
+};
 const Page = ({ params }: { params: { slug: string } }) => {
-    const { slug } = params;
+  const { slug } = params;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      categories: [],
       tags: [],
       title: "",
     },
@@ -85,26 +82,20 @@ const Page = ({ params }: { params: { slug: string } }) => {
     queryFn: getTags,
   });
 
-  const { data: category } = useQuery({
-    queryKey: ["category"],
-    queryFn: getCategories,
-  });
-
-  const [files, setFiles] = useState<File[]>();
-  const [value, setValue] = React.useState("");
+  const [files, setFiles] = useState<File[]>([]);
+  const [value, setValue] = React.useState<string>("");
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["updateBlog"],
     mutationFn: (data: any) =>
-      Api.patch(`/blogs/${slug}`, data, {
+      Api.patch(`/Blogs/${slug}`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       }).then((res) => res.data),
     onSuccess: (data: any) => {
-
       toast.success(data.message);
-        window.location.replace("/");
+      window.location.replace("/");
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || error?.message);
@@ -112,15 +103,20 @@ const Page = ({ params }: { params: { slug: string } }) => {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    const formData = new FormData();
-    formData.append("categories", JSON.stringify(data.categories));
-    formData.append("title", data.title);
-    formData.append("tags", JSON.stringify(data.tags));
-    formData.append("content", value);
-    //@ts-ignore
-    formData.append("image", files[0]);
-
-    mutate(formData);
+    // const formData = new FormData();
+    // formData.append("categories", JSON.stringify(data.categories));
+    // formData.append("title", data.title);
+    // formData.append("tags", JSON.stringify(data.tags));
+    // formData.append("content", value);
+    // //@ts-ignore
+    // formData.append("image", files[0]);
+    const upload = {
+      title: data.title,
+      tags: data.tags,
+      content: value,
+      image: files[0],
+    };
+    mutate(upload);
   };
 
   const dropZoneConfig = {
@@ -130,9 +126,11 @@ const Page = ({ params }: { params: { slug: string } }) => {
   };
 
   return (
-    <div className="p-4 sm:ml-64">
+    <div className="flex flex-1 flex-col">
       <div>
-        {/* <h1 className="text-white text-2xl font-bold px-8 my-8 text-center ">Add Blog</h1> */}
+        <h1 className="text-white text-2xl font-bold px-8 my-8 text-center ">
+          Add Blog
+        </h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -149,7 +147,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                       <Input
                         type="text"
                         placeholder="Enter your title"
-                        className="h-12 "
+                        className="h-12 dark:bg-neutral-700 rounded-lg w-full"
                         {...field}
                       />
                     </FormControl>
@@ -157,46 +155,12 @@ const Page = ({ params }: { params: { slug: string } }) => {
                   </FormItem>
                 )}
               />
-              <div className="mt-8 px-4 h-[40vh]  ">
-                <Editor value={value} onChange={setValue} />
-              </div>
+              <ScrollArea className="mt-4 h-96">
+                <Editor initialValue={defaultValue} onChange={setValue} />
+              </ScrollArea>
             </div>
 
             <div className=" lg:w-1/3 lg:px-2 flex flex-col items-center justify-center sm:w-full sm:px-2">
-              <FormField
-                control={form.control}
-                name="categories"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col items-center justify-center gap-2 px-4 w-full">
-                    <FormLabel className="text-white"></FormLabel>
-                    <FormControl>
-                      <MultiSelector
-                        onValuesChange={field.onChange}
-                        values={field.value}
-                      >
-                        <MultiSelectorTrigger>
-                          <MultiSelectorInput placeholder="Select categories" />
-                        </MultiSelectorTrigger>
-                        <MultiSelectorContent>
-                          <MultiSelectorList>
-                            {category?.data?.categories.map((item: any) => (
-                              <MultiSelectorItem
-                                key={item._id}
-                                value={item._id}
-                              >
-                                <div className="flex items-center space-x-2">
-                                  <span>{item.name}</span>
-                                </div>
-                              </MultiSelectorItem>
-                            ))}
-                          </MultiSelectorList>
-                        </MultiSelectorContent>
-                      </MultiSelector>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="tags"
@@ -234,14 +198,13 @@ const Page = ({ params }: { params: { slug: string } }) => {
 
               <div className="mt-8 w-full">
                 <FileUploader
-                  //@ts-ignore
                   value={files}
                   //@ts-ignore
                   onValueChange={setFiles}
                   dropzoneOptions={dropZoneConfig}
                   className="relative  rounded-lg p-2"
                 >
-                  <FileInput className="outline-double outline-1 outline-gray-400">
+                  <FileInput className=" outline-gray-400 dark:bg-neutral-700">
                     <div className="flex items-center justify-center flex-col pt-3 pb-4 w-full ">
                       <IoCloudUploadSharp size={40} className="text-gray-400" />
                       <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -268,7 +231,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
 
               <Button
                 type="submit"
-                className="mt-4   bg-[#3B82F6] hover:bg-blue-700 text-white w-[96%] "
+                className="mt-4  bg-[#4926b0] hover:bg-[#3000b6] text-white w-[96%] "
                 disabled={isPending}
               >
                 update Blog
