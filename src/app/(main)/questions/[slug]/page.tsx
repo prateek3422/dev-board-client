@@ -1,10 +1,9 @@
 "use client";
 import { Loader } from "@/components";
 import { Button } from "@/components/ui/button";
-const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
+import Editor from "@/components/Editor/Editor";
 import { Api, queryClient } from "@/lib";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
@@ -37,12 +36,10 @@ export default function Page({ params }: { params: { slug: any } }) {
     staleTime: Infinity,
   });
 
-  console.log(BlogData);
-
   const { mutate, isPending } = useMutation({
     mutationKey: ["QuestionLike"],
     mutationFn: () =>
-      Api.post(`/qas/${slug}/like`, {}).then((res) => res?.data),
+      Api.post(`/Likes//toggle/q/${slug}`, {}).then((res) => res?.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["question", slug] });
@@ -55,7 +52,7 @@ export default function Page({ params }: { params: { slug: any } }) {
   const { mutate: DeleteAnswer } = useMutation({
     mutationKey: ["DeleteAnswer"],
     mutationFn: (data: any) =>
-      Api.delete(`/qas/${data}`).then((res) => res?.data),
+      Api.delete(`/Answers/${slug}`).then((res) => res?.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["question", slug] });
@@ -74,26 +71,28 @@ export default function Page({ params }: { params: { slug: any } }) {
 
   return (
     <>
-      <section className="max-w-4xl px-4 mt-20 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
-        <div className=" flex  items-center justify-between">
+      <section className="w-full md:max-w-4xl  px-4 mt-20 lg:pt-10 pb-12 sm:px-6 lg:px-8 md:mx-auto">
+        <div className=" flex flex-col md:flex-row gap-4 items-start justify-between">
           <div className=" py-2 flex  flex-col  gap-2 items-start justify-center">
-            <h1 className="text-3xl font-bold">{BlogData?.title}</h1>
+            <h1 className="text-2xl font-bold text-wrap">{BlogData?.title}</h1>
             <div className="flex flex-row items-center gap-8">
               <h3>Asked {format(BlogData?.createdAt.slice(0, 10))}</h3>
               <h3>Answer {BlogData?.answers?.length}</h3>
             </div>
           </div>
 
-          <div>
+          {/* //question bitton */}
+
+          <div className="">
             {auth.isAuth ? (
               <Link href="/Ask">
-                <Button className="mt-4 bg-primary hover:bg-[#3000b6] text-white">
+                <Button className="mt-4  bg-[#4926b0] hover:bg-[#3000b6] text-white">
                   Add Question
                 </Button>
               </Link>
             ) : (
               <Button
-                className="mt-4 bg-primary hover:bg-[#3000b6] text-white"
+                className="mt-4 bg-[#4926b0] hover:bg-[#3000b6] text-white"
                 disabled
               >
                 Add Question
@@ -102,16 +101,18 @@ export default function Page({ params }: { params: { slug: any } }) {
           </div>
         </div>
         <Separator className="my-4 text-center" />
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center">
           <div>
-            <div className="w-full py-2 px-4 m   flex flex-col gap-4 justify-center items-center">
-              <h2 className=" mt-4  ">{parse(BlogData?.question)}</h2>
+            <div className="w-full py-2 px-4   flex flex-col gap-4 justify-center">
+              <h2 className=" mt-4  text-sm text-wrap max-w-screen ">
+                {parse(BlogData?.question)}
+              </h2>
             </div>
 
             <div className="flex flex-row items-center  justify-between gap-8 px-4 ">
               {BlogData?.tags?.map((tag: any) => (
                 <div
-                  className="bg-[#3B82F6] text-white text-xs px-2 py-1 rounded-lg w-12 text-cener mt-4 "
+                  className="bg-[#4926b0] text-white text-xs px-2 py-1 rounded-lg w-12 text-cener mt-4 "
                   key={tag._id}
                 >
                   {tag.name}

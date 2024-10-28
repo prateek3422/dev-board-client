@@ -1,9 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-const Editor = dynamic(() => import("../../../components/Editor"), {
-  ssr: false,
-});
+import Editor from "@/components/Editor/Editor";
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -30,6 +28,7 @@ import {
   MultiSelectorList,
   MultiSelectorItem,
 } from "@/components/multiselect";
+import { defaultValue } from "@/app/dashboard/Writepost/page";
 
 const formSchema = z.object({
   tags: z.array(z.string()).nonempty("Please select at least one tag"),
@@ -103,7 +102,7 @@ const Page = () => {
                 )}
               />
               <div className="mt-8 px-4   ">
-                <Editor value={value} onChange={setValue} />
+                <Editor initialValue={defaultValue} onChange={setValue} />
               </div>
             </div>
 

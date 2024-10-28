@@ -1,4 +1,5 @@
-import Editor from "@/components/Editor";
+import { defaultValue } from "@/app/dashboard/Writepost/page";
+import Editor from "@/components/Editor/Editor";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -67,7 +68,7 @@ export function AnswerModal({ questionId }: { questionId: string }) {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <Editor value={value} onChange={setValue} />
+          <Editor initialValue={defaultValue} onChange={setValue} />
         </div>
         <DialogFooter></DialogFooter>
         <Button

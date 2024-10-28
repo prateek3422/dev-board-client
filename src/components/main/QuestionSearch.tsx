@@ -48,9 +48,10 @@ export function QuestionSearchBar() {
 
   return (
     <>
-      <div className="max-w-md">
-        {/* <!-- SearchBox --> */}
-        <div className="relative">
+      <div className="hidden sm:block">
+        <div className="w-full sm:w-[70vw] md:w-[40vw] px-4">
+          {/* <!-- SearchBox --> */}
+
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
               <svg
@@ -71,7 +72,7 @@ export function QuestionSearchBar() {
             </div>
             <input
               onClick={() => setOpen(true)}
-              className="relative py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-700 dark:border-slate-700 dark:text-neutral-400 dark:placeholder-neutral-500 "
+              className="relative py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-slate-700 dark:text-neutral-400 dark:placeholder-neutral-500 "
               type="text"
               placeholder="Type a command or search..."
               value={Search}
@@ -83,8 +84,37 @@ export function QuestionSearchBar() {
             </CommandShortcut>
           </div>
         </div>
-        {/* <!-- End SearchBox --> */}
       </div>
+
+      <div className="sm:hidden block">
+        <div className="rounded-full">
+          {/* <!-- SearchBox --> */}
+
+          <div className="">
+            <Button
+              onClick={() => setOpen(true)}
+              className="w-10 rounded-full bg-neutral-700 px-2 py-2"
+            >
+              <svg
+                className="flex-shrink-0 size-4 text-gray-400 dark:text-white/60"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+            </Button>
+          </div>
+        </div>
+      </div>
+      {/* <!-- End SearchBox --> */}
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput className="" placeholder="search..." />
