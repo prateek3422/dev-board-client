@@ -87,7 +87,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
   // );
 
   return (
-    <div className="relative w-full max-w-screen-lg">
+    <div className="relative w-full max-w-screen-lg overflow-x-auto">
       <EditorRoot>
         <EditorContent
           immediatelyRender={false}

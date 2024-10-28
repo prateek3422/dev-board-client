@@ -14,7 +14,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="favicon.ico" sizes="any" />
       </head>
-      <body className=" bg:background dark:bg-background inter">
+      <body className=" bg:background dark:bg-neutral-900 inter">
         <ReactQueryProvider
           attribute="class"
           defaultTheme="system"

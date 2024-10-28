@@ -49,7 +49,7 @@ export function QuestionSearchBar() {
   return (
     <>
       <div className="hidden sm:block">
-        <div className="w-full sm:w-[70vw] md:w-[40vw] px-4">
+        <div className="w-full sm:w-[70vw] md:w-[40vw] ">
           {/* <!-- SearchBox --> */}
 
           <div className="relative">
@@ -72,7 +72,7 @@ export function QuestionSearchBar() {
             </div>
             <input
               onClick={() => setOpen(true)}
-              className="relative py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-slate-700 dark:text-neutral-400 dark:placeholder-neutral-500 "
+              className="relative py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-slate-700 dark:text-neutral-400 dark:placeholder-neutral-500 "
               type="text"
               placeholder="Type a command or search..."
               value={Search}
