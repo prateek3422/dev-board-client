@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Api, queryClient } from "@/lib";
 import { useAuthStore } from "@/store";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMutation } from "@tanstack/react-query";
 import { ClipboardPen } from "lucide-react";
 import { useState } from "react";
@@ -34,9 +35,7 @@ export function EditAnswerModal({
   const { mutate, isPending } = useMutation({
     mutationKey: ["EditAnswer", slug],
     mutationFn: (data: any) =>
-      Api.patch(`/qas/answers/${slug}`, { answer: data }).then(
-        (res) => res.data
-      ),
+      Api.patch(`/Answers/${slug}`, { answer: data }).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["question", qusId] });
@@ -64,14 +63,14 @@ export function EditAnswerModal({
             Write your answer here. Click Button when you&lsquo;re done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-2">
+        <ScrollArea className="h-96">
           <Editor initialValue={defaultValue} onChange={setValue} />
-        </div>
-        <DialogFooter></DialogFooter>
+        </ScrollArea>
+
         <DialogClose asChild>
           <Button
             onClick={handleSubmit}
-            className="bg-primary hover:bg-[#3000b6] text-white"
+            className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
             type="submit"
             mt-8
             disabled={isPending}

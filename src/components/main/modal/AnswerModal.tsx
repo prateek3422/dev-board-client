@@ -10,10 +10,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Api } from "@/lib";
 import { useAuthStore } from "@/store";
+import { DialogClose } from "@radix-ui/react-dialog";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -45,7 +45,7 @@ export function AnswerModal({ questionId }: { questionId: string }) {
       <DialogTrigger asChild>
         {auth.isAuth ? (
           <Button
-            className="bg-primary hover:bg-[#3000b6] text-white"
+            className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
             variant="outline"
           >
             Post your answer
@@ -54,7 +54,7 @@ export function AnswerModal({ questionId }: { questionId: string }) {
           <Button
             disabled
             variant="outline"
-            className="bg-primary hover:bg-[#3000b6] text-white"
+            className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
           >
             Post your answer
           </Button>
@@ -67,19 +67,21 @@ export function AnswerModal({ questionId }: { questionId: string }) {
             Write your answer here. Click Button when you&lsquo;re done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <ScrollArea className="grid gap-4 py-4">
           <Editor initialValue={defaultValue} onChange={setValue} />
-        </div>
-        <DialogFooter></DialogFooter>
-        <Button
-          onClick={handleSubmit}
-          className="bg-primary hover:bg-[#3000b6] text-white"
-          type="submit"
-          mt-8
-          disabled={isPending}
-        >
-          Post your answer
-        </Button>
+        </ScrollArea>
+
+        <DialogClose asChild>
+          <Button
+            onClick={handleSubmit}
+            className="bg-[#4926b0] hover:bg-[#3000b6] text-white "
+            type="submit"
+            mt-8
+            disabled={isPending}
+          >
+            Post your answer
+          </Button>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

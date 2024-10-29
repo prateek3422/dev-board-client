@@ -22,6 +22,8 @@ import { CommentSheet } from "@/components/main/modal/CommentSheet";
 import toast from "react-hot-toast";
 import { ShareComponent } from "@/components/Share";
 import { format } from "timeago.js";
+import { convertNodeToElement } from "react-html-parser";
+import convertToReactElements from "@/components/htmlparser";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const auth = useAuthStore((state) => state.auth);
@@ -121,7 +123,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
                   <span className="text-lg text-gray-800 dark:text-neutral-200">
                     {/* {BlogData?.comtent ? parse(BlogData?.content) : ""} */}
-                    {parse(BlogData?.content)}
+                    {convertToReactElements(BlogData?.content)}
                   </span>
                 </div>
                 <div className="grid lg:flex lg:justify-between lg:items-center gap-y-5 lg:gap-y-0">

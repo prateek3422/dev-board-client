@@ -13,7 +13,7 @@ export default function MainLayout({
   return (
     <>
       <Navbar />
-      <main className="h-full">{children}</main>
+      <main>{children}</main>
       {/* <Footer/> */}
     </>
   );

@@ -20,9 +20,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const { data } = useQuery({
     queryKey: ["blog"],
     queryFn: () =>
-      Api.get(`${process.env.NEXT_PUBLIC_API_URL}/blogs/author/${slug}`).then(
-        (res) => res?.data?.data
-      ),
+      Api.get(`/getAllBlog?userId=${slug}`).then((res) => res?.data?.data),
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
@@ -38,6 +36,8 @@ export default function Page({ params }: { params: { slug: string } }) {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
+
+  console.log(data);
 
   return (
     <>
