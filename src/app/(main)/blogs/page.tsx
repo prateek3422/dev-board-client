@@ -1,4 +1,5 @@
 "use client";
+import convertToReactElements from "@/components/htmlparser";
 import { SearchBar } from "@/components/main/SearchBar";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -9,7 +10,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import parse from "html-react-parser";
 
 export default function Blogs() {
   const { data } = useQuery({
@@ -64,7 +64,7 @@ export default function Blogs() {
                     {item.title}
                   </h3>
                   <span className="mt-3 text-gray-600 dark:text-neutral-400">
-                    {parse(item.content.substring(0, 110))}
+                    {convertToReactElements(item.content.substring(0, 110))}
                   </span>
                   <p className="mt-4 inline-flex items-center gap-x-1 text-blue-600 decoration-2 hover:underline font-medium">
                     Read more

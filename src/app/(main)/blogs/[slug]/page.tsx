@@ -4,7 +4,7 @@ import { TfiLayoutLineSolid } from "react-icons/tfi";
 import { FaQuoteLeft } from "react-icons/fa6";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Api, queryClient } from "@/lib";
-import parse from "html-react-parser";
+
 import { Button } from "@/components/ui/button";
 import { CommentsModal, GetComments, Loader } from "@/components";
 import Link from "next/link";
