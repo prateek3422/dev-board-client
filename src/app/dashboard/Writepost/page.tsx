@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
-
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -10,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -37,13 +34,9 @@ import {
   MultiSelectorItem,
 } from "@/components/multiselect";
 import { IoCloudUploadSharp } from "react-icons/io5";
-
 import Editor from "@/components/Editor/Editor";
-
-// const Editor = dynamic(() => import("@/components/Editor/Editor"), {
-//   ssr: false,
-// });
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { defaultValue } from "@/components/Editor/defaultvalue";
 
 const formSchema = z.object({
   tags: z.array(z.string()).nonempty("Please select at least one tag"),
