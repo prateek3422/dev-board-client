@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
-
 import Editor from "@/components/Editor/Editor";
 import { Api } from "@/lib";
 import toast from "react-hot-toast";
@@ -28,9 +26,8 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import MultiSelectTest from "@/components/dashboard/categorySelector";
-import Image from "next/image";
-import { Paperclip, Tags } from "lucide-react";
+
+import { Paperclip } from "lucide-react";
 import {
   MultiSelector,
   MultiSelectorTrigger,
@@ -103,13 +100,6 @@ const Page = ({ params }: { params: { slug: string } }) => {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    // const formData = new FormData();
-    // formData.append("categories", JSON.stringify(data.categories));
-    // formData.append("title", data.title);
-    // formData.append("tags", JSON.stringify(data.tags));
-    // formData.append("content", value);
-    // //@ts-ignore
-    // formData.append("image", files[0]);
     const upload = {
       title: data.title,
       tags: data.tags,

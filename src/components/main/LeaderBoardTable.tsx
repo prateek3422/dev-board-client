@@ -15,7 +15,7 @@ import { Api } from "@/lib";
 
 const LeaderBoardTable = ({ data }: { data: any[] }) => {
   return (
-    <Table>
+    <Table className="">
       <TableCaption>A list of your leaderboard.</TableCaption>
       <TableHeader>
         <TableRow>
@@ -29,8 +29,8 @@ const LeaderBoardTable = ({ data }: { data: any[] }) => {
         {data?.map((item: any, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>{item.email.spli}</TableCell>
+            <TableCell>{item.Fullname}</TableCell>
+            <TableCell>{item.email}</TableCell>
             <TableCell className="text-right">{item.credit}</TableCell>
           </TableRow>
         ))}

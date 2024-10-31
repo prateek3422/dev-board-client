@@ -14,7 +14,7 @@ const Page = () => {
   const { data } = useQuery({
     queryKey: ["leaderboard"],
     queryFn: () =>
-      Api.get(`${process.env.NEXT_PUBLIC_API_URL}/users/leaderboard`).then(
+      Api.get(`${process.env.NEXT_PUBLIC_API_URL}/LeaderBoards/top`).then(
         (res) => res?.data?.data
       ),
     refetchOnWindowFocus: false,
@@ -25,26 +25,26 @@ const Page = () => {
     <div className="max-w-[85rem] mx-auto  mt-24">
       <div className="grid grid-cols-1 md:grid-cols-[30rem_minmax(50rem,_2fr)] gap-7">
         <div className="flex flex-col gap-y-5 items-end  ">
-          <div className="border-1 border-gray-400 bg-[#16171a] rounded-xl px-8 py-4  text-center flex flex-col items-center justify-center gap-4">
+          <div className="border-1 border-gray-400 bg-neutral-700 rounded-xl px-8 py-4  text-center flex flex-col items-center justify-center gap-4">
             <h1 className="text-xl font-medium text-white">
               Top Sender Last Month
             </h1>
             <Avatar
-              name={data?.[0]?.name}
+              name={data?.[0]?.Fullname}
               src={data?.[0]?.avatar}
               size="100"
               round={true}
             />
             <div className="flex flex-col items-center ">
               <h2 className="text-xl font-medium text-white ">
-                {data?.[0]?.name}
+                {data?.[0]?.Fullname}
               </h2>
               <h3>score {data?.[0]?.credit}</h3>
             </div>
           </div>
           {data?.map(
             (item: any, index: number) =>
-              auth?.user?.email === item.email && (
+              auth?.user?._id === item?._id && (
                 <div
                   className="border-2 border-gray-200 bg-[#D9E0EA] rounded-xl p-8 text-center flex  gap-8"
                   key={index}
@@ -67,12 +67,12 @@ const Page = () => {
         </div>
 
         <div>
-          <div className="border-1 bg-[#16171a] border-gray-400 w-full rounded-xl max-w-3xl px-10  p-4">
+          <div className="border-1 bg-neutral-700 border-gray-400 w-full rounded-xl max-w-3xl px-10  p-4">
             <div className="  flex items-center justify-between gap-10 mb-4">
               <h1>Dev Wave</h1>
               <Button
                 variant="default"
-                className="bg-primary hover:bg-[#3000b6] text-white"
+                className="bg-[#4926b0] hover:bg-[#3000b6] text-white"
               >
                 {" "}
                 All Time
