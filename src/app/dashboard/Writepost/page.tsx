@@ -58,16 +58,6 @@ async function getTags() {
   return data;
 }
 
-export const defaultValue = {
-  type: "doc",
-  content: [
-    {
-      type: "paragraph",
-      content: [{ type: "text", text: "Start writing your blog here" }],
-    },
-  ],
-};
-
 const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

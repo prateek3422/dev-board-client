@@ -1,4 +1,4 @@
-import { defaultValue } from "@/app/dashboard/Writepost/page";
+import { defaultValue } from "@/components/Editor/defaultvalue";
 import Editor from "@/components/Editor/Editor";
 import { Button } from "@/components/ui/button";
 import {

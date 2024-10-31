@@ -28,7 +28,7 @@ import {
   MultiSelectorList,
   MultiSelectorItem,
 } from "@/components/multiselect";
-import { defaultValue } from "@/app/dashboard/Writepost/page";
+import { defaultValue } from "@/components/Editor/defaultvalue";
 
 const formSchema = z.object({
   tags: z.array(z.string()).nonempty("Please select at least one tag"),
