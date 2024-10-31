@@ -7,7 +7,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
-import parse from "html-react-parser";
 import { Separator } from "@/components/ui/separator";
 import { useAuthStore } from "@/store";
 import { Toggle } from "@/components/ui/toggle";

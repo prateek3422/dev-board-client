@@ -64,7 +64,7 @@ const convertToReactElements = (htmlString: any) => {
                 {children}
               </pre>
 
-              <CopyButton text={content} className="absolute  top-2 right-2 " />
+              <CopyButton text={content} />
             </div>
           );
         case "code":
