@@ -58,6 +58,8 @@ function NavUtils() {
 
   if (!mounted) return false;
 
+  // console.log(auth.user.avatar?.Fullname);
+
   return (
     <>
       {auth.isAuth ? (
