@@ -108,12 +108,12 @@ export function DataTable<TData, TValue>({
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link href="/dashboard/Writepost">
+          <Link href="/Ask">
             <Button
               variant="outline"
               className="ml-4 bg-[#4926b0] hover:bg-[#3000b6] text-white"
             >
-              Add Blog
+              Add Question
             </Button>
           </Link>
         </div>

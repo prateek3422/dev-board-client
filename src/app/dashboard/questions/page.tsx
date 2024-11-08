@@ -22,6 +22,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store";
 
 export type Questions = {
   _id: string;
@@ -35,37 +36,25 @@ export type Questions = {
 export default function Page() {
   const [Render, setRender] = useState(false);
   const router = useRouter();
-
+  const auth = useAuthStore((state) => state.auth);
   useEffect(() => {
     setRender(true);
   }, []);
 
   const { data, isLoading } = useQuery({
     queryKey: ["question"],
-    queryFn: () => Api.get(`/qas/author`).then((res) => res?.data?.data),
+    queryFn: () =>
+      Api.get(`/Questions/getAllQuestions?userId=${auth.user._id}`).then(
+        (res) => res?.data?.data
+      ),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
-
-  // const { mutate, isPending } = useMutation({
-  //   mutationKey: ["blogPublic"],
-  //   mutationFn: (questionId: any) =>
-  //     Api.post(`/blogs/${blogId}/publish`, data).then((res) => res.data),
-  //   onSuccess: (data: any) => {
-  //     toast.success(data.message);
-
-  //     queryClient.invalidateQueries({ queryKey: ["question"] });
-  //   },
-  //   onError: (error: any) => {
-  //     toast.error(error?.response?.data?.message || error?.message);
-  //   },
-  // });
-
-  const { mutate: deleteBlog, isPending: isDeletePending } = useMutation({
+  const { mutate: deleteQuestion, isPending: isDeletequestion } = useMutation({
     mutationKey: ["delete_question"],
-    mutationFn: (blogId: any) =>
-      Api.delete(`/qas/${blogId}`, {}).then((res) => res.data),
+    mutationFn: (questionID: any) =>
+      Api.delete(`/Questions/${questionID}`).then((res) => res.data),
     onSuccess: (data: any) => {
       toast.success(data.message);
 
@@ -76,15 +65,46 @@ export default function Page() {
     },
   });
 
+  // const { mutate, isPending } = useMutation({
+  //   mutationKey: ["questionPublic"],
+  //   mutationFn: (blogId: any) =>
+  //     Api.post(`/blogs/${blogId}/publish`, data).then((res) => res.data),
+  //   onSuccess: (data: any) => {
+  //     toast.success(data.message);
+
+  //     queryClient.invalidateQueries({ queryKey: ["blogs"] });
+  //   },
+  //   onError: (error: any) => {
+  //     toast.error(error?.response?.data?.message || error?.message);
+  //   },
+  // });
+
   if (!Render) return;
 
   const columns: ColumnDef<Questions>[] = [
+    // {
+    //   accessorKey: "isPublic",
+    //   header: () => <div className="text-center">Public</div>,
+    //   cell: ({ row }) => {
+    //     const publicStatus = row.getValue("isPublic");
+    //     return (
+    //       <div className="text-center font-medium text-wrap">
+    //         <Switch
+    //         checked={publicStatus as boolean}
+    //         // onCheckedChange={() => handleToggle(questionId)}
+    //         >
+    //           <Label>Public</Label>
+    //         </Switch>
+    //       </div>
+    //     );
+    //   },
+    // },
     {
       accessorKey: "title",
       header: () => <div className="text-center">Title</div>,
       cell: ({ row }) => {
-        const title = row.getValue("title");
-        //@ts-ignore
+        const title = row.getValue("title") as string;
+
         return <div className="text-center font-medium text-wrap">{title}</div>;
       },
     },
@@ -106,8 +126,8 @@ export default function Page() {
         );
       },
       cell: ({ row }) => {
-        const created = row.getValue("createdAt");
-        //@ts-ignore
+        const created = row.getValue("createdAt") as string;
+
         const formatted = created.split("T")[0];
         return <div className="text-center font-medium">{formatted}</div>;
       },
@@ -145,17 +165,20 @@ export default function Page() {
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
+              <Button
+                variant="ghost"
+                className="h-8 w-8 p-0  dark:hover:bg-neutral-700"
+              >
                 <span className="sr-only">Open menu</span>
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="dark:bg-neutral-800">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(question._id)}
               >
-                Copy blog ID
+                Copy question ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
@@ -163,8 +186,8 @@ export default function Page() {
               >
                 update question
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => deleteBlog(question._id)}>
-                delete blog
+              <DropdownMenuItem onClick={() => deleteQuestion(question._id)}>
+                delete question
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -175,16 +198,15 @@ export default function Page() {
 
   return isLoading ? (
     <div>
-      <Loader />
+      <div className="flex items-center justify-center min-h-screen w-full">
+        <Loader />
+      </div>
     </div>
   ) : (
     <>
-      <div className={`p-4 sm:ml-64`}>
-        <div className="container mx-auto py-10">
-          <DataTable
-            columns={columns}
-            data={data?.questions ? data?.questions : []}
-          />
+      <div className={`flex flex-1 min-h-screen`}>
+        <div className="container mx-auto py-14 ">
+          <DataTable columns={columns} data={data ? data : []} />
         </div>
       </div>
     </>

@@ -21,12 +21,14 @@ import { DeleteUser } from "@/components/dashboard/AlertModal/deleteUser";
 export default function Dashboard() {
   const { data: profile, isLoading } = useQuery({
     queryKey: ["Auth"],
-    queryFn: () => Api.get(`/auth/profile`).then((res) => res?.data?.data),
+    queryFn: () =>
+      Api.get(`/users/current-user`).then((res) => res?.data?.data),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
 
+  console.log(profile);
   if (isLoading)
     return (
       <div className="flex items-center justify-center mt-24 min-h-screen w-full">
@@ -37,23 +39,24 @@ export default function Dashboard() {
   return (
     <section>
       <div className={`flex flex-1 min-h-screen`}>
-        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <div className="p-4 border-2  rounded-lg dark:border-gray-700">
           <div className="flex flex-col md:flex-row  items-center justify-between space-x-4">
-            <div className="flex items-center justify-start space-x-4">
+            <div className="flex items-center justify-start space-x-4 gap-2">
               <Avatar
-                name={profile?.user?.name}
-                src={profile?.user?.avatar?.url}
+                name={profile?.Fullname}
+                src={profile?.avatar?.url}
                 size="80"
                 round
+                className="aspect-auto"
               />
               <div className="flex flex-col justify-center items-start gap-2">
                 <p className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
                   {" "}
-                  {profile?.user?.name}
+                  {profile?.Fullname}
                 </p>
                 <p className="text-lg font-small text-gray-900 dark:text-white">
                   {" "}
-                  {profile?.user?.email}
+                  {profile?.email}
                 </p>
               </div>
             </div>

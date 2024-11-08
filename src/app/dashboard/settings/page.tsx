@@ -15,25 +15,30 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Api, queryClient } from "@/lib";
 import toast from "react-hot-toast";
 import Avatar from "react-avatar";
+import { useAuthStore } from "@/store";
 
 const Page = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [value, setValue] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
+
+  // const profile = useAuthStore((state) => state.auth);
 
   const { data: profile, isLoading } = useQuery({
-    queryKey: ["Auth"],
-    queryFn: () => Api.get(`/auth/profile`).then((res) => res?.data?.data),
+    queryKey: ["current-user"],
+    queryFn: () =>
+      Api.get(`/users/current-user`).then((res) => res?.data?.data),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
 
+  //@ts-ignore
+
   const { mutate, isPending } = useMutation({
     mutationKey: ["upload-avatar"],
     mutationFn: (data) =>
-      Api.post("/users/avatar", data, {
+      Api.patch("/users/Avatar", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -50,14 +55,14 @@ const Page = () => {
   const { mutate: updateName } = useMutation({
     mutationKey: ["updateName"],
     mutationFn: (data) => {
-      return Api.patch("/users/profile", { name: data }).then(
+      return Api.patch("/users/update-user", { Fullname: data }).then(
         (res) => res.data
       );
     },
 
     onSuccess: (data: any) => {
       toast.success(data.message);
-      // window.location.replace("/");
+      window.location.replace("/dashboard");
       queryClient.invalidateQueries({ queryKey: ["Auth"] });
     },
     onError: (error: any) => {
@@ -68,7 +73,7 @@ const Page = () => {
   const { mutate: updatePassword } = useMutation({
     mutationKey: ["updatePassword"],
     mutationFn: (data) => {
-      return Api.patch("/auth/change-password", { password: data }).then(
+      return Api.patch("/users/change-password", { password: data }).then(
         (res) => res.data
       );
     },
@@ -87,6 +92,7 @@ const Page = () => {
     e.preventDefault();
     //@ts-ignore
     updateName(value);
+    window.location.replace("/dashboard");
   };
 
   const handleUpdatePassword = (e: any) => {
@@ -97,10 +103,11 @@ const Page = () => {
 
   useEffect(() => {
     if (files.length > 0) {
-      const formData = new FormData();
-      formData.append("avatar", files[0]);
+      const upload = {
+        avatar: files[0],
+      };
       //@ts-ignore
-      mutate(formData);
+      mutate(upload);
     }
   }, [files]);
 
@@ -111,7 +118,7 @@ const Page = () => {
   };
 
   return (
-    <div className="p-4 sm:ml-64">
+    <div className="flex flex-1 min-h-screen">
       <div className="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 mx-auto ">
         {/* <!-- Card --> */}
         <div className=" rounded-xl shadow p-4 sm:p-7 bg-[#847f7f21]">
@@ -132,7 +139,6 @@ const Page = () => {
 
             <div className="sm:col-span-9">
               <FileUploader
-                //@ts-ignore
                 value={files}
                 //@ts-ignore
                 onValueChange={setFiles}
@@ -141,8 +147,8 @@ const Page = () => {
               >
                 <div className="flex items-center gap-5">
                   <Avatar
-                    name={profile?.user?.name}
-                    src={profile?.user?.avatar?.url}
+                    name={profile?.Fullname}
+                    src={profile?.avatar?.url}
                     size="60"
                     round
                   />
@@ -157,7 +163,7 @@ const Page = () => {
                           "size-8"
                         )}
                       >
-                        <Paperclip className="size-4" />
+                        <Paperclip className="size-4 text-neutral-300" />
                         <span className=" absolute  ml-[10rem] text-white">
                           Select your photo
                         </span>
@@ -206,10 +212,10 @@ const Page = () => {
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     className="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                    placeholder={profile?.user?.name}
+                    placeholder={profile?.user?.Fullname}
                   />
                   <Button
-                    className=" bg-primary hover:bg-[#3000b6] text-white"
+                    className="  bg-[#4926b0] hover:bg-[#3000b6]  text-white"
                     type="submit"
                   >
                     change name
@@ -263,7 +269,7 @@ const Page = () => {
                   />
 
                   <Button
-                    className=" bg-primary hover:bg-[#3000b6] text-white "
+                    className=" bg-[#4926b0] hover:bg-[#3000b6]  text-white "
                     type="submit"
                   >
                     change password
@@ -272,51 +278,8 @@ const Page = () => {
               </form>
             </div>
             {/* <!-- End Col --> */}
-
-            {/* <div className="sm:col-span-3">
-                <div className="inline-block">
-                  <label
-                    htmlFor="af-account-phone"
-                    className="inline-block text-sm text-gray-800 mt-2.5 dark:text-neutral-200"
-                  >
-                    Phone
-                  </label>
-                  <span className="text-sm text-gray-400 dark:text-neutral-600">
-                    (Optional)
-                  </span>
-                </div>
-              </div> */}
-            {/* <!-- End Col --> */}
-
-            {/* <div className="sm:col-span-9">
-                <div className="sm:flex">
-                  <input
-                    id="af-account-phone"
-                    type="text"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    className="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                    placeholder="+(xx) xxxxxxxxxx"
-                  />
-                </div>
-              </div> */}
           </div>
           {/* <!-- End Grid --> */}
-
-          {/* <div className="mt-5 flex justify-end gap-x-2">
-              <button
-                type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-50 dark:bg-transparent dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-              >
-                Save changes
-              </button>
-            </div> */}
         </div>
       </div>
     </div>

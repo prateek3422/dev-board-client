@@ -26,7 +26,9 @@ import { useAuthStore } from "@/store";
 export type blog = {
   _id: string;
   isPublic: boolean;
-  image: string;
+  image: {
+    url: string;
+  };
   title: string;
   likes: number;
   createdAt: Date;
@@ -96,9 +98,7 @@ export default function Page() {
         return (
           <div className=" text-center">
             <Switch
-              //  @ts-ignore
-
-              checked={publicStatus}
+              checked={publicStatus as boolean}
               onCheckedChange={() => handleToggle(blog._id)}
             >
               <Label>Public</Label>
@@ -111,8 +111,8 @@ export default function Page() {
       accessorKey: "image",
       header: () => <div className="text-center">Image</div>,
       cell: ({ row }) => {
-        const image = row.getValue("image");
-        //@ts-ignore
+        const image: { url: string } = row.getValue("image");
+
         const formatted = image?.url;
         return (
           <div className=" flex justify-center items-center">
@@ -130,8 +130,8 @@ export default function Page() {
       accessorKey: "title",
       header: () => <div className="text-center">Title</div>,
       cell: ({ row }) => {
-        const title = row.getValue("title");
-        //@ts-ignore
+        const title = row.getValue("title") as string;
+
         return <div className="text-center font-medium text-wrap">{title}</div>;
       },
     },
@@ -153,8 +153,8 @@ export default function Page() {
         );
       },
       cell: ({ row }) => {
-        const created = row.getValue("createdAt");
-        //@ts-ignore
+        const created = row.getValue("createdAt") as string;
+
         const formatted = created.split("T")[0];
         return <div className="text-center font-medium">{formatted}</div>;
       },
