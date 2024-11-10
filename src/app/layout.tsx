@@ -12,7 +12,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="favicon.ico" sizes="any" />
+        <link rel="icon" href="Vector.ico" sizes="any" />
       </head>
       <body className=" bg:background dark:bg-neutral-900 inter">
         <ReactQueryProvider

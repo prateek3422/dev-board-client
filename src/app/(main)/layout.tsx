@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Footer, Navbar } from "@/components";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Devwave",
 };
 
 export default function MainLayout({
