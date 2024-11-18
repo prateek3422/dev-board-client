@@ -86,6 +86,18 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
   //   500
   // );
 
+
+   const highlightCodeblocks = (content: string) => {
+    const doc = new DOMParser().parseFromString(content, 'text/html')
+    doc.querySelectorAll('pre code').forEach(el => {
+      // @ts-ignore
+      // https://highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
+      hljs.highlightElement(el)
+    })
+    return new XMLSerializer().serializeToString(doc)
+  }
+
+
   return (
     <div className="relative w-full max-w-screen-lg overflow-x-auto">
       <EditorRoot>
@@ -98,6 +110,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
             handleDOMEvents: {
               keydown: (_view, event) => handleCommandNavigation(event),
             },
+            
             handlePaste: (view, event) =>
               handleImagePaste(view, event, uploadFn),
             handleDrop: (view, event, _slice, moved) =>
@@ -108,6 +121,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
             },
           }}
           onUpdate={({ editor }) => {
+            
             onChange(editor.getHTML());
           }}
           slotAfter={<ImageResizer />}

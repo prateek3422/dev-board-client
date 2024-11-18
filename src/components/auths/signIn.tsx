@@ -26,6 +26,7 @@ import { TbPasswordFingerprint } from "react-icons/tb";
 import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 import { FcGoogle } from "react-icons/fc";
 import { FaXTwitter } from "react-icons/fa6";
+import { Github } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -45,6 +46,23 @@ export function SignInComp() {
       `${process.env.NEXT_PUBLIC_API_URL}/users/google`,
       "_self"
     );
+    console.log(isSuccess)
+
+    if (isSuccess) {
+      const getUser = await Api.get("/users/current-user");
+      if (getUser) {
+        storeSignIn(getUser.data?.data);
+        window.location.replace("/dashboard");
+      }
+    }
+  };
+  const GithubSignin = async () => {
+    const isSuccess = window.open(
+      `${process.env.NEXT_PUBLIC_API_URL}/users/github`,
+      "_self"
+    );
+
+    console.log(isSuccess)
 
     if (isSuccess) {
       const getUser = await Api.get("/users/current-user");
@@ -197,10 +215,12 @@ export function SignInComp() {
               <FcGoogle size={25} />
               signIn with Google
             </Button>
-            <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 ">
+            <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "
+             onClick={GithubSignin}
+            >
               {" "}
-              <FaXTwitter size={25} />
-              signIn with Twitter
+              <Github size={25} />
+              signIn with Github
             </Button>
           </div>
           <div className="flex items-center justify-center py-2 text-sm ">

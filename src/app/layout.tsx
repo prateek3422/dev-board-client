@@ -1,8 +1,8 @@
-import { ReactQueryProvider } from "@/lib";
+import {ReactQueryProvider} from "@/lib";
 
 import "@/styles/globals.css";
 
-import { Toaster } from "react-hot-toast";
+import {Toaster} from "react-hot-toast";
 
 export default function RootLayout({
   children,
@@ -10,11 +10,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="Vector.ico" sizes="any" />
       </head>
-      <body className=" bg:background dark:bg-neutral-900 inter">
+      <body className=" bg:background dark:bg-neutral-900 inter " >
         <ReactQueryProvider
           attribute="class"
           defaultTheme="system"

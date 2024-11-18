@@ -206,7 +206,7 @@ export default function Page() {
     <>
       <div className={`flex flex-1 min-h-screen`}>
         <div className="container mx-auto py-14 ">
-          <DataTable columns={columns} data={data ? data : []} />
+          <DataTable columns={columns} data={data ? data : []}  buttonType="question" />
         </div>
       </div>
     </>

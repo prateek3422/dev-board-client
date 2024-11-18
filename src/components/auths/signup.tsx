@@ -90,6 +90,20 @@ export const SignUpComp = () => {
       }
     }
   };
+  const GithubSignUp = async () => {
+    const isSuccess = window.open(
+      `${process.env.NEXT_PUBLIC_API_URL}/users/github`,
+      "_self"
+    );
+
+    if (isSuccess) {
+      const getUser = await Api.get("/users/current-user");
+      if (getUser) {
+        storeSignIn(getUser.data?.data);
+        window.location.replace("/dashboard");
+      }
+    }
+  };
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     mutate(data);
@@ -250,10 +264,12 @@ export const SignUpComp = () => {
               <FcGoogle size={25} />
               signIn with Google
             </Button>
-            <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 ">
+            <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "  
+               onClick={GithubSignUp}
+            >
               {" "}
               <FaXTwitter size={25} />
-              signIn with Twitter
+              signIn with github
             </Button>
           </div>
 

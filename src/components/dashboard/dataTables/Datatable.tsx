@@ -36,9 +36,11 @@ import { Button } from "@/components/ui/button";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  buttonType:string
 }
 
 export function DataTable<TData, TValue>({
+  buttonType,
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -108,14 +110,24 @@ export function DataTable<TData, TValue>({
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link href="/Ask">
+          {
+            buttonType === "question"?<Link href="/Ask">
             <Button
               variant="outline"
               className="ml-4 bg-[#4926b0] hover:bg-[#3000b6] text-white"
             >
               Add Question
             </Button>
+          </Link>:<Link href="/dashboard/Writepost">
+            <Button
+              variant="outline"
+              className="ml-4 bg-[#4926b0] hover:bg-[#3000b6] text-white"
+            >
+              Add Blogs
+            </Button>
           </Link>
+          }
+
         </div>
 
         <Table>
