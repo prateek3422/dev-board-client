@@ -45,7 +45,7 @@ export function SignInComp() {
       `${process.env.NEXT_PUBLIC_API_URL}/users/google`,
       "_self"
     );
-
+console.log(isSuccess)
     if (isSuccess) {
       const getUser = await Api.get("/users/current-user");
       if (getUser) {
