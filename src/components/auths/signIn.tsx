@@ -61,14 +61,12 @@ export function SignInComp() {
       `${process.env.NEXT_PUBLIC_API_URL}/users/github`,
       "_self"
     );
-    console.log(isSuccess)
-    if (isSuccess) {
       const getUser = await Api.get("/users/current-user");
       if (getUser) {
         storeSignIn(getUser.data?.data);
         window.location.replace("/dashboard");
       }
-    }
+
   };
 
   const passwordToggle = () => {
