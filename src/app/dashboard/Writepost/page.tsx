@@ -105,15 +105,15 @@ const Page = () => {
   return (
     <div className="flex flex-1 flex-col">
       <h1 className="text-white text-2xl font-bold px-8 my-8 text-center ">
-        Add Blog
+      Write Blog
       </h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-wrap sm:flex-col lg:flex-row "
+          className="block sm:flex sm:flex-wrap sm:flex-col lg:flex-row "
         >
           <div className="lg:w-2/3 lg:px-2 sm:w-full sm:px-2">
-            {/* neme block */}
+            {/* name block */}
             <FormField
               control={form.control}
               name="title"
@@ -146,9 +146,9 @@ const Page = () => {
               name="tags"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center justify-center gap-2  w-full">
-                  <FormLabel className="text-white"></FormLabel>
                   <FormControl>
                     <MultiSelector
+                        className="!bg-transparent py-3"
                       onValuesChange={field.onChange}
                       values={field.value}
                     >
@@ -158,7 +158,7 @@ const Page = () => {
                       <MultiSelectorContent>
                         <MultiSelectorList>
                           {tag?.data?.map((item: any) => (
-                            <MultiSelectorItem key={item._id} value={item._id}>
+                            <MultiSelectorItem key={item._id} value={item?.name}>
                               <div className="flex items-center space-x-2">
                                 <span>{item?.name}</span>
                               </div>

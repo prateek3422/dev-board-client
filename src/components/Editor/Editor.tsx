@@ -28,10 +28,9 @@ import { LinkSelector } from "@/components/Editor/selectors/link-selector";
 import { NodeSelector } from "@/components/Editor/selectors/node-selector";
 import { MathSelector } from "@/components/Editor/selectors/math-selector";
 import { ColorSelector } from "@/components/Editor/selectors/color-selector";
-
 import { Separator } from "@/components/ui/separator";
+import hljs from "highlight.js";
 
-const hljs = require("highlight.js");
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -46,7 +45,7 @@ export const defaultEditorContent = {
 };
 
 interface EditorProps {
-  initialValue?: JSONContent;
+  initialValue?: JSONContent| undefined;
   onChange: (content: string) => void;
 }
 
@@ -55,39 +54,9 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
   const [openColor, setOpenColor] = useState(false);
   const [openLink, setOpenLink] = useState(false);
   const [openAI, setOpenAI] = useState(false);
-  // const [charsCount, setCharsCount] = useState(0);
-  // const [saveStatus, setSaveStatus] = useState("Saved");
+
   //Apply Codeblock Highlighting on the HTML from editor.getHTML()
-  // const highlightCodeblocks = (content: string) => {
-  //   const doc = new DOMParser().parseFromString(content, "text/html");
-  //   doc.querySelectorAll("pre code").forEach((el) => {
-  //     // @ts-ignore
-  //     // highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
-  //     hljs.highlightElement(el);
-  //   });
-  //   return new XMLSerializer().serializeToString(doc);
-  // };
-
-  // const debouncedUpdates = useDebouncedCallback(
-  //   async (editor: EditorInstance) => {
-  //     const json = editor.getJSON();
-  //     setCharsCount(editor.storage.characterCount.words());
-  //     window.localStorage.setItem(
-  //       "html-content",
-  //       highlightCodeblocks(editor.getHTML())
-  //     );
-  //     window.localStorage.setItem("novel-content", JSON.stringify(json));
-  //     window.localStorage.setItem(
-  //       "markdown",
-  //       editor.storage.markdown.getMarkdown()
-  //     );
-  //     setSaveStatus("Saved");
-  //   },
-  //   500
-  // );
-
-
-   const highlightCodeblocks = (content: string) => {
+  const highlightCodeblocks = (content: string) => {
     const doc = new DOMParser().parseFromString(content, 'text/html')
     doc.querySelectorAll('pre code').forEach(el => {
       // @ts-ignore
@@ -96,21 +65,20 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
     })
     return new XMLSerializer().serializeToString(doc)
   }
-
-
   return (
     <div className="relative w-full max-w-screen-lg overflow-x-auto">
       <EditorRoot>
         <EditorContent
           immediatelyRender={false}
-          initialContent={initialValue}
+
+          {...(initialValue && { initialContent: initialValue })}
           extensions={extensions}
           className="min-h-96 rounded-xl border p-4 bg-neutral-700"
           editorProps={{
             handleDOMEvents: {
               keydown: (_view, event) => handleCommandNavigation(event),
             },
-            
+
             handlePaste: (view, event) =>
               handleImagePaste(view, event, uploadFn),
             handleDrop: (view, event, _slice, moved) =>
@@ -121,7 +89,6 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
             },
           }}
           onUpdate={({ editor }) => {
-            
             onChange(editor.getHTML());
           }}
           slotAfter={<ImageResizer />}

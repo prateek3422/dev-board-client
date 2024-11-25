@@ -111,6 +111,7 @@ const Page = () => {
                     <FormLabel className="text-white"></FormLabel>
                     <FormControl>
                       <MultiSelector
+                          className="bg-transparent"
                         onValuesChange={field.onChange}
                         values={field.value}
                       >

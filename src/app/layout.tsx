@@ -1,7 +1,7 @@
 import {ReactQueryProvider} from "@/lib";
-
+import { TooltipProvider } from '@/components/ui/tooltip'
 import "@/styles/globals.css";
-
+import '@/styles/prosemirror.css'
 import {Toaster} from "react-hot-toast";
 
 export default function RootLayout({
@@ -14,6 +14,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="Vector.ico" sizes="any" />
+
       </head>
       <body className=" bg:background dark:bg-neutral-900 inter " >
         <ReactQueryProvider
@@ -22,7 +23,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+            <TooltipProvider>
           {children}
+            </TooltipProvider>
         </ReactQueryProvider>
 
         <Toaster />

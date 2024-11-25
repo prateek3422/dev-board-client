@@ -166,7 +166,7 @@ const MultiSelectorTrigger = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "flex flex-wrap gap-1 p-1 py-2 border border-muted rounded-lg bg-netural-200 dark:bg-neutral-700",
+        "flex flex-wrap gap-1 p-1 py-2 border border-muted rounded-lg bg-neutral-200 dark:bg-neutral-700",
         className
       )}
       {...props}

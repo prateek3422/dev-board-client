@@ -119,7 +119,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
     <div className="flex flex-1 flex-col">
       <div>
         <h1 className="text-white text-2xl font-bold px-8 my-8 text-center ">
-          Add Blog
+        Update Blog
         </h1>
         <Form {...form}>
           <form
@@ -159,6 +159,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                     <FormLabel className="text-white"></FormLabel>
                     <FormControl>
                       <MultiSelector
+                          className="!dark:bg-neutral-700"
                         onValuesChange={field.onChange}
                         values={field.value}
                       >
@@ -168,12 +169,13 @@ const Page = ({ params }: { params: { slug: string } }) => {
                         <MultiSelectorContent>
                           <MultiSelectorList>
                             {tag?.data?.tags?.map((item: any) => (
+
                               <MultiSelectorItem
                                 key={item._id}
-                                value={item._id}
+                                value={item?.name}
                               >
                                 <div className="flex items-center space-x-2">
-                                  <span>{item?.name}</span>
+                                  <span>{item?.id}</span>
                                 </div>
                               </MultiSelectorItem>
                             ))}
