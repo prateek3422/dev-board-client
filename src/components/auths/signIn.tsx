@@ -213,13 +213,13 @@ export function SignInComp() {
               <FcGoogle size={25} />
               signIn with Google
             </Button>
-            <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "
-             onClick={GithubSignin}
-            >
-              {" "}
-              <Github size={25} />
-              signIn with Github
-            </Button>
+            {/*<Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "*/}
+            {/* onClick={GithubSignin}*/}
+            {/*>*/}
+            {/*  {" "}*/}
+            {/*  <Github size={25} />*/}
+            {/*  signIn with Github*/}
+            {/*</Button>*/}
           </div>
           <div className="flex items-center justify-center py-2 text-sm ">
             <p>

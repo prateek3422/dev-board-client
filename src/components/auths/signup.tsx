@@ -264,13 +264,13 @@ export const SignUpComp = () => {
               <FcGoogle size={25} />
               signIn with Google
             </Button>
-            <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "  
-               onClick={GithubSignUp}
-            >
-              {" "}
-              <FaXTwitter size={25} />
-              signIn with github
-            </Button>
+            {/*<Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "  */}
+            {/*   onClick={GithubSignUp}*/}
+            {/*>*/}
+            {/*  {" "}*/}
+            {/*  <FaXTwitter size={25} />*/}
+            {/*  signIn with github*/}
+            {/*</Button>*/}
           </div>
 
           <div className="flex items-center justify-center text-sm  ">

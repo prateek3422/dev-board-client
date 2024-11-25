@@ -37,6 +37,7 @@ import { IoCloudUploadSharp } from "react-icons/io5";
 import Editor from "@/components/Editor/Editor";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { defaultValue } from "@/components/Editor/defaultvalue";
+import * as mongoose from "mongoose";
 
 const formSchema = z.object({
   tags: z.array(z.string()).nonempty("Please select at least one tag"),
@@ -86,6 +87,7 @@ const Page = () => {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+
     const upload = {
       title: data.title,
       tags: data.tags,
@@ -158,7 +160,7 @@ const Page = () => {
                       <MultiSelectorContent>
                         <MultiSelectorList>
                           {tag?.data?.map((item: any) => (
-                            <MultiSelectorItem key={item._id} value={item?.name}>
+                            <MultiSelectorItem key={item._id} value={item?._id}>
                               <div className="flex items-center space-x-2">
                                 <span>{item?.name}</span>
                               </div>
