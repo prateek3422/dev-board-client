@@ -47,14 +47,14 @@ export function SignInComp() {
       "_self"
     );
 
-// console.log(isSuccess)
-    if (isSuccess) {
+console.log(isSuccess)
+
+    if(isSuccess){
       const getUser = await Api.get("/users/current-user");
-      if (getUser) {
-        storeSignIn(getUser.data?.data);
+      storeSignIn(getUser.data?.data);
         window.location.replace("/dashboard");
-      }
     }
+
   };
   const GithubSignin = async () => {
     const isSuccess = window.open(
