@@ -28,7 +28,7 @@ export default function Dashboard() {
     staleTime: Infinity,
   });
 
-  console.log(profile);
+
   if (isLoading)
     return (
       <div className="flex items-center justify-center mt-24 min-h-screen w-full">

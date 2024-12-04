@@ -25,8 +25,6 @@ import { z } from "zod";
 import { TbPasswordFingerprint } from "react-icons/tb";
 import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 import { FcGoogle } from "react-icons/fc";
-import { FaXTwitter } from "react-icons/fa6";
-import { Github } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -42,17 +40,17 @@ export function SignInComp() {
 
   // Auth0 google signin
   const googleSignin = async () => {
-    const isSuccess = window.open(
-      `${process.env.NEXT_PUBLIC_API_URL}/users/google`,
-      "_self"
-    );
-
-console.log(isSuccess)
+    try{
+      const isSuccess = await Api.get("/users/google")
 
     if(isSuccess){
       const getUser = await Api.get("/users/current-user");
+
       storeSignIn(getUser.data?.data);
         window.location.replace("/dashboard");
+      }
+    }catch (error){
+      console.log(error)
     }
 
   };

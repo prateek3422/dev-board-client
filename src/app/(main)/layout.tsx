@@ -13,7 +13,7 @@ export default function MainLayout({
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main className="mx-auto">{children}</main>
       {/* <Footer/> */}
     </>
   );

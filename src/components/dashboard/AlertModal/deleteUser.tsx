@@ -11,16 +11,20 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Api } from "@/lib";
+import { useAuthStore } from "@/store";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export function DeleteUser() {
+const storeSignOut = useAuthStore((state) => state.signOut);
+
   const { mutate: deleteAccount } = useMutation({
     mutationKey: ["deleteAccount"],
     mutationFn: () => {
-      return Api.delete("/users/profile").then((res) => res.data);
+      return Api.delete("/users/delete-user").then((res) => res.data);
     },
     onSuccess: (data: any) => {
+      storeSignOut();
       toast.success(data.message);
       window.location.replace("/");
     },
@@ -29,8 +33,8 @@ export function DeleteUser() {
     },
   });
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
+    <AlertDialog >
+      <AlertDialogTrigger asChild >
         <Button variant="destructive">Delete Account</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -42,8 +46,8 @@ export function DeleteUser() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteAccount()}>
+          <AlertDialogCancel className="bg-neutral-600 hover:bg-neutral-700">Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => deleteAccount()} className="bg-red-600 hover:bg-red-700">
             Continue
           </AlertDialogAction>
         </AlertDialogFooter>
