@@ -44,7 +44,6 @@ export const useAuthStore = create<AuthState>()(
       }),
       {
         name: "auth",
-        // getStorage: () => sessionStorage,
         storage: createJSONStorage(() => sessionStorage),
       }
     )

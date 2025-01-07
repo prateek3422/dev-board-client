@@ -16,7 +16,7 @@ const itim = Itim({
 export default function Home() {
   return (
     <>
-      <section className="w-full min-h-[100vh] mx-auto ">
+      <section className="w-full min-h-[100vh]  ">
         <BackgroundBeams />
         <div className="grid grid-col-1 lg:grid-cols-2 gap-2  h-[100vh]">
           <div className="flex justify-center items-center">
@@ -47,18 +47,18 @@ export default function Home() {
           </div>
 
           <div className=" relative my-4 hidden lg:block   ">
-            <div className="mt-2 grid grid-cols-2 w-max gap-6 absolute right-0 top-[5rem] xl:top-[10rem]">
+            <div className=" grid grid-cols-2 w-max gap-6 absolute right-0 top-[5rem] ">
               <div className="flex flex-col justify-center items-center gap-2">
-                <img src="/imgsvg1.svg" alt="Hero Image" className="h-52" />
+                <img src="/imgsvg1.svg" alt="Hero Image" className="h-40" />
 
                 <div className="flex gap-2 items-end">
-                  <img src="/rombus.svg" alt="" className=" h-12 xl:h-20" />
-                  <img src="/midleft.svg" alt="Hero Image" className="h-32 xl:h-64" />
+                  <img src="/rombus.svg" alt="" className=" h-12 " />
+                  <img src="/midleft.svg" alt="Hero Image" className="h-32 " />
                 </div>
                 <img
                   src="/Wavy Buddies Avatar (2).svg"
                   alt="Hero img"
-                  className="h-52 xl:h-72"
+                  className="h-52"
                 />
               </div>
 
@@ -66,14 +66,14 @@ export default function Home() {
                 <img
                   src="/Wavy Buddies Out of Stock.svg"
                   alt="Hero Image"
-                  className="h-32 mr-20 xl:h-64" 
+                  className="h-32 mr-20 " 
                 />
 
                 <div className="flex items-center gap-6">
                   <img
                     src="/Wavy Buddies Avatar.svg"
                     alt="Hero Image"
-                    className=" h-64 xl:h-96"
+                    className=" h-64 "
                   />
 
                   <img
@@ -86,7 +86,7 @@ export default function Home() {
                 <img
                   src="/Wavy Buddies Out of Stock (1).svg"
                   alt="Hero Image"
-                  className=" h-40 xl:h-64"
+                  className=" h-40 "
                 />
               </div>
             </div>

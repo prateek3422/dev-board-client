@@ -110,7 +110,7 @@ function Page() {
 
             <div className="flex items-center justify-center py-2 text-sm ">
               <p>
-                Don&apos;t receive code?
+                Don&apos;t receive code?{" "}
                 <Link
                   href="/auth/email/verification"
                   className="text-blue-600 ml-2 text-lg font-bold"
