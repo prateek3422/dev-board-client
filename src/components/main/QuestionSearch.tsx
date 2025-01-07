@@ -29,7 +29,7 @@ export function QuestionSearchBar() {
 
   const { data, isSuccess } = useQuery({
     queryKey: ["question"],
-    queryFn: () => Api.get(`/qas`).then((res) => res.data?.data.questions),
+    queryFn: () => Api.get(`/Questions/getAllQuestions`).then((res) => res.data?.data.questions),
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });

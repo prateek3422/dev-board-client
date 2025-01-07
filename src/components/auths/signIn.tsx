@@ -195,12 +195,12 @@ export function SignInComp() {
             </form>
           </Form>
 
-          <div className="flex justify-center items-center">
+          {/* <div className="flex justify-center items-center">
             <div className="border my-2  border-gray-900 w-[25%]"></div>
             <span className="mx-2 text-sm">OR</span>
             <div className="border my-2 border-gray-900 w-[25%] "></div>
-          </div>
-          <div className="flex flex-col justify-center items-center gap-2">
+          </div> */}
+          {/* <div className="flex flex-col justify-center items-center gap-2">
             <Button
               className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2"
               onClick={googleSignin}
@@ -209,14 +209,14 @@ export function SignInComp() {
               <FcGoogle size={25} />
               signIn with Google
             </Button>
-            {/*<Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "*/}
-            {/* onClick={GithubSignin}*/}
-            {/*>*/}
-            {/*  {" "}*/}
-            {/*  <Github size={25} />*/}
-            {/*  signIn with Github*/}
-            {/*</Button>*/}
-          </div>
+            <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "
+            onClick={GithubSignin}
+            >
+             {" "}
+             <Github size={25} />
+             signIn with Github
+            </Button>
+          </div> */}
           <div className="flex items-center justify-center py-2 text-sm ">
             <p>
               Don&apos;t have an account ?

@@ -249,12 +249,12 @@ export const SignUpComp = () => {
             </form>
           </Form>
 
-          <div className="flex justify-center items-center">
+          {/* <div className="flex justify-center items-center">
             <div className="border my-2  border-gray-900 w-[25%]"></div>
             <span className="mx-2 text-sm">OR</span>
             <div className="border my-2 border-gray-900 w-[25%] "></div>
-          </div>
-
+          </div> */}
+{/* 
           <div className="flex flex-col justify-center items-center gap-2 my-2">
             <Button
               onClick={googleSignUp}
@@ -264,14 +264,14 @@ export const SignUpComp = () => {
               <FcGoogle size={25} />
               signIn with Google
             </Button>
-            {/*<Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 "  */}
-            {/*   onClick={GithubSignUp}*/}
-            {/*>*/}
-            {/*  {" "}*/}
-            {/*  <FaXTwitter size={25} />*/}
-            {/*  signIn with github*/}
-            {/*</Button>*/}
-          </div>
+            <Button className="mx-auto text-black dark:text-white  bg-clip-padding  backdrop-blur-md bg-opacity-30 shadow-lg border border-gray-600/50 w-full md:w-70 xl:w-96 flex gap-2 " 
+              onClick={GithubSignUp}
+            >
+             {" "}
+             <FaXTwitter size={25} />
+             signIn with github
+            </Button>
+          </div> */}
 
           <div className="flex items-center justify-center text-sm  ">
             <p>
